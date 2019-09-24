@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serverConfig>
+    <name>JServer</name>
+    <port>1001</port>
+    <id>1001</id>
+</serverConfig>
