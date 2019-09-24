@@ -7,6 +7,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 
 import java.net.InetSocketAddress;
 
+import com.sictiy.jserver.util.LogUtil;
+
 /**
  * @author sictiy.xu
  * @version 2019/09/24 12:22
@@ -31,7 +33,7 @@ public class NetComponent
         }
         catch (InterruptedException e)
         {
-            e.printStackTrace();
+            LogUtil.error("", e);
         }
     }
 

@@ -17,4 +17,16 @@ public class JServerInHandler extends SimpleChannelInboundHandler<JMessage>
     {
 
     }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception
+    {
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception
+    {
+        super.channelInactive(ctx);
+    }
 }

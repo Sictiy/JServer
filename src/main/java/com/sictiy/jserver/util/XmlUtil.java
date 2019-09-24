@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.sictiy.jserver.config.ConfigComponent;
 import com.sictiy.jserver.config.xml.JServerConfig;
 
 /**
@@ -30,7 +31,7 @@ public class XmlUtil
         }
         catch (JAXBException | IOException e)
         {
-            LogUtil.error("{}", e);
+            LogUtil.error("", e);
         }
     }
 
@@ -46,14 +47,8 @@ public class XmlUtil
         }
         catch (JAXBException | FileNotFoundException | ClassCastException e)
         {
-            LogUtil.error("{}", e);
+            LogUtil.error("", e);
         }
         return null;
-    }
-
-    public static void main(String[] args)
-    {
-        JServerConfig jServerConfig = convertXmlToObject(JServerConfig.class, System.getProperty("user.dir")+"/src/main/resources/jServerConfig.xml");
-        LogUtil.info("{}", jServerConfig);
     }
 }

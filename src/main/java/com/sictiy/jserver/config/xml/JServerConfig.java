@@ -2,6 +2,7 @@ package com.sictiy.jserver.config.xml;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ import com.sictiy.jserver.entry.annotation.CommomAnnotation;
  **/
 @Getter
 @Setter
+@ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "serverConfig")
 @XmlType(propOrder = {
@@ -36,12 +38,6 @@ public class JServerConfig implements Serializable
 
     public JServerConfig()
     {
-    }
-
-    @Override
-    public String toString()
-    {
-        return String.format("name:%s, id:%d, port:%d", name, id, port);
     }
 }
 

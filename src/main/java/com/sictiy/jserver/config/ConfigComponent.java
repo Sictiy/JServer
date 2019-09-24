@@ -15,7 +15,7 @@ public class ConfigComponent
 {
     private static final String USER_DIR = System.getProperty("user.dir");
 
-    private static final String CONFIG_DIR = USER_DIR + "/src/main/resources/";
+    private static final String CONFIG_DIR = USER_DIR + "/src/main/resources/config/";
 
     private static Map<Class, Object> configMap = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ConfigComponent
         if (!configMap.containsKey(clazz))
         {
             CommomAnnotation annotation = clazz.getAnnotation(CommomAnnotation.class);
-            T config = XmlUtil.convertXmlToObject(clazz, getConfigDir() + annotation.str());
+            T config = XmlUtil.convertXmlToObject(clazz, getConfigDir() + annotation.str() + ".xml");
             configMap.put(clazz, config);
             return config;
         }
