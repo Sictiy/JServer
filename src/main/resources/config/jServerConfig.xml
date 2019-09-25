@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <serverConfig>
     <name>JServer</name>
-    <port>1001</port>
+    <port>10000</port>
     <id>1001</id>
+    <address>127.0.0.1</address>
 </serverConfig>

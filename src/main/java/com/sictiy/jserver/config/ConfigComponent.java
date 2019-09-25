@@ -3,7 +3,6 @@ package com.sictiy.jserver.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sictiy.jserver.config.xml.JServerConfig;
 import com.sictiy.jserver.entry.annotation.CommomAnnotation;
 import com.sictiy.jserver.util.XmlUtil;
 
@@ -19,18 +18,13 @@ public class ConfigComponent
 
     private static Map<Class, Object> configMap = new HashMap<>();
 
-    public static String getConfigDir()
-    {
-        return CONFIG_DIR;
-    }
-
     @SuppressWarnings("unchecked")
     public static <T> T getConfig(Class<T> clazz)
     {
         if (!configMap.containsKey(clazz))
         {
             CommomAnnotation annotation = clazz.getAnnotation(CommomAnnotation.class);
-            T config = XmlUtil.convertXmlToObject(clazz, getConfigDir() + annotation.str() + ".xml");
+            T config = XmlUtil.convertXmlToObject(clazz, CONFIG_DIR + annotation.str() + ".xml");
             configMap.put(clazz, config);
             return config;
         }

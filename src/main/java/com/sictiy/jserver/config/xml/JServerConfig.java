@@ -25,7 +25,8 @@ import com.sictiy.jserver.entry.annotation.CommomAnnotation;
 @XmlType(propOrder = {
         "name",
         "port",
-        "id"
+        "id",
+        "address"
 })
 @CommomAnnotation(str = "jServerConfig")
 public class JServerConfig implements Serializable
@@ -35,6 +36,8 @@ public class JServerConfig implements Serializable
     private int id;
     
     private int port;
+
+    private String address;
 
     public JServerConfig()
     {

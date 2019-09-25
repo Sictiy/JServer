@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.sictiy.jserver.config.ConfigComponent;
 import com.sictiy.jserver.config.xml.JServerConfig;
+import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
 import com.sictiy.jserver.util.LogUtil;
@@ -25,30 +26,20 @@ public class Test
 
     private static void testDb()
     {
-        try
-        {
-            String resource = "mybatis-config.xml";
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            SqlSession sqlSession = sqlSessionFactory.openSession(true);
-            JUserMapper userMapper = sqlSession.getMapper(JUserMapper.class);
+        DbComponent.init();
+        JUserMapper userMapper = DbComponent.getMapper(JUserMapper.class);
 
-            List<JUserInfo> allUserInfo = userMapper.queryUserAll();
-            allUserInfo.forEach(info->LogUtil.info("{}", info));
-            JUserInfo jUserInfo = new JUserInfo();
-            jUserInfo.setCreateDate(new Date());
-            jUserInfo.setPassword("123");
-            jUserInfo.setUserId(allUserInfo.size() + 1);
-            jUserInfo.setUserName("test");
-            userMapper.insertUser(jUserInfo);
+        List<JUserInfo> allUserInfo = userMapper.queryUserAll();
+        allUserInfo.forEach(info->LogUtil.info("{}", info));
+        JUserInfo jUserInfo = new JUserInfo();
+        jUserInfo.setCreateDate(new Date());
+        jUserInfo.setPassword("123");
+        jUserInfo.setUserId(allUserInfo.size() + 1);
+        jUserInfo.setUserName("test");
+        userMapper.insertUser(jUserInfo);
 
-            JUserInfo selectUserInfo = userMapper.queryUserById((long) allUserInfo.size() + 1);
-            LogUtil.info("{}", selectUserInfo);
-        }
-        catch (IOException e)
-        {
-            LogUtil.error("", e);
-        }
+        JUserInfo selectUserInfo = userMapper.queryUserById((long) allUserInfo.size() + 1);
+        LogUtil.info("{}", selectUserInfo);
     }
 
     private static void testConfig()
