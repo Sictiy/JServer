@@ -96,6 +96,13 @@
             <version>2.4.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.flatbuffers/flatbuffers-java -->
+        <dependency>
+            <groupId>com.google.flatbuffers</groupId>
+            <artifactId>flatbuffers-java</artifactId>
+            <version>1.11.0</version>
+        </dependency>
+
     </dependencies>
 
     <repositories><!-- 代码库 -->

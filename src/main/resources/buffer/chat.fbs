@@ -1,0 +1,6 @@
+namespace com.sictiy.jserver.entry.buffer;
+
+table ChatMsg
+{
+    msg:string;
+}

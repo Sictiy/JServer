@@ -1,7 +1,6 @@
 package com.sictiy.jserver.net;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -14,33 +13,29 @@ import lombok.Getter;
  * @version 2019/09/25 11:23
  **/
 @Getter
-public class JConnect
+public class JClientConnect extends AbstractConnect
 {
-    private Channel channel;
     private EventLoopGroup group;
 
-    public static JConnect newConnect(int port, String address)
+    public static JClientConnect newConnect(int port, String address)
     {
-        JConnect jConnect = new JConnect();
+        JClientConnect jConnect = new JClientConnect();
         jConnect.connect(port, address);
         return jConnect;
     }
 
     public void connect(int port, String address)
     {
+        this.address = address;
+        this.port = port;
+
         Bootstrap bootstrap = new Bootstrap();
         group = new NioEventLoopGroup();
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.handler(new LoggingHandler(LogLevel.INFO));
-        bootstrap.handler(new JServerChannelInitializer());
+        bootstrap.handler(new JClientChannelInitializer());
         channel = bootstrap.connect(address, port).channel();
-    }
-
-    public void send(JMessage jMessage)
-    {
-        channel.writeAndFlush(jMessage);
-
     }
 
     public void close()

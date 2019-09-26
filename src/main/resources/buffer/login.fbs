@@ -1,0 +1,23 @@
+namespace com.sictiy.jserver.entry.buffer;
+
+table RegisterReq
+{
+    userName:string;
+    password:string;
+}
+
+table RegisterRsp
+{
+    result:bool;
+}
+
+table LoginReq
+{
+    userName:string;
+    password:string;
+}
+
+table LoginRsp
+{
+    result:bool;
+}

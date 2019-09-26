@@ -6,4 +6,9 @@ package com.sictiy.jserver.entry.type;
  **/
 public interface CmdInType
 {
+    short REGISTER_REQ = 101;
+
+    short LOGIN_REQ = 103;
+
+    short CHAT_REQ = 105;
 }

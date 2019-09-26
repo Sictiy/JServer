@@ -26,7 +26,7 @@ public class NetComponent
     private static EventLoopGroup work;
     private static ChannelFuture channelFuture;
 
-    private static Map<Integer, JConnect> connectMap = new HashMap<>();
+    private static Map<Integer, JClientConnect> connectMap = new HashMap<>();
 
     public static void start(int port, ChannelInitializer initializer)
     {
@@ -48,9 +48,9 @@ public class NetComponent
         }
     }
 
-    public static JConnect getConnection(JServerConfig config)
+    public static JClientConnect getConnection(JServerConfig config)
     {
-        return connectMap.computeIfAbsent(config.getId(), k -> JConnect.newConnect(config.getPort(), config.getAddress()));
+        return connectMap.computeIfAbsent(config.getId(), k -> JClientConnect.newConnect(config.getPort(), config.getAddress()));
     }
 
     public static void stop()

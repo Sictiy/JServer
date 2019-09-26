@@ -1,27 +1,40 @@
 package com.sictiy.jserver;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
+import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.jserver.config.ConfigComponent;
 import com.sictiy.jserver.config.xml.JServerConfig;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
+import com.sictiy.jserver.entry.buffer.RegisterReq;
 import com.sictiy.jserver.util.LogUtil;
 
 public class Test
 {
     public static void main(String[] args) throws IOException
     {
-        testDb();
+        testFlat();
+    }
+
+    private static void testFlat()
+    {
+        FlatBufferBuilder bufferBuilder = new FlatBufferBuilder();
+        int userName = bufferBuilder.createString("test");
+        int password = bufferBuilder.createString("password");
+        //        RegisterReq.startRegisterReq(bufferBuilder);
+        //        RegisterReq.addUserName(bufferBuilder, userName);
+        //        RegisterReq.addPassword(bufferBuilder, password);
+        //        bufferBuilder.finish(RegisterReq.endRegisterReq(bufferBuilder));
+        bufferBuilder.finish(RegisterReq.createRegisterReq(bufferBuilder, userName, password));
+        byte[] data = bufferBuilder.sizedByteArray();
+        RegisterReq registerReq = RegisterReq.getRootAsRegisterReq(ByteBuffer.wrap(data));
+        LogUtil.info("{}", registerReq.password());
+        LogUtil.info("{}", registerReq.userName());
     }
 
     private static void testDb()

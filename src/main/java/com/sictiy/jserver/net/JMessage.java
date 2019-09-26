@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.nio.charset.StandardCharsets;
+import com.google.flatbuffers.FlatBufferBuilder;
 
 /**
  * @author sictiy.xu
@@ -29,25 +29,16 @@ public class JMessage
 
     private byte[] data;
 
-    private String string;
+    private FlatBufferBuilder bufferBuilder;
 
     public byte[] readData()
     {
-        if (string != null)
+        if (bufferBuilder != null)
         {
-            data = string.getBytes(StandardCharsets.ISO_8859_1);
+            data = bufferBuilder.sizedByteArray();
         }
-        string = null;
+        bufferBuilder = null;
         return data;
-    }
-
-    public String readString()
-    {
-        if (data != null && data.length > 0)
-        {
-            string = new String(data, StandardCharsets.ISO_8859_1);
-        }
-        return string;
     }
 
     public static void encode(JMessage msg, ByteBuf byteBuf)

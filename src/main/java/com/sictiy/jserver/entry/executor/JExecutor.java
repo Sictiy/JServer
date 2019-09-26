@@ -20,6 +20,11 @@ public class JExecutor
     private ExecutorService executor;
     private int maxSize;
 
+    public JExecutor(String executorName)
+    {
+        this(executorName, Runtime.getRuntime().availableProcessors() * 4);
+    }
+
     public JExecutor(String executorName, int maxSize)
     {
         this.maxSize = maxSize;

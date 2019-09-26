@@ -6,4 +6,14 @@ package com.sictiy.jserver.game.cmd;
  **/
 public class CmdComponent
 {
+    public static void init()
+    {
+        // load all Cmd
+    }
+
+    public static AbstractCmd getCmdByCode(short code)
+    {
+        return new AbstractCmd();
+    }
+
 }
