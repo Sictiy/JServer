@@ -6,4 +6,8 @@ package com.sictiy.jserver.template;
  **/
 public class TempComponent
 {
+    public static boolean init()
+    {
+        return true;
+    }
 }

@@ -43,11 +43,12 @@ public class DelayTaskQueue
         }
     }
 
-    public void submit(Runnable task, long time, TimeUnit timeUnit)
+    public DelayedTask submit(Runnable task, long time, TimeUnit timeUnit)
     {
         long timeout = TimeUnit.NANOSECONDS.convert(time, timeUnit);
         DelayedTask delayedTask = new DelayedTask<>(task, timeout);
         taskDelayQueue.put(delayedTask);
+        return delayedTask;
     }
 
     public boolean remove(DelayedTask delayedTask)

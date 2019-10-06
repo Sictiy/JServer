@@ -12,11 +12,12 @@ import com.google.flatbuffers.FlatBufferBuilder;
  **/
 @Setter
 @Getter
-public class AbstractConnect
+public abstract class AbstractConnect
 {
     protected Channel channel;
     protected int port;
     protected String address;
+    protected boolean isActive;
 
     public void send(short code, FlatBufferBuilder builder)
     {

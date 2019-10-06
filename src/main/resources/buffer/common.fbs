@@ -1,0 +1,11 @@
+namespace com.sictiy.jserver.entry.buffer;
+
+table CommonMsg
+{
+    str1:string;
+    str2:string;
+    int1:int;
+    int2:int;
+    long1:long;
+    long2:long;
+}

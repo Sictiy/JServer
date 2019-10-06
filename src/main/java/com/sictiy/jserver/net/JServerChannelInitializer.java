@@ -4,9 +4,10 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import com.sictiy.jserver.net.handler.ChannelStateHandler;
 import com.sictiy.jserver.net.handler.JDecoderHandler;
 import com.sictiy.jserver.net.handler.JEncoderHandler;
-import com.sictiy.jserver.net.handler.JServerInHandler;
+import com.sictiy.jserver.net.handler.ServerReadMessageHandler;
 
 /**
  * @author sictiy.xu
@@ -18,8 +19,9 @@ public class JServerChannelInitializer extends ChannelInitializer<NioSocketChann
     protected void initChannel(NioSocketChannel ch)
     {
         ChannelPipeline pipeline = ch.pipeline();
+        pipeline.addLast(new ChannelStateHandler());
         pipeline.addLast(new JEncoderHandler());
         pipeline.addLast(new JDecoderHandler());
-        pipeline.addLast(new JServerInHandler());
+        pipeline.addLast(new ServerReadMessageHandler());
     }
 }

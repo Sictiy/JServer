@@ -10,10 +10,12 @@ import com.sictiy.jserver.net.JMessage;
 import com.sictiy.jserver.util.LogUtil;
 
 /**
+ * 服务器读取协议handler
+ *
  * @author sictiy.xu
  * @version 2019/09/24 11:16
  **/
-public class JServerInHandler extends SimpleChannelInboundHandler<JMessage>
+public class ServerReadMessageHandler extends SimpleChannelInboundHandler<JMessage>
 {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JMessage msg)
@@ -21,20 +23,5 @@ public class JServerInHandler extends SimpleChannelInboundHandler<JMessage>
         LogUtil.info("read msg:{}", msg);
         AbstractConnect abstractConnect = (AbstractConnect) ctx.channel().attr(AttributeKey.valueOf("Connect")).get();
         CmdHandler.handlerCmdMessage(abstractConnect, msg);
-    }
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception
-    {
-        LogUtil.info("active channel!");
-        AbstractConnect abstractConnect = new AbstractConnect();
-        abstractConnect.setChannel(ctx.channel());
-        ctx.channel().attr(AttributeKey.valueOf("Connect")).set(abstractConnect);
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception
-    {
-        LogUtil.info("inactive channel!");
     }
 }

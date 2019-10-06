@@ -6,4 +6,8 @@ package com.sictiy.jserver.game.mgr;
  **/
 public class LoginTaskMgr
 {
+    public static boolean init()
+    {
+        return true;
+    }
 }

@@ -13,18 +13,18 @@ import com.sictiy.jserver.game.cmd.CmdTask;
  **/
 public class CmdTaskMgr
 {
-    private static TaskQueue commonQueue;
-    private static List<TaskQueue> playerQueues;
+    private static TaskQueue<CmdTask> commonQueue;
+    private static List<TaskQueue<CmdTask>> playerQueues;
 
     public static boolean init()
     {
         // init cmd task queue
         JExecutor executor = new JExecutor("cmdTaskExecutor");
-        commonQueue = new TaskQueue(executor);
+        commonQueue = new TaskQueue<>(executor);
         playerQueues = new ArrayList<>();
         for (int i = 0; i < executor.getMaxSize(); i++)
         {
-            playerQueues.add(new TaskQueue(executor));
+            playerQueues.add(new TaskQueue<>(executor));
         }
         return true;
     }
@@ -32,7 +32,7 @@ public class CmdTaskMgr
     public static void addCmdTask(CmdTask cmdTask)
     {
         long playerId = cmdTask.getMessage().getUserId();
-        if (playerId > 0)
+        if (playerId < 0)
         {
             commonQueue.submit(cmdTask);
         }

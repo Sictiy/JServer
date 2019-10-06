@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import com.sictiy.jserver.net.AbstractConnect;
 import com.sictiy.jserver.net.JMessage;
+import com.sictiy.jserver.net.JServerConnect;
 import com.sictiy.jserver.util.LogUtil;
 
 /**
@@ -22,6 +23,9 @@ public class CmdTask implements Runnable
     @Override
     public void run()
     {
-        LogUtil.info("{}", message);
+        long startTime = System.currentTimeMillis();
+        LogUtil.info("cmd startRun");
+        cmd.execute((JServerConnect) connect, message);
+        LogUtil.info("cmd endRun time:{}", System.currentTimeMillis() - startTime);
     }
 }

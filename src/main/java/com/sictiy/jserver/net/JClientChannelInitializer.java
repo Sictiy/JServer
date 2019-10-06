@@ -4,7 +4,8 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import com.sictiy.jserver.net.handler.JClientInHandler;
+import com.sictiy.jserver.net.handler.ChannelStateHandler;
+import com.sictiy.jserver.net.handler.ClientReadMessageHandler;
 import com.sictiy.jserver.net.handler.JDecoderHandler;
 import com.sictiy.jserver.net.handler.JEncoderHandler;
 
@@ -14,12 +15,20 @@ import com.sictiy.jserver.net.handler.JEncoderHandler;
  **/
 public class JClientChannelInitializer extends ChannelInitializer<NioSocketChannel>
 {
+    private JClientConnect jClientConnect;
+
+    public JClientChannelInitializer(JClientConnect jClientConnect)
+    {
+        this.jClientConnect = jClientConnect;
+    }
+
     @Override
     protected void initChannel(NioSocketChannel ch)
     {
         ChannelPipeline pipeline = ch.pipeline();
+        pipeline.addLast(new ChannelStateHandler(jClientConnect));
         pipeline.addLast(new JEncoderHandler());
         pipeline.addLast(new JDecoderHandler());
-        pipeline.addLast(new JClientInHandler());
+        pipeline.addLast(new ClientReadMessageHandler());
     }
 }

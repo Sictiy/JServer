@@ -34,7 +34,7 @@ public class JClientConnect extends AbstractConnect
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.handler(new LoggingHandler(LogLevel.INFO));
-        bootstrap.handler(new JClientChannelInitializer());
+        bootstrap.handler(new JClientChannelInitializer(this));
         channel = bootstrap.connect(address, port).channel();
     }
 
