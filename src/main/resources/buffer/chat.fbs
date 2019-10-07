@@ -2,5 +2,7 @@ namespace com.sictiy.jserver.entry.buffer;
 
 table ChatMsg
 {
+    type:int;
+    target:long;
     msg:string;
 }

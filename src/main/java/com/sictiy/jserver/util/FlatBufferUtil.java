@@ -18,8 +18,8 @@ public class FlatBufferUtil
     {
         try
         {
-            Method method = clazz.getMethod("getRootAs" + clazz.getName());
-            return (T) method.invoke(ByteBuffer.wrap(data));
+            Method method = clazz.getMethod("getRootAs" + clazz.getSimpleName(), ByteBuffer.class);
+            return (T) method.invoke(null, ByteBuffer.wrap(data));
         }
         catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
         {

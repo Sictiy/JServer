@@ -9,4 +9,10 @@ public interface RegexType
     String BLANK_SPACE = " ";
 
     String COMMA = "\\,";
+
+    String DOT = "\\.";
+
+    String SLASH = "\\/";
+
+    String BACKSLASH = "\\\\";
 }

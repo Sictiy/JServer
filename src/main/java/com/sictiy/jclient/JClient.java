@@ -6,6 +6,8 @@ import java.util.Scanner;
 import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.jserver.config.ConfigComponent;
 import com.sictiy.jserver.config.xml.JServerConfig;
+import com.sictiy.jserver.entry.buffer.ChatMsg;
+import com.sictiy.jserver.entry.buffer.LoginReq;
 import com.sictiy.jserver.entry.buffer.RegisterReq;
 import com.sictiy.jserver.entry.type.CmdType;
 import com.sictiy.jserver.entry.type.RegexType;
@@ -29,7 +31,7 @@ public class JClient
         jConnect = NetComponent.getConnection(ConfigComponent.getConfig(JServerConfig.class));
         while (true)
         {
-            String input = getInput("send:", false);
+            String input = getInput("cmd:", false);
             if (!doCmd(input))
             {
                 break;
@@ -62,9 +64,21 @@ public class JClient
             case "chat":
                 sendChat(strings);
                 break;
+            case "connect":
+                newConnect();
+                break;
             default:
                 break;
         }
+    }
+
+    private static void newConnect()
+    {
+        if (jConnect != null && jConnect.isActive())
+        {
+            jConnect.close();
+        }
+        jConnect = NetComponent.getConnection(ConfigComponent.getConfig(JServerConfig.class));
     }
 
     private static void sendRegister(String[] strings)
@@ -76,6 +90,27 @@ public class JClient
         int passwordOffset = bufferBuilder.createString(password);
         bufferBuilder.finish(RegisterReq.createRegisterReq(bufferBuilder, userNameOffset, passwordOffset));
         jConnect.send(CmdType.REGISTER_REQ, bufferBuilder);
+    }
+
+    private static void sendLogin(String[] strings)
+    {
+        FlatBufferBuilder bufferBuilder = new FlatBufferBuilder();
+        String userName = getInput("name:", false);
+        String password = getInput("password:", true);
+        int userNameOffset = bufferBuilder.createString(userName);
+        int passwordOffset = bufferBuilder.createString(password);
+        bufferBuilder.finish(LoginReq.createLoginReq(bufferBuilder, userNameOffset, passwordOffset));
+        jConnect.send(CmdType.LOGIN_REQ, bufferBuilder);
+    }
+
+    private static void sendChat(String[] strings)
+    {
+        FlatBufferBuilder bufferBuilder = new FlatBufferBuilder();
+        int msgOffset = bufferBuilder.createString(strings[1]);
+        int type = Integer.parseInt(strings[2]);
+        long target = Long.parseLong(strings[3]);
+        bufferBuilder.finish(ChatMsg.createChatMsg(bufferBuilder, type, target, msgOffset));
+        jConnect.send(CmdType.CHAT_REQ, bufferBuilder);
     }
 
     private static String getInput(String tips, boolean isPassword)
@@ -104,15 +139,5 @@ public class JClient
             System.out.println(tips);
             return scanner.nextLine();
         }
-    }
-
-    private static void sendLogin(String[] strings)
-    {
-
-    }
-
-    private static void sendChat(String[] strings)
-    {
-
     }
 }

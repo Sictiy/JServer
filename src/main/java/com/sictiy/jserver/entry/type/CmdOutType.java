@@ -6,6 +6,8 @@ package com.sictiy.jserver.entry.type;
  **/
 public interface CmdOutType
 {
+    short ERROR = 100;
+
     short REGISTER_RSP = 102;
 
     short LOGIN_RSP = 104;

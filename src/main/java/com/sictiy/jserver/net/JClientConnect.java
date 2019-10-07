@@ -4,8 +4,6 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 import lombok.Getter;
 
 /**
@@ -33,7 +31,7 @@ public class JClientConnect extends AbstractConnect
         group = new NioEventLoopGroup();
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class);
-        bootstrap.handler(new LoggingHandler(LogLevel.INFO));
+//        bootstrap.handler(new LoggingHandler(LogLevel.INFO));
         bootstrap.handler(new JClientChannelInitializer(this));
         channel = bootstrap.connect(address, port).channel();
     }

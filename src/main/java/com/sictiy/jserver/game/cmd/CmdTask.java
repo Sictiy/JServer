@@ -24,8 +24,14 @@ public class CmdTask implements Runnable
     public void run()
     {
         long startTime = System.currentTimeMillis();
-        LogUtil.info("cmd startRun");
-        cmd.execute((JServerConnect) connect, message);
+        try
+        {
+            cmd.execute((JServerConnect) connect, message);
+        }
+        catch (Exception e)
+        {
+            LogUtil.exception(e);
+        }
         LogUtil.info("cmd endRun time:{}", System.currentTimeMillis() - startTime);
     }
 }

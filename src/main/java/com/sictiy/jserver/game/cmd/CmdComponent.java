@@ -1,6 +1,11 @@
 package com.sictiy.jserver.game.cmd;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import com.sictiy.jserver.entry.annotation.CmdAnnotation;
+import com.sictiy.jserver.util.ClassUtil;
+import com.sictiy.jserver.util.LogUtil;
 
 /**
  * @author sictiy.xu
@@ -8,16 +13,33 @@ import java.util.Map;
  **/
 public class CmdComponent
 {
-    private static Map<Integer, AbstractCmd> allCmd;
+    private static Map<Short, AbstractCmd> allCmd;
 
     public static boolean init()
     {
-        // load all Cmd
+        try
+        {
+            allCmd = new HashMap<>();
+            var classes = ClassUtil.getImplClassByAbstractClass(AbstractCmd.class);
+            for (var clazz : classes)
+            {
+                var annotation = clazz.getAnnotation(CmdAnnotation.class);
+                if (annotation == null)
+                {
+                    continue;
+                }
+                allCmd.put((short) annotation.code(), clazz.getDeclaredConstructor().newInstance());
+            }
+        }
+        catch (Exception e)
+        {
+            LogUtil.error("", e);
+        }
         return true;
     }
 
     public static AbstractCmd getCmdByCode(short code)
     {
-        return null;
+        return allCmd.get(code);
     }
 }

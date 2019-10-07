@@ -13,6 +13,14 @@ public interface JUserMapper
     public JUserInfo queryUserById(Long userId);
 
     /**
+     * 根据name查用户信息
+     *
+     * @param name
+     * @return com.sictiy.jserver.db.pojo.JUserInfo
+     **/
+    public JUserInfo queryUserByName(String name);
+
+    /**
      * 查询所有用户信息
      */
     public List<JUserInfo> queryUserAll();

@@ -16,6 +16,9 @@
     <select id="queryUserById" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
         select * from u_user where userId = #{userId}
     </select>
+    <select id="queryUserByName" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
+        select * from u_user where userName = #{name}
+    </select>
     <select id="queryUserAll" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
         select * from u_user
     </select>

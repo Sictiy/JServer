@@ -5,7 +5,6 @@ import com.sictiy.jserver.entry.buffer.RegisterReq;
 import com.sictiy.jserver.entry.type.CmdType;
 import com.sictiy.jserver.game.cmd.AbstractCmd;
 import com.sictiy.jserver.game.mgr.JPlayerMgr;
-import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.jserver.net.JMessage;
 import com.sictiy.jserver.net.JServerConnect;
 import com.sictiy.jserver.util.FlatBufferUtil;
@@ -21,18 +20,12 @@ public class UserRegisterCmd extends AbstractCmd
     @Override
     public void execute(JServerConnect connect, JMessage jMessage)
     {
-        register(connect, jMessage);
-    }
-
-    private void register(JServerConnect connect, JMessage jMessage)
-    {
         RegisterReq registerReq = FlatBufferUtil.getFlatBufferMessage(RegisterReq.class, jMessage.readData());
         if (registerReq != null)
         {
-            JPlayer player = JPlayerMgr.register(connect, registerReq.userName(), registerReq.password());
-            if (player != null)
+            if (JPlayerMgr.register(connect, registerReq.userName(), registerReq.password()))
             {
-                connect.setOwner(player);
+                connect.send(CmdType.REGISTER_RSP, FlatBufferUtil.newCommonMsgBuilder("register success"));
             }
         }
     }

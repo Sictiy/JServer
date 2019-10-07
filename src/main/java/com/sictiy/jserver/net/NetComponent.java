@@ -6,8 +6,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -37,7 +35,7 @@ public class NetComponent
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss, work);
             bootstrap.channel(NioServerSocketChannel.class);
-            bootstrap.handler(new LoggingHandler(LogLevel.INFO));
+            //            bootstrap.handler(new LoggingHandler(LogLevel.INFO));
             bootstrap.localAddress(new InetSocketAddress(port));
             bootstrap.childHandler(initializer);
             channelFuture = bootstrap.bind().sync();

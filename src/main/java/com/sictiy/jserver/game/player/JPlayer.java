@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.flatbuffers.FlatBufferBuilder;
+import com.sictiy.jserver.entry.type.CmdType;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
-import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
+import com.sictiy.jserver.game.player.module.impl.ModuleInfoModule;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
-import com.sictiy.jserver.util.LogUtil;
+import com.sictiy.jserver.net.AbstractConnect;
+import com.sictiy.jserver.util.FlatBufferUtil;
 
 /**
  * @author sictiy.xu
@@ -23,58 +21,41 @@ import com.sictiy.jserver.util.LogUtil;
 @ToString
 public class JPlayer
 {
-    private Map<Class<? extends AbstractPlayerModule>, AbstractPlayerModule> allModules;
+    private AbstractConnect connect;
+    private ModuleInfoModule playerModuleManager;
 
     public JPlayer()
     {
-        allModules = new HashMap<>();
+        playerModuleManager = new ModuleInfoModule(this);
     }
 
-    @SuppressWarnings("unchecked")
-    public boolean loadPlayerModules()
+    /**
+     * 登录流程
+     **/
+    public void login()
     {
-        Collection<Class<? extends AbstractPlayerModule>> allModuleClasses = PlayerModuleComponent.getAllPlayerModules();
-        allModuleClasses.forEach(aClass -> {
-            try
-            {
-                AbstractPlayerModule moduleImpl = aClass.getDeclaredConstructor().newInstance();
-                moduleImpl.setPlayer(this);
-                allModules.put(aClass, moduleImpl);
-            }
-            catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
-            {
-                LogUtil.error("", e);
-            }
-        });
-        allModules.values().forEach(AbstractPlayerModule::load);
-        return true;
+        playerModuleManager.loadPlayerModules();
+        playerModuleManager.checkModules();
+        playerModuleManager.sendInfo();
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends AbstractPlayerModule> T getPlayerModule(Class<T> clazz)
     {
-        if (!allModules.containsKey(clazz))
-        {
-            try
-            {
-                AbstractPlayerModule playerModule = clazz.getDeclaredConstructor().newInstance();
-                playerModule.setPlayer(this);
-                allModules.put(clazz, playerModule);
-            }
-            catch (InstantiationException e)
-            {
-                LogUtil.error("", e);
-            }
-            catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        return (T) allModules.get(clazz);
+        return playerModuleManager.getPlayerModule(clazz);
     }
 
     public Long getUserId()
     {
-        return getPlayerModule(UserInfoModule.class).getUserId();
+        return playerModuleManager.getPlayerModule(UserInfoModule.class).getUserId();
+    }
+
+    public void send(short code, FlatBufferBuilder flatBufferBuilder)
+    {
+        connect.send(code, flatBufferBuilder);
+    }
+
+    public void sendError(String string)
+    {
+        send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder(string));
     }
 }

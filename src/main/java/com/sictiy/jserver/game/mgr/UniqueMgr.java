@@ -37,11 +37,16 @@ public class UniqueMgr
     public static long getUnique(int type, int serverId)
     {
         int sequence = getSequence(type, serverId);
-        return sequence + (long) (type * 1000000000) + (long) (serverId * 1000000);
+        return sequence + (long) (serverId * 1000000);
     }
 
     private static int getSequence(int type, int serverId)
     {
+        if (!atomicIntegerMap.containsKey(type))
+        {
+            atomicIntegerMap.put(type, new AtomicInteger(0));
+            return 0;
+        }
         return atomicIntegerMap.get(type).addAndGet(1);
     }
 }

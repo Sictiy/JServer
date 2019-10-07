@@ -32,6 +32,11 @@ public class LogUtil
         log.error(string, throwable);
     }
 
+    public static void exception(Throwable throwable)
+    {
+        log.error("", throwable);
+    }
+
     public static void warn(String string, Object ... objects)
     {
         log.warn(string, objects);

@@ -3,6 +3,7 @@ package com.sictiy.jserver.game.cmd;
 import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.jserver.net.JMessage;
 import com.sictiy.jserver.net.JServerConnect;
+import com.sictiy.jserver.util.LogUtil;
 
 /**
  * @author 10460
@@ -26,11 +27,15 @@ public abstract class AbstractPlayerCmd extends AbstractCmd
         {
             execute(connect.getOwner(), jMessage);
         }
+        else
+        {
+            LogUtil.error("connect owner is null");
+        }
     }
 
     /**
      * @param player   player
      * @param jMessage jMessage
      **/
-    abstract void execute(JPlayer player, JMessage jMessage);
+    public abstract void execute(JPlayer player, JMessage jMessage);
 }

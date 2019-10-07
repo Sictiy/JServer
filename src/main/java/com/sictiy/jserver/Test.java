@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.jserver.config.ConfigComponent;
@@ -12,13 +13,23 @@ import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
 import com.sictiy.jserver.entry.buffer.RegisterReq;
+import com.sictiy.jserver.game.cmd.AbstractPlayerCmd;
+import com.sictiy.jserver.util.ClassUtil;
 import com.sictiy.jserver.util.LogUtil;
 
 public class Test
 {
     public static void main(String[] args) throws IOException
     {
-        testFlat();
+        testClassUtil();
+    }
+
+    private static void testClassUtil()
+    {
+        Set<Class> classes = ClassUtil.getClassByPackage("com.sictiy.jserver.game.cmd.impl");
+        classes.forEach(aClass -> LogUtil.info("{}", aClass));
+        var implClass = ClassUtil.getImplClassByAbstractClass(AbstractPlayerCmd.class);
+        implClass.forEach(aClass -> LogUtil.info("{}", aClass));
     }
 
     private static void testFlat()

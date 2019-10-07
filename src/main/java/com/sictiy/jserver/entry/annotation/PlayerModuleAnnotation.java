@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 
 /**
  * @author sictiy.xu
- * @version 2019/09/24 17:35
+ * @version 2019/09/25 15:15
  **/
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface CommomAnnotation
+public @interface PlayerModuleAnnotation
 {
-    int id() default 0;
+    short type() default 0;
 
-    String str() default "";
+    String desc() default "";
 }
