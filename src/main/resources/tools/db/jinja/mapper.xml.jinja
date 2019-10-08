@@ -3,20 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 ，为了使用接口动态代理，这里必须是接口的全路径名-->
-<mapper namespace="com.sictiy.jserver.db.mapper.JUserMapper">
+<mapper namespace="com.sictiy.jserver.db.mapper.{{ meta.java_name }}Mapper">
     <!-- 查询的statement，内容：sql语句。
        id：唯一标识，随便写，在同一个命名空间下保持唯一，使用动态代理之后要求和方法名保持一致
        resultType：sql语句查询结果集的封装类型，使用动态代理之后和方法的返回类型一致；resultMap：二选一
        parameterType：参数的类型，使用动态代理之后和方法的参数类型一致
      -->
-    <select id="queryUserById" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
-        select * from u_user where userId = #{userId}
-    </select>
-    <select id="queryUserByName" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
-        select * from u_user where userName = #{name}
-    </select>
-    <select id="queryUserAll" resultType="com.sictiy.jserver.db.pojo.JUserInfo">
-        select * from u_user
+    {% for select in meta.selects %}
+        <select id="query{{ meta.java_name }}By{{ select }}" resultType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+            select * from {{ meta.table }} where {{ select }} = #{{{ select }}}
+        </select>
+    {% endfor %}
+
+    <select id="queryAll" resultType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+        select * from {{ meta.table }}
     </select>
     <!-- 新增的Statement
        id：唯一标识，随便写，在同一个命名空间下保持唯一，使用动态代理之后要求和方法名保持一致
@@ -25,20 +25,26 @@
        keyColumn：指定数据库的主键
        keyProperty：主键对应的pojo属性名
      -->
-    <insert id="insertUser" useGeneratedKeys="true" keyColumn="userId" keyProperty="userId"
-            parameterType="com.sictiy.jserver.db.pojo.JUserInfo">
-        INSERT INTO u_user (
-        userId,
-        userName,
-        password,
-        createDate
+    <insert id="insert{{ meta.java_name }}" useGeneratedKeys="true" keyColumn="{{ meta.key }}" keyProperty="{{ meta.key }}"
+            parameterType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+        INSERT INTO {{ meta.table }} (
+        {% for field in meta.fields %}
+            {% if loop.last %}
+                {{ field.name }}
+            {% else %} }
+                {{ field.name }},
+            {% endif %}
+        {% endfor %}
         )
         VALUES
         (
-        #{userId},
-        #{userName},
-        #{password},
-        #{createDate}
+        {% for field in meta.fields %}
+            {% if loop.last %}
+                #{{{ field.name }}}
+            {% else %}
+                #{{{ field.name }}},
+            {% endif %}
+        {% endfor %}
         );
     </insert>
     <!--
@@ -46,13 +52,16 @@
        id：唯一标识，随便写，在同一个命名空间下保持唯一，使用动态代理之后要求和方法名保持一致
        parameterType：参数的类型，使用动态代理之后和方法的参数类型一致
      -->
-    <update id="updateUser" parameterType="com.sictiy.jserver.db.pojo.JUserInfo">
-        UPDATE u_user
+    <update id="update{{ meta.java_name }}" parameterType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+        UPDATE {{ meta.table }}
         <trim prefix="set" suffixOverrides=",">
-            <if test="userName!=null">userName = #{userName},</if>
-            <if test="password!=null">password = #{password},</if>
+            {% for field in meta.fields %}
+                {% if not field.name == meta.key %}
+                    <if test="{{ field.name }}!=null">{{ field.name }} = #{{{ field.name }}},</if>
+                {% endif %}
+            {% endfor %}
         </trim>
         WHERE
-        (userId = #{userId});
+        ({{ meta.key }} = #{{{ meta.key }}});
     </update>
 </mapper>

@@ -10,7 +10,7 @@ public interface JUserMapper
      * 根据Id查询用户信息
      * @param userId
      */
-    public JUserInfo queryUserById(Long userId);
+    JUserInfo queryUserById(Long userId);
 
     /**
      * 根据name查用户信息
@@ -18,22 +18,22 @@ public interface JUserMapper
      * @param name
      * @return com.sictiy.jserver.db.pojo.JUserInfo
      **/
-    public JUserInfo queryUserByName(String name);
+    JUserInfo queryUserByName(String name);
 
     /**
      * 查询所有用户信息
      */
-    public List<JUserInfo> queryUserAll();
+    List<JUserInfo> queryUserAll();
 
     /**
      * 根据id更新用户信息
      * @param user
      */
-    public void updateUser(JUserInfo user);
+    void updateUser(JUserInfo user);
 
     /**
      * 新增用户信息
      * @param user
      */
-    public void insertUser(JUserInfo user);
+    void insertUser(JUserInfo user);
 }
