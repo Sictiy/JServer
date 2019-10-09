@@ -1,39 +1,36 @@
 package com.sictiy.jserver.db.mapper;
 
 import java.util.List;
-
 import com.sictiy.jserver.db.pojo.JUserInfo;
 
 public interface JUserMapper
 {
     /**
-     * 根据Id查询用户信息
-     * @param userId
-     */
-    JUserInfo queryUserById(Long userId);
+    * select JUser by userId
+    * @param userId
+    */
+    JUserInfo queryJUserByUserId(long userId);
 
     /**
-     * 根据name查用户信息
-     *
-     * @param name
-     * @return com.sictiy.jserver.db.pojo.JUserInfo
-     **/
-    JUserInfo queryUserByName(String name);
+    * select JUser by userName
+    * @param userName
+    */
+    JUserInfo queryJUserByUserName(String userName);
 
     /**
-     * 查询所有用户信息
-     */
-    List<JUserInfo> queryUserAll();
+    * select all from table
+    */
+    List<JUserInfo> queryJUserAll();
 
     /**
-     * 根据id更新用户信息
-     * @param user
-     */
-    void updateUser(JUserInfo user);
+    * update JUser
+    * @param juserInfo
+    */
+    void updateJUser(JUserInfo juserInfo);
 
     /**
-     * 新增用户信息
-     * @param user
-     */
-    void insertUser(JUserInfo user);
+    * insert 
+    * @param juserInfo
+    */
+    void insertJUser(JUserInfo juserInfo);
 }

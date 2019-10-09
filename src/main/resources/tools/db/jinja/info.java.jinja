@@ -1,8 +1,12 @@
-package {{ meta.package }}.pojo
+package {{ meta.package }}.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+{% for import in meta.imports -%}
+import {{ import }};
+{% endfor %}
+import com.sictiy.jserver.entry.annotation.CommomAnnotation;
 
 /**
 * {{ meta.comment }}
@@ -15,11 +19,9 @@ import lombok.ToString;
 @ToString
 @CommomAnnotation(str = "{{ meta.table }}")
 public class {{ meta.java_name }}Info
-{
-{% for field in meta.fields %}
+{{ '{' }}{% for field in meta.fields %}
     /**
     * {{ field.comment }}
     */
     {{ field.java_type }} {{ field.name }};
-{% endfor %}
-}
+{% endfor %}{{ '}' }}

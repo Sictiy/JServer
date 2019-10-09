@@ -53,16 +53,16 @@ public class Test
         DbComponent.init();
         JUserMapper userMapper = DbComponent.getMapper(JUserMapper.class);
 
-        List<JUserInfo> allUserInfo = userMapper.queryUserAll();
+        List<JUserInfo> allUserInfo = userMapper.queryJUserAll();
         allUserInfo.forEach(info->LogUtil.info("{}", info));
         JUserInfo jUserInfo = new JUserInfo();
         jUserInfo.setCreateDate(new Date());
         jUserInfo.setPassword("123");
         jUserInfo.setUserId(allUserInfo.size() + 1);
         jUserInfo.setUserName("test");
-        userMapper.insertUser(jUserInfo);
+        userMapper.insertJUser(jUserInfo);
 
-        JUserInfo selectUserInfo = userMapper.queryUserById((long) allUserInfo.size() + 1);
+        JUserInfo selectUserInfo = userMapper.queryJUserByUserId((long) allUserInfo.size() + 1);
         LogUtil.info("{}", selectUserInfo);
     }
 

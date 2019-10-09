@@ -34,7 +34,7 @@ public class JPlayerMgr
 
     public static boolean register(JServerConnect connect, String name, String password)
     {
-        var user = DbComponent.getMapper(JUserMapper.class).queryUserByName(name);
+        var user = DbComponent.getMapper(JUserMapper.class).queryJUserByUserName(name);
         if (user != null)
         {
             connect.send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder("name is exist!"));
@@ -45,7 +45,7 @@ public class JPlayerMgr
         userInfo.setPassword(password);
         userInfo.setCreateDate(new Date());
         userInfo.setUserId(UniqueMgr.getUnique(UniqueType.USER));
-        DbComponent.getMapper(JUserMapper.class).insertUser(userInfo);
+        DbComponent.getMapper(JUserMapper.class).insertJUser(userInfo);
         return true;
     }
 
@@ -56,7 +56,7 @@ public class JPlayerMgr
             LogUtil.error("player is onLine");
             return null;
         }
-        var userInfo = DbComponent.getMapper(JUserMapper.class).queryUserByName(name);
+        var userInfo = DbComponent.getMapper(JUserMapper.class).queryJUserByUserName(name);
         if (userInfo == null || !userInfo.getPassword().equals(password))
         {
             connect.send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder("password error or account do not exist!"));

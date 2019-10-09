@@ -2,13 +2,9 @@ package com.sictiy.jserver.game.player.module.impl;
 
 import lombok.Setter;
 
-import java.util.Date;
-
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
-import com.sictiy.jserver.entry.type.UniqueType;
-import com.sictiy.jserver.game.mgr.UniqueMgr;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 
 /**
@@ -29,7 +25,7 @@ public class UserInfoModule extends AbstractPlayerModule
     @Override
     public boolean save()
     {
-        DbComponent.getMapper(JUserMapper.class).updateUser(userInfo);
+        DbComponent.getMapper(JUserMapper.class).updateJUser(userInfo);
         return true;
     }
 
@@ -42,15 +38,5 @@ public class UserInfoModule extends AbstractPlayerModule
     public long getUserId()
     {
         return userInfo.getUserId();
-    }
-
-    public void register(String name, String password)
-    {
-        userInfo = new JUserInfo();
-        userInfo.setUserName(name);
-        userInfo.setPassword(password);
-        userInfo.setCreateDate(new Date());
-        userInfo.setUserId(UniqueMgr.getUnique(UniqueType.USER));
-        DbComponent.getMapper(JUserMapper.class).insertUser(userInfo);
     }
 }

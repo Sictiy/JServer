@@ -1,0 +1,30 @@
+package com.sictiy.jserver.db.mapper;
+
+import java.util.List;
+import com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info;
+
+public interface {{ meta.java_name }}Mapper
+{{ '{' }}{% for select in meta.selects %}
+    /**
+    * select {{ meta.java_name }} by {{ select.name }}
+    * @param {{ select.name }}
+    */
+    {{ meta.java_name }}Info query{{ meta.java_name }}By{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
+{% endfor %}
+    /**
+    * select all from table
+    */
+    {{ 'List<' }}{{ meta.java_name }}Info> query{{ meta.java_name }}All();
+
+    /**
+    * update {{ meta.java_name }}
+    * @param {{ meta.java_name | lower }}Info
+    */
+    void update{{ meta.java_name }}({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
+
+    /**
+    * insert {{ meta.jave_name }}
+    * @param {{ meta.java_name | lower }}Info
+    */
+    void insert{{ meta.java_name }}({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
+}

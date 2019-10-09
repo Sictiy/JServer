@@ -53,7 +53,7 @@ class DbGui:
         for item in self.right.selection():
             item_text = self.right.item(item, "values")
             selection.append(item_text[0])
-        self.current_table.set_select(selection)
+        self.current_table.set_selects(selection)
 
     def left_click(self, event):
         for item in self.left.selection():
@@ -94,7 +94,7 @@ class DbGui:
         self.main_menu.add_command(label="退出", command=self.close)
 
     def close(self):
-        self.db.close()
+        self.db.close_db()
         self.root.destroy()
 
     def generate(self):
