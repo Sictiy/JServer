@@ -19,6 +19,7 @@ class GetMysqlTableComments:
     def __init__(self, host, user, password, database, port, charset):
         self.db = pymysql.connect(host=host, user=user, password=password, port=port, database=database, charset=charset)
         self.cursor = self.db.cursor()
+        self.connected = True
 
     def get_tables(self, database_name):
         # 查询mysql表名和注释
@@ -34,9 +35,13 @@ class GetMysqlTableComments:
         return self.cursor.fetchall()
 
     def close_db(self):
-        self.cursor.close()
         # 关闭数据库
+        if not self.connected:
+            return
+        self.cursor.close()
         self.db.close()
+        self.connected = False
+        print('---close db---')
 
 
 if __name__ == '__main__':

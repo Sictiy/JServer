@@ -151,13 +151,12 @@ class Table:
         return 'J' + java_name
 
     def generate(self):
-        print('---start generate---')
+        # 根据模板生成三个文件
         self.generate_file('info.java', 'Info.java', const.POJO_JAVA_DIR)
         self.generate_file('mapper.xml', 'Mapper.xml', const.MAP_CONFIG_DIR)
         self.generate_file('mapper.java', 'Mapper.java', const.MAP_JAVA_DIR)
         # 将新mapper 添加到mybatis配置中
         insert_mapper_to_mybatis(self.java_name + 'Mapper.xml')
-        print('---end generate---')
 
     def generate_file(self, temp_file, out_file, out_dir):
         temp_file = const.JINJA_DIR + temp_file + '.jinja'

@@ -19,6 +19,10 @@ def replace_tree_view(tree, values):
 
 class DbGui:
     def __init__(self):
+        # init db and table
+        self.db = GetMysqlTableComments(const.HOST, const.USER, const.PASSWORD, const.DATABASE, const.PORT, const.CHARSET)
+        self.current_table = None
+        # init window
         self.root = Tk()
         self.root.title("dbTools")
         self.root.geometry('960x480')
@@ -30,12 +34,11 @@ class DbGui:
         self.init_main_menu()
         self.root.config(menu=self.main_menu)
         self.root.bind('Button-3', self.popup_menu)
-        self.db = GetMysqlTableComments(const.HOST, const.USER, const.PASSWORD, const.DATABASE, const.PORT, const.CHARSET)
-        self.current_table = Table(['test', 'test'], [])
 
     def start(self):
         self.set_left(self.db.get_tables(const.DATABASE))
         self.root.mainloop()
+        self.close()
 
     def init_left(self):
         self.left["columns"] = ("1", "2")
@@ -49,6 +52,9 @@ class DbGui:
         self.left.bind('<ButtonRelease-1>', self.left_click)
 
     def right_click(self, event):
+        if self.current_table is None:
+            print('please choose table!')
+            return
         selection = []
         for item in self.right.selection():
             item_text = self.right.item(item, "values")
@@ -91,14 +97,20 @@ class DbGui:
         # self.main_menu.add_cascade(label="运行", menu=menu_run)
         self.main_menu.add_command(label="生成", command=self.generate)
         # menu_run.add_separator()
-        self.main_menu.add_command(label="退出", command=self.close)
+        self.main_menu.add_command(label="退出", command=self.root.destroy)
 
     def close(self):
-        self.db.close_db()
-        self.root.destroy()
+        if self.db.connected:
+            self.db.close_db()
+        print('---closed---')
 
     def generate(self):
+        if self.current_table is None:
+            print('please choose table!')
+            return
+        print('---start generate---')
         self.current_table.generate()
+        print('---end generate---')
 
     def popup_menu(self, event):
         self.main_menu.post(event.x_root, event.y_root)
