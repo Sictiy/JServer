@@ -20,6 +20,7 @@ class GetMysqlTableComments:
         self.db = pymysql.connect(host=host, user=user, password=password, port=port, database=database, charset=charset)
         self.cursor = self.db.cursor()
         self.connected = True
+        print('---connect to db---')
 
     def get_tables(self, database_name):
         # 查询mysql表名和注释
