@@ -1,8 +1,11 @@
 from tkinter.tix import Tk, Menu
 from tkinter.ttk import *
 
-from tools.db.database import GetMysqlTableComments
-from tools.db.table import get_fields_from_sql_columns, get_columns_from_fields, Table
+import const
+
+# from db.const import const
+from db.database import GetMysqlTableComments
+from db.table import get_fields_from_sql_columns, get_columns_from_fields, Table
 
 
 def replace_tree_view(tree, values):
@@ -16,10 +19,10 @@ def replace_tree_view(tree, values):
 
 
 class DbGui:
-    db = None
-    current_table = None
-
     def __init__(self):
+        # init db and table
+        self.db = GetMysqlTableComments(const.HOST, const.USER, const.PASSWORD, const.DATABASE, const.PORT, const.CHARSET)
+        self.current_table = None
         # init window
         self.root = Tk()
         self.root.title("dbTools")
@@ -33,15 +36,8 @@ class DbGui:
         self.root.config(menu=self.main_menu)
         self.root.bind('Button-3', self.popup_menu)
 
-    def connect_db(self, database=None):
-        if database is None:
-            self.db = GetMysqlTableComments()
-        else:
-            self.db = GetMysqlTableComments(database=database)
-        self.set_left(self.db.get_tables())
-
     def start(self):
-        self.connect_db()
+        self.set_left(self.db.get_tables(const.DATABASE))
         self.root.mainloop()
         self.close()
 
@@ -119,3 +115,8 @@ class DbGui:
 
     def popup_menu(self, event):
         self.main_menu.post(event.x_root, event.y_root)
+
+
+if __name__ == '__main__':
+    db_gui = DbGui()
+    db_gui.start()

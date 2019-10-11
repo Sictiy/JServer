@@ -1,9 +1,36 @@
 from datetime import datetime
 
+import const
 from jinja2 import Template
 from lxml import etree
 
-from tools.db import const
+# 代码生成包目录
+const.PACKAGE = 'com.sictiy.jserver.db'
+# 数据库主键
+const.PRI = 'PRI'
+# jinja模板读取目录
+const.JINJA_DIR = './jinja/'
+# mybatis 配置目录
+const.MYBATIS_CONDIG = '../../mybatis-config.xml'
+const.MYBATIS_MAPPERS_DIR = 'mappers/'
+# 生成map与代码输出目录
+const.MAP_JAVA_DIR = '../../../java/com/sictiy/jserver/db/mapper/'
+const.POJO_JAVA_DIR = '../../../java/com/sictiy/jserver/db/pojo/'
+const.MAP_CONFIG_DIR = '../../mappers/'
+
+# sqlType 与 javaType 对应字典
+const.JAVA_TYPE = {
+    'int': 'int',
+    'bigint': 'long',
+    'date': 'Date',
+    'varchar': 'String',
+    'tinyint': 'short',
+}
+
+# 字段类型 import字典
+const.NEED_IMPORT = {
+    'Date': 'java.util.Date',
+}
 
 
 # 根据字段列表获取需要添加的import

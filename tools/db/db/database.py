@@ -1,33 +1,31 @@
+import const
 import pymysql
 
-from tools.db import const
+# 数据库地址
+const.HOST = '127.0.0.1'
+# 数据库端口
+const.PORT = 3306
+# 数据库用户名
+const.USER = 'root'
+# 密码
+const.PASSWORD = '123123'
+# 数据库名称
+const.DATABASE = 'jserver'
+# 字符集
+const.CHARSET = 'utf8'
 
 
 class GetMysqlTableComments:
-    db = None
-    cursor = None
-    connected = False
-
-    def __init__(self, host=const.HOST, user=const.USER, password=const.PASSWORD, database=const.DATABASE, port=const.PORT, charset=const.CHARSET):
-        self.connect(host, user, password, database, port, charset)
-
-    def connect(self, host=const.HOST, user=const.USER, password=const.PASSWORD, database=const.DATABASE, port=const.PORT, charset=const.CHARSET):
-        if self.connected:
-            self.close_db()
+    def __init__(self, host, user, password, database, port, charset):
         self.db = pymysql.connect(host=host, user=user, password=password, port=port, database=database, charset=charset)
         self.cursor = self.db.cursor()
         self.connected = True
-        print('---connect to %s:%s---' % (host, port))
 
-    def get_tables(self, database_name=const.DATABASE):
+    def get_tables(self, database_name):
         # 查询mysql表名和注释
         self.cursor.execute(
             'select table_name,table_comment from information_schema.TABLES where TABLE_SCHEMA=%s order by table_name',
             database_name)
-        return self.cursor.fetchall()
-
-    def get_databases(self):
-        self.cursor.execute('show databases')
         return self.cursor.fetchall()
 
     def get_columns(self, table_name):
@@ -45,3 +43,12 @@ class GetMysqlTableComments:
         self.connected = False
         print('---close db---')
 
+
+if __name__ == '__main__':
+    my_database = GetMysqlTableComments(const.HOST, const.USER, const.PASSWORD, const.DATABASE, const.PORT, const.CHARSET)
+    tables = my_database.get_tables(const.DATABASE)
+    for table in tables:
+        print(table)
+        column = my_database.get_columns(table[0])
+        print(column)
+    my_database.close_db()
