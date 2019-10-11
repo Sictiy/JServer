@@ -21,12 +21,7 @@ public class JUniqueInfo
     /**
     * 
     */
-    int type;
-
-    /**
-    * 
-    */
-    int serverId;
+    int id;
 
     /**
     * 

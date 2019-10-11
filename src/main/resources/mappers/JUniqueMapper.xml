@@ -4,24 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sictiy.jserver.db.mapper.JUniqueMapper">
     
-    <select id="queryJUniqueByType" resultType="com.sictiy.jserver.db.pojo.JUniqueInfo">
-        select * from u_unique where type = #{type}
+    <select id="queryJUniqueById" resultType="com.sictiy.jserver.db.pojo.JUniqueInfo">
+        select * from u_unique where id = #{id}
     </select>
     
     <select id="queryJUniqueAll" resultType="com.sictiy.jserver.db.pojo.JUniqueInfo">
         select * from u_unique
     </select>
 
-    <insert id="insertJUnique" useGeneratedKeys="true" keyColumn="type" keyProperty="type"
+    <insert id="insertJUnique" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
             parameterType="com.sictiy.jserver.db.pojo.JUniqueInfo">
         INSERT INTO u_unique (
-                type,
-                serverId,
+                id,
                 max
             )
         VALUES (
-                #{type},
-                #{serverId},
+                #{id},
                 #{max}
             );
     </insert>
@@ -29,10 +27,9 @@
     <update id="updateJUnique" parameterType="com.sictiy.jserver.db.pojo.JUniqueInfo">
         UPDATE u_unique
         <trim prefix="set" suffixOverrides=",">
-                    <if test="serverId!=null">serverId = #{serverId},</if>
                     <if test="max!=null">max = #{max},</if>
         </trim>
         WHERE
-        (type = #{type});
+        (id = #{id});
     </update>
 </mapper>

@@ -38,7 +38,7 @@ public class ModuleInfoModule
 
     public void loadPlayerModules()
     {
-        Collection<Class<? extends AbstractPlayerModule>> allModuleClasses = PlayerModuleComponent.getAllPlayerModules();
+        Collection<Class<? extends AbstractPlayerModule>> allModuleClasses = PlayerModuleComponent.getInstance().getAllPlayerModules();
         allModuleClasses.forEach(aClass -> allModules.computeIfAbsent(aClass, k -> {
             AbstractPlayerModule moduleImpl = null;
             try
@@ -79,7 +79,7 @@ public class ModuleInfoModule
 
     public AbstractPlayerModule getPlayerModule(short type)
     {
-        var clazz = PlayerModuleComponent.getPlayerModuleClazzByType(type);
+        var clazz = PlayerModuleComponent.getInstance().getPlayerModuleClazzByType(type);
         return getPlayerModule(clazz);
     }
 }

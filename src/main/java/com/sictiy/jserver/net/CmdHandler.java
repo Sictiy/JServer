@@ -10,7 +10,7 @@ public class CmdHandler
 {
     public static void handlerCmdMessage(AbstractConnect abstractConnect, JMessage message)
     {
-        AbstractCmd cmd = CmdComponent.getCmdByCode(message.getCode());
+        AbstractCmd cmd = CmdComponent.getInstance().getCmdByCode(message.getCode());
         if (cmd == null)
         {
             LogUtil.error("cmd code id error, code: {}", message.getCode());

@@ -29,14 +29,19 @@ public class JClient
     public static void main(String[] args) throws InterruptedException
     {
         jConnect = NetComponent.getConnection(ConfigComponent.getConfig(JServerConfig.class));
-        while (true)
+        for (int i = 0; i < 100000; i++)
         {
-            String input = getInput("cmd:", false);
-            if (!doCmd(input))
-            {
-                break;
-            }
+            register("5" + i, "123");
+            Thread.sleep(1000);
         }
+        //        while (true)
+        //        {
+        //            String input = getInput("cmd:", false);
+        //            if (!doCmd(input))
+        //            {
+        //                break;
+        //            }
+        //        }
         jConnect.close();
     }
 
@@ -83,9 +88,14 @@ public class JClient
 
     private static void sendRegister(String[] strings)
     {
-        FlatBufferBuilder bufferBuilder = new FlatBufferBuilder();
         String userName = getInput("name:", false);
         String password = getInput("password:", true);
+        register(userName, password);
+    }
+
+    private static void register(String userName, String password)
+    {
+        FlatBufferBuilder bufferBuilder = new FlatBufferBuilder();
         int userNameOffset = bufferBuilder.createString(userName);
         int passwordOffset = bufferBuilder.createString(password);
         bufferBuilder.finish(RegisterReq.createRegisterReq(bufferBuilder, userNameOffset, passwordOffset));

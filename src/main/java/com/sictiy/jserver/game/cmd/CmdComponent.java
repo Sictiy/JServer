@@ -13,9 +13,16 @@ import com.sictiy.jserver.util.LogUtil;
  **/
 public class CmdComponent
 {
-    private static Map<Short, AbstractCmd> allCmd;
+    private static CmdComponent instance = new CmdComponent();
 
-    public static boolean init()
+    public static CmdComponent getInstance()
+    {
+        return instance;
+    }
+
+    private Map<Short, AbstractCmd> allCmd;
+
+    public boolean init()
     {
         try
         {
@@ -38,7 +45,7 @@ public class CmdComponent
         return true;
     }
 
-    public static AbstractCmd getCmdByCode(short code)
+    public AbstractCmd getCmdByCode(short code)
     {
         return allCmd.get(code);
     }

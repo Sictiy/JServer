@@ -2,3 +2,4 @@
 /target
 /log
 /src/main/resources/tools/db/__pycache__/
+/AnnotationProcessor/target

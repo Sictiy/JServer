@@ -6,10 +6,10 @@ import com.sictiy.jserver.db.pojo.JUniqueInfo;
 public interface JUniqueMapper
 {
     /**
-    * select JUnique by type
-    * @param type
+    * select JUnique by id
+    * @param id
     */
-    JUniqueInfo queryJUniqueByType(int type);
+    JUniqueInfo queryJUniqueById(int id);
 
     /**
     * select all from table

@@ -14,9 +14,16 @@ import com.sictiy.jserver.util.LogUtil;
  **/
 public class PlayerModuleComponent
 {
-    private static Map<Short, Class<? extends AbstractPlayerModule>> allModules;
+    private static PlayerModuleComponent instance = new PlayerModuleComponent();
 
-    public static boolean init()
+    public static PlayerModuleComponent getInstance()
+    {
+        return instance;
+    }
+
+    private Map<Short, Class<? extends AbstractPlayerModule>> allModules;
+
+    public boolean init()
     {
         try
         {
@@ -39,17 +46,17 @@ public class PlayerModuleComponent
         return true;
     }
 
-    public static Collection<Class<? extends AbstractPlayerModule>> getAllPlayerModules()
+    public Collection<Class<? extends AbstractPlayerModule>> getAllPlayerModules()
     {
         return allModules.values();
     }
 
-    public static Class<? extends AbstractPlayerModule> getPlayerModuleClazzByType(short type)
+    public Class<? extends AbstractPlayerModule> getPlayerModuleClazzByType(short type)
     {
         return allModules.get(type);
     }
 
-    public static AbstractPlayerModule getInstanceByModuleType(short type)
+    public AbstractPlayerModule getInstanceByModuleType(short type)
     {
         var clazz = allModules.get(type);
         try
