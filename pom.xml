@@ -6,6 +6,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>AnnotationProcessor</module>
+        <module>Server</module>
+        <module>Client</module>
     </modules>
 
     <properties>
@@ -15,42 +17,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
     </properties>
-
-    <build>
-        <finalName>JServer</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <!--                    <release>11</release>-->
-                    <compilerArgs>
-                        <arg>--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-                        <arg>--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-                        <arg>--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                        <arg>--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-                        <arg>--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>false</addClasspath>
-                            <!--                            <classpathPrefix></classpathPrefix>-->
-                            <mainClass>com.sictiy.jserver.JServer</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <groupId>Sictiy</groupId>
     <artifactId>JServer</artifactId>
@@ -138,12 +104,6 @@
             <artifactId>auto-service</artifactId>
             <version>1.0-rc4</version>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>Sictiy</groupId>-->
-        <!--            <artifactId>annotation-processor</artifactId>-->
-        <!--            <version>1.0-SNAPSHOT</version>-->
-        <!--        </dependency>-->
 
     </dependencies>
 
