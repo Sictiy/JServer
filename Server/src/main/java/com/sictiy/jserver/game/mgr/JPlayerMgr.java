@@ -5,16 +5,16 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.sictiy.common.entry.type.CmdType;
+import com.sictiy.common.entry.type.UniqueType;
+import com.sictiy.common.net.JServerConnect;
+import com.sictiy.common.util.FlatBufferUtil;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
-import com.sictiy.jserver.entry.type.CmdType;
-import com.sictiy.jserver.entry.type.UniqueType;
 import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
-import com.sictiy.jserver.net.JServerConnect;
-import com.sictiy.jserver.util.FlatBufferUtil;
-import com.sictiy.jserver.util.LogUtil;
 
 /**
  * @author sictiy.xu

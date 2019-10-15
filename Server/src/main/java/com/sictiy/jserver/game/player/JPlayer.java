@@ -5,12 +5,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import com.google.flatbuffers.FlatBufferBuilder;
-import com.sictiy.jserver.entry.type.CmdType;
+import com.sictiy.common.entry.type.CmdType;
+import com.sictiy.common.net.AbstractConnect;
+import com.sictiy.common.net.IOnwer;
+import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 import com.sictiy.jserver.game.player.module.impl.ModuleInfoModule;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
-import com.sictiy.jserver.net.AbstractConnect;
-import com.sictiy.jserver.util.FlatBufferUtil;
 
 /**
  * @author sictiy.xu
@@ -19,7 +20,7 @@ import com.sictiy.jserver.util.FlatBufferUtil;
 @Setter
 @Getter
 @ToString
-public class JPlayer
+public class JPlayer implements IOnwer
 {
     private AbstractConnect connect;
     private ModuleInfoModule playerModuleManager;

@@ -1,9 +1,9 @@
 package com.sictiy.jserver.game.cmd;
 
+import com.sictiy.common.net.JMessage;
+import com.sictiy.common.net.JServerConnect;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.net.JMessage;
-import com.sictiy.jserver.net.JServerConnect;
-import com.sictiy.jserver.util.LogUtil;
 
 /**
  * @author 10460
@@ -25,7 +25,7 @@ public abstract class AbstractPlayerCmd extends AbstractCmd
         }
         if (connect.getOwner() != null)
         {
-            execute(connect.getOwner(), jMessage);
+            execute((JPlayer) connect.getOwner(), jMessage);
         }
         else
         {

@@ -3,10 +3,10 @@ package com.sictiy.jserver.game.cmd;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.sictiy.jserver.net.AbstractConnect;
-import com.sictiy.jserver.net.JMessage;
-import com.sictiy.jserver.net.JServerConnect;
-import com.sictiy.jserver.util.LogUtil;
+import com.sictiy.common.net.AbstractConnect;
+import com.sictiy.common.net.JMessage;
+import com.sictiy.common.net.JServerConnect;
+import com.sictiy.common.util.LogUtil;
 
 /**
  * @author sictiy.xu

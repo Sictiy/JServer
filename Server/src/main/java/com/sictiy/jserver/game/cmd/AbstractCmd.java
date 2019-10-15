@@ -1,7 +1,7 @@
 package com.sictiy.jserver.game.cmd;
 
-import com.sictiy.jserver.net.JMessage;
-import com.sictiy.jserver.net.JServerConnect;
+import com.sictiy.common.net.JMessage;
+import com.sictiy.common.net.JServerConnect;
 
 /**
  *

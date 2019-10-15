@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.flatbuffers.FlatBufferBuilder;
-import com.sictiy.jserver.config.ConfigComponent;
-import com.sictiy.jserver.config.xml.JServerConfig;
+import com.sictiy.common.config.ConfigComponent;
+import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.entry.buffer.RegisterReq;
+import com.sictiy.common.util.ClassUtil;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.db.mapper.JUserMapper;
 import com.sictiy.jserver.db.pojo.JUserInfo;
-import com.sictiy.jserver.entry.buffer.RegisterReq;
 import com.sictiy.jserver.game.cmd.AbstractPlayerCmd;
-import com.sictiy.jserver.util.ClassUtil;
-import com.sictiy.jserver.util.LogUtil;
 
 public class Test
 {

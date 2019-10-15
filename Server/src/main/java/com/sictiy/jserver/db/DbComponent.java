@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.sictiy.jserver.util.LogUtil;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.processor.single.SingleInstance;
 
 /**

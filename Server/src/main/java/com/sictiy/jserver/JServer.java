@@ -1,15 +1,15 @@
 package com.sictiy.jserver;
 
-import com.sictiy.jserver.config.ConfigComponent;
-import com.sictiy.jserver.config.xml.JServerConfig;
+import com.sictiy.common.config.ConfigComponent;
+import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.entry.hooker.IServer;
+import com.sictiy.common.entry.hooker.JShutDownHooker;
+import com.sictiy.common.net.JServerChannelInitializer;
+import com.sictiy.common.net.NetComponent;
 import com.sictiy.jserver.db.DbComponent;
-import com.sictiy.jserver.entry.hooker.IServer;
-import com.sictiy.jserver.entry.hooker.JShutDownHooker;
 import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
-import com.sictiy.jserver.net.JServerChannelInitializer;
-import com.sictiy.jserver.net.NetComponent;
 import com.sictiy.jserver.template.TempComponent;
 
 /**

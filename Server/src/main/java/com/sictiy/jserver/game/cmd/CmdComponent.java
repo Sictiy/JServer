@@ -3,9 +3,9 @@ package com.sictiy.jserver.game.cmd;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sictiy.jserver.entry.annotation.CmdAnnotation;
-import com.sictiy.jserver.util.ClassUtil;
-import com.sictiy.jserver.util.LogUtil;
+import com.sictiy.common.entry.annotation.CmdAnnotation;
+import com.sictiy.common.util.ClassUtil;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.processor.single.SingleInstance;
 
 /**

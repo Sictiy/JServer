@@ -1,4 +1,4 @@
-namespace com.sictiy.jserver.entry.buffer;
+namespace com.sictiy.common.entry.buffer;
 
 table RegisterReq
 {

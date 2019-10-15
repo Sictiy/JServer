@@ -2,10 +2,10 @@ package com.sictiy.jserver.game.mgr;
 
 import java.util.concurrent.TimeUnit;
 
-import com.sictiy.jserver.entry.executor.DelayTaskQueue;
-import com.sictiy.jserver.entry.executor.DelayedTask;
-import com.sictiy.jserver.entry.executor.JExecutor;
-import com.sictiy.jserver.entry.executor.TaskQueue;
+import com.sictiy.common.entry.executor.DelayTaskQueue;
+import com.sictiy.common.entry.executor.DelayedTask;
+import com.sictiy.common.entry.executor.JExecutor;
+import com.sictiy.common.entry.executor.TaskQueue;
 
 /**
  * @author 10460

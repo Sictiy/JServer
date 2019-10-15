@@ -1,14 +1,14 @@
 package com.sictiy.jserver.game.cmd.impl;
 
-import com.sictiy.jserver.entry.annotation.CmdAnnotation;
-import com.sictiy.jserver.entry.buffer.ChatMsg;
-import com.sictiy.jserver.entry.type.ChatType;
-import com.sictiy.jserver.entry.type.CmdType;
+import com.sictiy.common.entry.annotation.CmdAnnotation;
+import com.sictiy.common.entry.buffer.ChatMsg;
+import com.sictiy.common.entry.type.ChatType;
+import com.sictiy.common.entry.type.CmdType;
+import com.sictiy.common.net.JMessage;
+import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.jserver.game.cmd.AbstractPlayerCmd;
 import com.sictiy.jserver.game.mgr.JPlayerMgr;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.net.JMessage;
-import com.sictiy.jserver.util.FlatBufferUtil;
 
 /**
  * @author sictiy.xu

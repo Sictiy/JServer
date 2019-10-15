@@ -3,8 +3,8 @@ package com.sictiy.jserver.game.mgr;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sictiy.jserver.entry.executor.JExecutor;
-import com.sictiy.jserver.entry.executor.TaskQueue;
+import com.sictiy.common.entry.executor.JExecutor;
+import com.sictiy.common.entry.executor.TaskQueue;
 import com.sictiy.jserver.game.cmd.CmdTask;
 
 /**

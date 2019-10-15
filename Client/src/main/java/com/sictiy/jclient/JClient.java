@@ -4,16 +4,16 @@ import java.io.Console;
 import java.util.Scanner;
 
 import com.google.flatbuffers.FlatBufferBuilder;
-import com.sictiy.jserver.config.ConfigComponent;
-import com.sictiy.jserver.config.xml.JServerConfig;
-import com.sictiy.jserver.entry.buffer.ChatMsg;
-import com.sictiy.jserver.entry.buffer.LoginReq;
-import com.sictiy.jserver.entry.buffer.RegisterReq;
-import com.sictiy.jserver.entry.type.CmdType;
-import com.sictiy.jserver.entry.type.RegexType;
-import com.sictiy.jserver.net.JClientConnect;
-import com.sictiy.jserver.net.NetComponent;
-import com.sictiy.jserver.util.StringUtil;
+import com.sictiy.common.config.ConfigComponent;
+import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.entry.buffer.ChatMsg;
+import com.sictiy.common.entry.buffer.LoginReq;
+import com.sictiy.common.entry.buffer.RegisterReq;
+import com.sictiy.common.entry.type.CmdType;
+import com.sictiy.common.entry.type.RegexType;
+import com.sictiy.common.net.JClientConnect;
+import com.sictiy.common.net.NetComponent;
+import com.sictiy.common.util.StringUtil;
 
 /**
  * @author sictiy.xu
