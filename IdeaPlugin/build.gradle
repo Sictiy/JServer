@@ -11,19 +11,16 @@ sourceCompatibility = 11
 
 repositories {
     mavenLocal()
-    mavenCentral()
-    maven {
-        url 'http://maven.aliyun.com/nexus/content/groups/public//'
-    }
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
 }
 
 apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 apply plugin: "com.github.ManifestClasspath"
+apply plugin: 'maven'
 
 dependencies {
     compile group: 'Sictiy', name: 'annotation-processor', version: '1.0-SNAPSHOT'
@@ -42,6 +39,7 @@ intellij {
 
     plugins 'java'
 }
+
 patchPluginXml {
     changeNotes """
       Add change notes here.<br>

@@ -7,3 +7,6 @@ build
 # user
 /*/target
 /.idea
+/log/
+/*/log
+/*/myself-sandbox
