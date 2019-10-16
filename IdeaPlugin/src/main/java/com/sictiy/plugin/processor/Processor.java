@@ -1,9 +1,12 @@
 package com.sictiy.plugin.processor;
 
 import java.lang.annotation.Annotation;
+import java.util.Collections;
+import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 
 /**
@@ -14,11 +17,20 @@ import com.intellij.psi.PsiElement;
  **/
 public interface Processor
 {
-    // 获取支持的注解
     @NotNull
     Class<? extends Annotation>[] getSupportedAnnotations();
 
-    // 获取支持的类
     @NotNull
     Class<? extends PsiElement> getSupportedClass();
+
+    /**
+     * 对psi类进行处理
+     *
+     * @param psiClass psiClass
+     * @return java.util.List<? super com.intellij.psi.PsiElement>
+     **/
+    default List<? super PsiElement> process(@NotNull PsiClass psiClass)
+    {
+        return Collections.emptyList();
+    }
 }

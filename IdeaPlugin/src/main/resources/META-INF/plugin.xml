@@ -1,12 +1,12 @@
 <idea-plugin>
-    <id>Sictiy.idea-plugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>Sictiy-idea-plugin</id>
+    <name>SictiyIdeaPlugin</name>
+    <vendor email="xlm104600@gmail.com" url="http://www.sictiy.xyz">sictiy.xu</vendor>
+    <version>0.1</version>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description><![CDATA[The First Plugin ............................................]]></description>
+
+    <category>Tools Integration</category>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
