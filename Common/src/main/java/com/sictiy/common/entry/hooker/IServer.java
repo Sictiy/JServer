@@ -6,7 +6,7 @@ package com.sictiy.common.entry.hooker;
  **/
 public interface IServer
 {
-    public void onShutDown();
+    void onShutDown();
 
-    public void start();
+    void start();
 }

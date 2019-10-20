@@ -15,11 +15,18 @@ import com.sictiy.common.net.handler.ServerReadMessageHandler;
  **/
 public class JServerChannelInitializer extends ChannelInitializer<NioSocketChannel>
 {
+    private ICmdHandler cmdHandler;
+
+    public JServerChannelInitializer(ICmdHandler cmdHandler)
+    {
+        this.cmdHandler = cmdHandler;
+    }
+
     @Override
     protected void initChannel(NioSocketChannel ch)
     {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new ChannelStateHandler());
+        pipeline.addLast(new ChannelStateHandler(cmdHandler));
         pipeline.addLast(new JEncoderHandler());
         pipeline.addLast(new JDecoderHandler());
         pipeline.addLast(new ServerReadMessageHandler());

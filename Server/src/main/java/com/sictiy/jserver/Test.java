@@ -21,7 +21,13 @@ public class Test
 {
     public static void main(String[] args) throws IOException
     {
-        testClassUtil();
+        testResource();
+    }
+
+    private static void testResource()
+    {
+        String a = ConfigComponent.getInstance().getClass().getResource("/").getPath();
+        LogUtil.info("{}", a);
     }
 
     private static void testClassUtil()
@@ -68,7 +74,7 @@ public class Test
 
     private static void testConfig()
     {
-        JServerConfig jServerConfig = ConfigComponent.getConfig(JServerConfig.class);
+        JServerConfig jServerConfig = ConfigComponent.getInstance().getConfig(JServerConfig.class);
         LogUtil.info("{}", jServerConfig);
     }
 }

@@ -10,6 +10,7 @@ import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
+import com.sictiy.jserver.net.ServerCmdHandler;
 import com.sictiy.jserver.template.TempComponent;
 
 /**
@@ -46,7 +47,7 @@ public class JServer implements IServer
         // 游戏Mgr组件
         GameMgrComponent.getInstance().init();
         // 网络组件
-        NetComponent.start(ConfigComponent.getConfig(JServerConfig.class).getPort(), new JServerChannelInitializer());
-
+        NetComponent.getInstance().set(ConfigComponent.getInstance().getConfig(JServerConfig.class).getPort(), new JServerChannelInitializer(new ServerCmdHandler()));
+        NetComponent.getInstance().init();
     }
 }

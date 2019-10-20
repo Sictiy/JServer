@@ -5,7 +5,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 
 import com.sictiy.common.net.AbstractConnect;
-import com.sictiy.common.net.CmdHandler;
 import com.sictiy.common.net.JMessage;
 
 /**
@@ -20,6 +19,6 @@ public class ServerReadMessageHandler extends SimpleChannelInboundHandler<JMessa
     protected void channelRead0(ChannelHandlerContext ctx, JMessage msg)
     {
         AbstractConnect abstractConnect = (AbstractConnect) ctx.channel().attr(AttributeKey.valueOf("Connect")).get();
-        CmdHandler.handlerCmdMessage(abstractConnect, msg);
+        abstractConnect.getCmdHandler().handlerCmdMessage(abstractConnect, msg);
     }
 }

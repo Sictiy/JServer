@@ -4,23 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sictiy.common.entry.annotation.CommomAnnotation;
+import com.sictiy.common.entry.component.AbstractServerComponent;
 import com.sictiy.common.util.XmlUtil;
+import com.sictiy.processor.single.SingleInstance;
 
 
 /**
  * @author sictiy.xu
  * @version 2019/09/24 12:26
  **/
-public class ConfigComponent
+@SingleInstance
+public class ConfigComponent extends AbstractServerComponent
 {
-    private static final String USER_DIR = System.getProperty("user.dir");
+    private final String USER_DIR = System.getProperty("user.dir");
 
-    private static final String CONFIG_DIR = USER_DIR + "/src/main/resources/config/";
+    public final String RESOURCE_DIR = USER_DIR + "\\Resources\\";
 
-    private static Map<Class, Object> configMap = new HashMap<>();
+    private final String CONFIG_DIR = RESOURCE_DIR + "config\\";
+
+    private Map<Class, Object> configMap = new HashMap<>();
 
     @SuppressWarnings("unchecked")
-    public static <T> T getConfig(Class<T> clazz)
+    public <T> T getConfig(Class<T> clazz)
     {
         if (!configMap.containsKey(clazz))
         {
@@ -30,5 +35,11 @@ public class ConfigComponent
             return config;
         }
         return (T) configMap.get(clazz);
+    }
+
+    @Override
+    public boolean init()
+    {
+        return true;
     }
 }

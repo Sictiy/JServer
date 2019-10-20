@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 
 import com.sictiy.common.net.AbstractConnect;
+import com.sictiy.common.net.ICmdHandler;
 import com.sictiy.common.net.JMessage;
 import com.sictiy.common.net.JServerConnect;
 import com.sictiy.common.util.LogUtil;
@@ -16,14 +17,17 @@ import com.sictiy.common.util.LogUtil;
 public class ChannelStateHandler extends SimpleChannelInboundHandler<JMessage>
 {
     private AbstractConnect abstractConnect;
+    private ICmdHandler cmdHandler;
 
-    public ChannelStateHandler()
+    public ChannelStateHandler(ICmdHandler cmdHandler)
     {
         abstractConnect = null;
+        this.cmdHandler = cmdHandler;
     }
 
     public ChannelStateHandler(AbstractConnect abstractConnect)
     {
+        cmdHandler = null;
         this.abstractConnect = abstractConnect;
     }
 
@@ -36,13 +40,15 @@ public class ChannelStateHandler extends SimpleChannelInboundHandler<JMessage>
     public void channelActive(ChannelHandlerContext ctx) throws Exception
     {
         LogUtil.info("active channel!");
-        if (abstractConnect == null)
+        AbstractConnect connect = abstractConnect;
+        if (connect == null)
         {
-            abstractConnect = new JServerConnect();
+            connect = new JServerConnect();
+            connect.setCmdHandler(cmdHandler);
         }
-        abstractConnect.setChannel(ctx.channel());
-        abstractConnect.setActive(true);
-        ctx.channel().attr(AttributeKey.valueOf("Connect")).set(abstractConnect);
+        connect.setChannel(ctx.channel());
+        connect.setActive(true);
+        ctx.channel().attr(AttributeKey.valueOf("Connect")).set(connect);
     }
 
     @Override

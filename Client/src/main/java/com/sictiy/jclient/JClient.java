@@ -28,21 +28,30 @@ public class JClient
 
     public static void main(String[] args) throws InterruptedException
     {
-        jConnect = NetComponent.getConnection(ConfigComponent.getConfig(JServerConfig.class));
+        jConnect = NetComponent.getInstance().getConnection(ConfigComponent.getInstance().getConfig(JServerConfig.class));
+        testCmd();
+        jConnect.close();
+    }
+
+    private static void testCmd()
+    {
+        while (true)
+        {
+            String input = getInput("cmd:", false);
+            if (!doCmd(input))
+            {
+                break;
+            }
+        }
+    }
+
+    private static void testRegister() throws InterruptedException
+    {
         for (int i = 0; i < 100000; i++)
         {
             register("5" + i, "123");
             Thread.sleep(1000);
         }
-        //        while (true)
-        //        {
-        //            String input = getInput("cmd:", false);
-        //            if (!doCmd(input))
-        //            {
-        //                break;
-        //            }
-        //        }
-        jConnect.close();
     }
 
     private static boolean doCmd(String cmdString)
@@ -83,7 +92,7 @@ public class JClient
         {
             jConnect.close();
         }
-        jConnect = NetComponent.getConnection(ConfigComponent.getConfig(JServerConfig.class));
+        jConnect = NetComponent.getInstance().getConnection(ConfigComponent.getInstance().getConfig(JServerConfig.class));
     }
 
     private static void sendRegister(String[] strings)

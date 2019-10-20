@@ -12,21 +12,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.entry.component.AbstractServerComponent;
+import com.sictiy.common.net.JClientConnect;
 import com.sictiy.common.util.LogUtil;
+import com.sictiy.processor.single.SingleInstance;
 
 /**
  * @author sictiy.xu
  * @version 2019/09/24 12:22
  **/
-public class NetComponent
+@SingleInstance
+public class NetComponent extends AbstractServerComponent
 {
-    private static EventLoopGroup boss;
-    private static EventLoopGroup work;
-    private static ChannelFuture channelFuture;
+    private EventLoopGroup boss;
+    private EventLoopGroup work;
+    private ChannelFuture channelFuture;
+    private int port;
+    private ChannelInitializer initializer;
 
-    private static Map<Integer, JClientConnect> connectMap = new HashMap<>();
+    private Map<Integer, JClientConnect> connectMap = new HashMap<>();
 
-    public static void start(int port, ChannelInitializer initializer)
+    public void set(int port, ChannelInitializer initializer)
+    {
+        this.port = port;
+        this.initializer = initializer;
+    }
+
+    @Override
+    public boolean init()
     {
         try
         {
@@ -35,7 +48,6 @@ public class NetComponent
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(boss, work);
             bootstrap.channel(NioServerSocketChannel.class);
-            //            bootstrap.handler(new LoggingHandler(LogLevel.INFO));
             bootstrap.localAddress(new InetSocketAddress(port));
             bootstrap.childHandler(initializer);
             channelFuture = bootstrap.bind().sync();
@@ -43,15 +55,18 @@ public class NetComponent
         catch (InterruptedException e)
         {
             LogUtil.error("", e);
+            return false;
         }
+        return true;
     }
 
-    public static JClientConnect getConnection(JServerConfig config)
+    public JClientConnect getConnection(JServerConfig config)
     {
         return connectMap.computeIfAbsent(config.getId(), k -> JClientConnect.newConnect(config.getPort(), config.getAddress()));
     }
 
-    public static void stop()
+    @Override
+    public void stop()
     {
         channelFuture.channel().closeFuture().syncUninterruptibly();
         boss.shutdownGracefully().syncUninterruptibly();

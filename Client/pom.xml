@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-
     <build>
         <finalName>Client</finalName>
         <plugins>
@@ -36,6 +35,16 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>../Resources</directory>
+                <includes>
+                    <include>*.*</include>
+                    <include>**/mappers/*.*</include>
+                    <include>**/config/*.*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
     <artifactId>client</artifactId>

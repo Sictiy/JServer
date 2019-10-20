@@ -18,6 +18,7 @@ public abstract class AbstractConnect
     protected int port;
     protected String address;
     protected boolean isActive;
+    protected ICmdHandler cmdHandler;
 
     public void send(short code, FlatBufferBuilder builder)
     {

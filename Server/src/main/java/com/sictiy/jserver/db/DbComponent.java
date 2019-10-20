@@ -24,8 +24,7 @@ public class DbComponent
     {
         try
         {
-            String resource = "mybatis-config.xml";
-            InputStream inputStream = Resources.getResourceAsStream(resource);
+            InputStream inputStream = Resources.getResourceAsStream("./mybatis-config.xml");
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         }
         catch (IOException e)

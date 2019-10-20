@@ -6,7 +6,10 @@ package com.sictiy.common.entry.component;
  **/
 public abstract class AbstractServerComponent
 {
-    public abstract void stop();
+    public void stop()
+    {
+
+    }
 
     public abstract boolean init();
 }
