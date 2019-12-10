@@ -40,6 +40,14 @@ public class JPlayer implements IOnwer
         playerModuleManager.sendInfo();
     }
 
+    /**
+     * 离线调用
+     **/
+    public void onLogout()
+    {
+        playerModuleManager.savePlayerModules();
+    }
+
     public <T extends AbstractPlayerModule> T getPlayerModule(Class<T> clazz)
     {
         return playerModuleManager.getPlayerModule(clazz);

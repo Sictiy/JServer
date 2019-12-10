@@ -6,6 +6,7 @@ import com.sictiy.common.entry.hooker.IServer;
 import com.sictiy.common.entry.hooker.JShutDownHooker;
 import com.sictiy.common.net.JServerChannelInitializer;
 import com.sictiy.common.net.NetComponent;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
@@ -30,7 +31,9 @@ public class JServer implements IServer
     @Override
     public void onShutDown()
     {
-
+        GameMgrComponent.getInstance().stop();
+        NetComponent.getInstance().stop();
+        LogUtil.info("{} shutdown", this.getClass());
     }
 
     @Override
@@ -49,5 +52,6 @@ public class JServer implements IServer
         // 网络组件
         NetComponent.getInstance().set(ConfigComponent.getInstance().getConfig(JServerConfig.class).getPort(), new JServerChannelInitializer(new ServerCmdHandler()));
         NetComponent.getInstance().init();
+        LogUtil.info("{} start successful", this.getClass());
     }
 }

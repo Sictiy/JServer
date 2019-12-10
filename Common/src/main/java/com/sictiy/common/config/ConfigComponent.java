@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sictiy.common.entry.annotation.CommomAnnotation;
-import com.sictiy.common.entry.component.AbstractServerComponent;
 import com.sictiy.common.util.XmlUtil;
 import com.sictiy.processor.single.SingleInstance;
 
@@ -14,7 +13,7 @@ import com.sictiy.processor.single.SingleInstance;
  * @version 2019/09/24 12:26
  **/
 @SingleInstance
-public class ConfigComponent extends AbstractServerComponent
+public class ConfigComponent
 {
     private final String USER_DIR = System.getProperty("user.dir");
 
@@ -37,7 +36,6 @@ public class ConfigComponent extends AbstractServerComponent
         return (T) configMap.get(clazz);
     }
 
-    @Override
     public boolean init()
     {
         return true;

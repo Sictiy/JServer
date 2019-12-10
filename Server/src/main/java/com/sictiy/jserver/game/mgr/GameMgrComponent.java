@@ -33,4 +33,9 @@ public class GameMgrComponent
         }
         return true;
     }
+
+    public void stop()
+    {
+        JPlayerMgr.stop();
+    }
 }

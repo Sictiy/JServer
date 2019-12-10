@@ -85,4 +85,10 @@ public class JPlayerMgr
     {
         return allPlayerMap.values();
     }
+
+    public static void stop()
+    {
+        allPlayerMap.values().forEach(JPlayer::onLogout);
+        allPlayerMap.clear();
+    }
 }

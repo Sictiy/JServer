@@ -82,4 +82,10 @@ public class ModuleInfoModule
         var clazz = PlayerModuleComponent.getInstance().getPlayerModuleClazzByType(type);
         return getPlayerModule(clazz);
     }
+
+    public boolean savePlayerModules()
+    {
+        allModules.values().forEach(AbstractPlayerModule::save);
+        return true;
+    }
 }

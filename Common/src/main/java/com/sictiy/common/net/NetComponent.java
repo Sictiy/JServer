@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sictiy.common.config.xml.JServerConfig;
-import com.sictiy.common.entry.component.AbstractServerComponent;
-import com.sictiy.common.net.JClientConnect;
 import com.sictiy.common.util.LogUtil;
 import com.sictiy.processor.single.SingleInstance;
 
@@ -22,7 +20,7 @@ import com.sictiy.processor.single.SingleInstance;
  * @version 2019/09/24 12:22
  **/
 @SingleInstance
-public class NetComponent extends AbstractServerComponent
+public class NetComponent
 {
     private EventLoopGroup boss;
     private EventLoopGroup work;
@@ -38,7 +36,6 @@ public class NetComponent extends AbstractServerComponent
         this.initializer = initializer;
     }
 
-    @Override
     public boolean init()
     {
         try
@@ -65,7 +62,6 @@ public class NetComponent extends AbstractServerComponent
         return connectMap.computeIfAbsent(config.getId(), k -> JClientConnect.newConnect(config.getPort(), config.getAddress()));
     }
 
-    @Override
     public void stop()
     {
         channelFuture.channel().closeFuture().syncUninterruptibly();
