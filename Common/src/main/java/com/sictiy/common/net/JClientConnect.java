@@ -40,5 +40,6 @@ public class JClientConnect extends AbstractConnect
         channel.close().syncUninterruptibly();
         channel.closeFuture().syncUninterruptibly();
         group.shutdownGracefully().syncUninterruptibly();
+        onClose();
     }
 }

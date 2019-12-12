@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sictiy.jserver.db.mapper.JUniqueMapper">
+<mapper namespace="com.sictiy.common.db.mapper.JUniqueMapper">
     
-    <select id="queryJUniqueById" resultType="com.sictiy.jserver.db.pojo.JUniqueInfo">
+    <select id="queryJUniqueById" resultType="com.sictiy.common.db.pojo.JUniqueInfo">
         select * from u_unique where id = #{id}
     </select>
     
-    <select id="queryJUniqueAll" resultType="com.sictiy.jserver.db.pojo.JUniqueInfo">
+    <select id="queryJUniqueAll" resultType="com.sictiy.common.db.pojo.JUniqueInfo">
         select * from u_unique
     </select>
 
     <insert id="insertJUnique" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
-            parameterType="com.sictiy.jserver.db.pojo.JUniqueInfo">
+            parameterType="com.sictiy.common.db.pojo.JUniqueInfo">
         INSERT INTO u_unique (
                 id,
                 max
@@ -24,7 +24,7 @@
             );
     </insert>
 
-    <update id="updateJUnique" parameterType="com.sictiy.jserver.db.pojo.JUniqueInfo">
+    <update id="updateJUnique" parameterType="com.sictiy.common.db.pojo.JUniqueInfo">
         UPDATE u_unique
         <trim prefix="set" suffixOverrides=",">
                     <if test="max!=null">max = #{max},</if>

@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.sictiy.common.db.mapper.JUniqueMapper;
+import com.sictiy.common.db.pojo.JUniqueInfo;
 import com.sictiy.jserver.db.DbComponent;
-import com.sictiy.jserver.db.mapper.JUniqueMapper;
-import com.sictiy.jserver.db.pojo.JUniqueInfo;
 
 /**
  * @author 10460

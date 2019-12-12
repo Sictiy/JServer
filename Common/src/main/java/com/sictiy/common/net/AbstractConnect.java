@@ -38,4 +38,9 @@ public abstract class AbstractConnect
     {
         channel.writeAndFlush(jMessage);
     }
+
+    public void onClose()
+    {
+        isActive = false;
+    }
 }

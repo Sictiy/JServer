@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `u_module`;
 CREATE TABLE IF NOT EXISTS `u_module`
 (
     `id`         BIGINT(22) NOT NULL DEFAULT 0,

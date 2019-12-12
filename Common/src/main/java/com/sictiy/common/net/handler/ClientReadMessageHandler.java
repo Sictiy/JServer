@@ -24,4 +24,14 @@ public class ClientReadMessageHandler extends SimpleChannelInboundHandler<JMessa
             LogUtil.info("{}", commonMsg.str1());
         }
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception
+    {
+        if (ctx.channel().isActive())
+        {
+            ctx.close();
+            LogUtil.exception(cause);
+        }
+    }
 }

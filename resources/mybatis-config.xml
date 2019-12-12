@@ -38,5 +38,8 @@
   <mappers>
     <mapper resource="mappers/JUserMapper.xml"/>
     <mapper resource="mappers/JUniqueMapper.xml"/>
+    <mapper resource="mappers/JLevelMapper.xml"/>
+    <mapper resource="mappers/JModuleMapper.xml"/>
+    <mapper resource="mappers/JPlayerMapper.xml"/>
   </mappers>
 </configuration>

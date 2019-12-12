@@ -56,6 +56,15 @@ public class ChannelStateHandler extends SimpleChannelInboundHandler<JMessage>
     {
         LogUtil.info("inactive channel!");
         AbstractConnect abstractConnect = (AbstractConnect) ctx.channel().attr(AttributeKey.valueOf("Connect")).get();
-        abstractConnect.setActive(false);
+        abstractConnect.onClose();
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+    {
+        if (ctx.channel().isActive())
+        {
+            ctx.close();
+        }
     }
 }

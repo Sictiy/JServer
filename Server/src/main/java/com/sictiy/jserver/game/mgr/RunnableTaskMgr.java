@@ -19,7 +19,7 @@ public class RunnableTaskMgr
     public static boolean init()
     {
         // init runnable task queue
-        JExecutor executor = new JExecutor("RunnableTaskExecutor");
+        JExecutor executor = ExecutorMgr.getJExecutor(ExecutorMgr.COMMON_EXECUTOR);
         commonQueue = new TaskQueue<>(executor);
         delayTaskQueue = new DelayTaskQueue(executor);
         return true;

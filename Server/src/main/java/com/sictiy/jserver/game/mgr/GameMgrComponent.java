@@ -11,6 +11,10 @@ public class GameMgrComponent
 {
     public boolean init()
     {
+        if (!ExecutorMgr.init())
+        {
+            return false;
+        }
         if (!CmdTaskMgr.init())
         {
             return false;

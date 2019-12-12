@@ -14,9 +14,13 @@ public class Consumer
 {
     public static void main(String[] args)
     {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"consumer.xml"});
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"./consumer.xml"});
         context.start();
-        HelloService helloService = (HelloService) context.getBean("helloService");
-        System.out.println(helloService.sayHello("sictiy"));
+        for (int i = 0; i < 100; i++)
+        {
+            //            HelloService helloService = (HelloService) context.getBean("helloService");
+            HelloService helloService1 = context.getBean(HelloService.class);
+            System.out.println(helloService1.sayHello("sictiy"));
+        }
     }
 }

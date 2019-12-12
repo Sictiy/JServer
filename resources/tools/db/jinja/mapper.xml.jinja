@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sictiy.jserver.db.mapper.{{ meta.java_name }}Mapper">
+<mapper namespace="com.sictiy.common.db.mapper.{{ meta.java_name }}Mapper">
     {% for select in meta.selects %}
-    <select id="query{{ meta.java_name }}By{{ select.up_name() }}" resultType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+    <select id="query{{ meta.java_name }}By{{ select.up_name() }}" resultType="com.sictiy.common.db.pojo.{{ meta.java_name }}Info">
         select * from {{ meta.table }} where {{ select.name }} = #{{ '{' }}{{ select.name }}{{ '}' }}
     </select>
     {% endfor %}
-    <select id="query{{ meta.java_name }}All" resultType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+    <select id="query{{ meta.java_name }}All" resultType="com.sictiy.common.db.pojo.{{ meta.java_name }}Info">
         select * from {{ meta.table }}
     </select>
 
     <insert id="insert{{ meta.java_name }}" useGeneratedKeys="true" keyColumn="{{ meta.key.name }}" keyProperty="{{ meta.key.name }}"
-            parameterType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+            parameterType="com.sictiy.common.db.pojo.{{ meta.java_name }}Info">
         INSERT INTO {{ meta.table }} ({% for field in meta.fields -%}
             {% if loop.last %}
                 {{ field.name }}
@@ -30,7 +30,7 @@
         {%- endfor %});
     </insert>
 
-    <update id="update{{ meta.java_name }}" parameterType="com.sictiy.jserver.db.pojo.{{ meta.java_name }}Info">
+    <update id="update{{ meta.java_name }}" parameterType="com.sictiy.common.db.pojo.{{ meta.java_name }}Info">
         UPDATE {{ meta.table }}
         <trim prefix="set" suffixOverrides=",">
             {%- for field in meta.fields -%}

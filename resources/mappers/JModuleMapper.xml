@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sictiy.common.db.mapper.JModuleMapper">
+    
+    <select id="queryJModuleById" resultType="com.sictiy.common.db.pojo.JModuleInfo">
+        select * from u_module where id = #{id}
+    </select>
+    
+    <select id="queryJModuleAll" resultType="com.sictiy.common.db.pojo.JModuleInfo">
+        select * from u_module
+    </select>
+
+    <insert id="insertJModule" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.sictiy.common.db.pojo.JModuleInfo">
+        INSERT INTO u_module (
+                id,
+                userId,
+                moduleType,
+                isOpen
+            )
+        VALUES (
+                #{id},
+                #{userId},
+                #{moduleType},
+                #{isOpen}
+            );
+    </insert>
+
+    <update id="updateJModule" parameterType="com.sictiy.common.db.pojo.JModuleInfo">
+        UPDATE u_module
+        <trim prefix="set" suffixOverrides=",">
+                    <if test="userId!=null">userId = #{userId},</if>
+                    <if test="moduleType!=null">moduleType = #{moduleType},</if>
+                    <if test="isOpen!=null">isOpen = #{isOpen},</if>
+        </trim>
+        WHERE
+        (id = #{id});
+    </update>
+</mapper>

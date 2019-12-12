@@ -4,15 +4,17 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import com.sictiy.common.db.mapper.JUserMapper;
+import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.type.CmdType;
 import com.sictiy.common.entry.type.UniqueType;
 import com.sictiy.common.net.JServerConnect;
 import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.db.DbComponent;
-import com.sictiy.jserver.db.mapper.JUserMapper;
-import com.sictiy.jserver.db.pojo.JUserInfo;
 import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
 
@@ -76,14 +78,35 @@ public class JPlayerMgr
         return player;
     }
 
+    public static void kickPlayer(JPlayer player)
+    {
+        if (player.isOnline())
+        {
+            player.onDropLine();
+        }
+        allPlayerNameMap.remove(player.getName());
+        allPlayerMap.remove(player.getUserId());
+        LogUtil.info("kick:{}", player.getName());
+    }
+
     public static JPlayer getPlayerById(long userId)
     {
         return allPlayerMap.get(userId);
     }
 
+    public static JPlayer getPlayerByName(String name)
+    {
+        return allPlayerNameMap.get(name);
+    }
+
     public static Collection<JPlayer> getAllPlayer()
     {
         return allPlayerMap.values();
+    }
+
+    public static Collection<JPlayer> getAllConditionPlayer(Predicate<JPlayer> predicate)
+    {
+        return allPlayerMap.values().stream().filter(predicate).collect(Collectors.toList());
     }
 
     public static void stop()

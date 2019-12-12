@@ -12,7 +12,7 @@ public class HelloServiceImpl implements HelloService
     public String sayHello(String name)
     {
         String result = "hello " + name;
-        System.out.println("return: " + result);
+        System.out.println("return: " + result + this.toString());
         return result;
     }
 }

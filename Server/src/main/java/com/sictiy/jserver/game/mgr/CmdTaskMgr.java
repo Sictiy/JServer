@@ -19,7 +19,7 @@ public class CmdTaskMgr
     public static boolean init()
     {
         // init cmd task queue
-        JExecutor executor = new JExecutor("cmdTaskExecutor");
+        JExecutor executor = ExecutorMgr.getJExecutor(ExecutorMgr.CMD_EXECUTOR);
         commonQueue = new TaskQueue<>(executor);
         playerQueues = new ArrayList<>();
         for (int i = 0; i < executor.getMaxSize(); i++)

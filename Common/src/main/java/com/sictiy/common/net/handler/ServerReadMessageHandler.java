@@ -20,5 +20,7 @@ public class ServerReadMessageHandler extends SimpleChannelInboundHandler<JMessa
     {
         AbstractConnect abstractConnect = (AbstractConnect) ctx.channel().attr(AttributeKey.valueOf("Connect")).get();
         abstractConnect.getCmdHandler().handlerCmdMessage(abstractConnect, msg);
+        ctx.flush();
     }
+
 }

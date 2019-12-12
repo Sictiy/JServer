@@ -1,7 +1,8 @@
+DROP TABLE IF EXISTS `u_unique`;
 CREATE TABLE IF NOT EXISTS `u_unique`
 (
-    `id`  INT(22) NOT NULL DEFAULT 0,
-    `max` INT(11) NOT NULL DEFAULT 0,
+    `id`  INT(22) NOT NULL DEFAULT 0 COMMENT 'id',
+    `max` INT(11) NOT NULL DEFAULT 0 COMMENT '最大值',
     PRIMARY KEY (`id`)
 ) ENGINE = innoDB
   DEFAULT CHARSET = utf8 COMMENT = '唯一id';

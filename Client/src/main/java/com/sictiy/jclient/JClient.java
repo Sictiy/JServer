@@ -13,6 +13,7 @@ import com.sictiy.common.entry.type.CmdType;
 import com.sictiy.common.entry.type.RegexType;
 import com.sictiy.common.net.JClientConnect;
 import com.sictiy.common.net.NetComponent;
+import com.sictiy.common.util.LogUtil;
 import com.sictiy.common.util.StringUtil;
 
 /**
@@ -29,6 +30,7 @@ public class JClient
     public static void main(String[] args) throws InterruptedException
     {
         jConnect = NetComponent.getInstance().getConnection(ConfigComponent.getInstance().getConfig(JServerConfig.class));
+        LogUtil.info("client start successful!");
         testCmd();
         jConnect.close();
     }
@@ -61,11 +63,10 @@ public class JClient
         {
             return false;
         }
-        doCmdByType(cmdStrings);
-        return true;
+        return doCmdByType(cmdStrings);
     }
 
-    private static void doCmdByType(String[] strings)
+    private static boolean doCmdByType(String[] strings)
     {
         switch (strings[0])
         {
@@ -81,9 +82,12 @@ public class JClient
             case "connect":
                 newConnect();
                 break;
+            case "exit":
+                return false;
             default:
                 break;
         }
+        return true;
     }
 
     private static void newConnect()

@@ -6,5 +6,5 @@ package com.sictiy.common.net;
  **/
 public interface ICmdHandler
 {
-    public abstract void handlerCmdMessage(AbstractConnect abstractConnect, JMessage message);
+    void handlerCmdMessage(AbstractConnect abstractConnect, JMessage message);
 }

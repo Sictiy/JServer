@@ -12,4 +12,13 @@ import lombok.Setter;
 public class JServerConnect extends AbstractConnect
 {
     private IOnwer owner;
+
+    @Override
+    public void onClose()
+    {
+        if (owner != null)
+        {
+            owner.onDropLine();
+        }
+    }
 }

@@ -12,6 +12,8 @@ import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
 import com.sictiy.jserver.net.ServerCmdHandler;
+import com.sictiy.jserver.rpc.RpcComponent;
+import com.sictiy.jserver.scheduler.SchedulerComponent;
 import com.sictiy.jserver.template.TempComponent;
 
 /**
@@ -32,6 +34,7 @@ public class JServer implements IServer
     public void onShutDown()
     {
         GameMgrComponent.getInstance().stop();
+        SchedulerComponent.getInstance().stop();
         NetComponent.getInstance().stop();
         LogUtil.info("{} shutdown", this.getClass());
     }
@@ -49,6 +52,10 @@ public class JServer implements IServer
         DbComponent.getInstance().init();
         // 游戏Mgr组件
         GameMgrComponent.getInstance().init();
+        // rpc组件
+        RpcComponent.getInstance().init();
+        // 调度任务组件
+        SchedulerComponent.getInstance().init();
         // 网络组件
         NetComponent.getInstance().set(ConfigComponent.getInstance().getConfig(JServerConfig.class).getPort(), new JServerChannelInitializer(new ServerCmdHandler()));
         NetComponent.getInstance().init();

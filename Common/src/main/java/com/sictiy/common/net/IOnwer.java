@@ -6,4 +6,5 @@ package com.sictiy.common.net;
  **/
 public interface IOnwer
 {
+    void onDropLine();
 }

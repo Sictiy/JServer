@@ -20,7 +20,7 @@ public class DbComponent
 {
     private SqlSessionFactory sqlSessionFactory;
 
-    public void init()
+    public boolean init()
     {
         try
         {
@@ -30,7 +30,9 @@ public class DbComponent
         catch (IOException e)
         {
             LogUtil.error("", e);
+            return false;
         }
+        return true;
     }
 
     public <T> T getMapper(Class<T> clazz)
