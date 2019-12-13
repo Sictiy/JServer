@@ -1,5 +1,6 @@
 package com.sictiy.common.entry.services;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.sictiy.common.entry.annotation.CommomAnnotation;
 
 /**
@@ -7,6 +8,7 @@ import com.sictiy.common.entry.annotation.CommomAnnotation;
  * @version 2019/12/10 17:43
  **/
 @CommomAnnotation(str = "helloService")
+@Service
 public interface HelloService
 {
     String sayHello(String name);

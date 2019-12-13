@@ -1,6 +1,7 @@
-package com.jserver.provider.impl;
+package com.sictiy.common.entry.services.impl;
 
 import com.sictiy.common.entry.services.HelloService;
+import com.sictiy.common.util.LogUtil;
 
 /**
  * @author sictiy.xu
@@ -12,7 +13,7 @@ public class HelloServiceImpl implements HelloService
     public String sayHello(String name)
     {
         String result = "hello " + name;
-        System.out.println("return: " + result + this.toString());
+        LogUtil.info("return:{}", result);
         return result;
     }
 }
