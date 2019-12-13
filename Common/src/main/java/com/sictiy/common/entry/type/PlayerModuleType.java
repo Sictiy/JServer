@@ -6,5 +6,6 @@ package com.sictiy.common.entry.type;
  **/
 public interface PlayerModuleType
 {
-    short USER_INFO = 101;
+    int USER_INFO = 101;
+    int LEVEL = 102;
 }

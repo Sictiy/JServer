@@ -10,7 +10,15 @@ public interface {{ meta.java_name }}Mapper
     * @param {{ select.name }}
     */
     {{ meta.java_name }}Info query{{ meta.java_name }}By{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
-{% endfor %}
+{%- endfor %}
+{% for select in meta.list_selects %}
+    /**
+    * select {{ meta.java_name }} list by {{ select.name }}
+    * @param {{ select.name }}
+    */
+    {{ 'List<' }}{{ meta.java_name }}Info> query{{ meta.java_name }}ListBy{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
+{%- endfor %}
+
     /**
     * select all from table
     */

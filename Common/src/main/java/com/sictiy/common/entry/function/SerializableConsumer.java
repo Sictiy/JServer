@@ -1,4 +1,4 @@
-package com.sictiy.common.entry.services;
+package com.sictiy.common.entry.function;
 
 import java.io.Serializable;
 import java.util.function.Consumer;

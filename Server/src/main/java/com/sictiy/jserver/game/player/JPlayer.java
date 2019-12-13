@@ -7,14 +7,16 @@ import lombok.ToString;
 import java.util.Date;
 
 import com.google.flatbuffers.FlatBufferBuilder;
+import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.executor.TaskQueue;
 import com.sictiy.common.entry.type.CmdType;
 import com.sictiy.common.net.AbstractConnect;
 import com.sictiy.common.net.IOnwer;
+import com.sictiy.common.observer.AbstractSubject;
 import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.jserver.game.mgr.ExecutorMgr;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
-import com.sictiy.jserver.game.player.module.impl.ModuleInfoModule;
+import com.sictiy.jserver.game.player.module.ModuleManager;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
 
 /**
@@ -24,17 +26,19 @@ import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
 @Setter
 @Getter
 @ToString
-public class JPlayer implements IOnwer
+public class JPlayer extends AbstractSubject implements IOnwer
 {
     private AbstractConnect connect;
-    private ModuleInfoModule playerModuleManager;
+    private ModuleManager playerModuleManager;
     private TaskQueue<Runnable> taskQueue;
+    private JUserInfo userInfo;
     boolean online;
 
-    public JPlayer()
+    public JPlayer(JUserInfo userInfo)
     {
+        this.userInfo = userInfo;
         taskQueue = new TaskQueue<>(ExecutorMgr.getJExecutor(ExecutorMgr.PLAYER_EXECUTOR));
-        playerModuleManager = new ModuleInfoModule(this);
+        playerModuleManager = new ModuleManager(this);
     }
 
     /**
@@ -44,7 +48,6 @@ public class JPlayer implements IOnwer
     {
         online = true;
         playerModuleManager.loadPlayerModules();
-        playerModuleManager.checkModules();
         playerModuleManager.sendInfo();
     }
 
@@ -65,12 +68,12 @@ public class JPlayer implements IOnwer
 
     public Long getUserId()
     {
-        return playerModuleManager.getPlayerModule(UserInfoModule.class).getUserId();
+        return userInfo.getUserId();
     }
 
     public String getName()
     {
-        return playerModuleManager.getPlayerModule(UserInfoModule.class).getName();
+        return userInfo.getUserName();
     }
 
     public void send(short code, FlatBufferBuilder flatBufferBuilder)

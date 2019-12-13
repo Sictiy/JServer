@@ -1,7 +1,7 @@
-package com.sictiy.common.entry.services.impl;
+package com.sictiy.common.services.impl;
 
 import com.sictiy.common.entry.function.SerializableConsumer;
-import com.sictiy.common.entry.services.ConsumerService;
+import com.sictiy.common.services.ConsumerService;
 import com.sictiy.common.util.LogUtil;
 
 /**

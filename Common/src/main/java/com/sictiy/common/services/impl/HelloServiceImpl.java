@@ -1,6 +1,6 @@
-package com.sictiy.common.entry.services.impl;
+package com.sictiy.common.services.impl;
 
-import com.sictiy.common.entry.services.HelloService;
+import com.sictiy.common.services.HelloService;
 import com.sictiy.common.util.LogUtil;
 
 /**

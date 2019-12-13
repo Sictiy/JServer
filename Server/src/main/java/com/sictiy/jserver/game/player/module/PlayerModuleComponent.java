@@ -7,6 +7,7 @@ import java.util.Map;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.util.ClassUtil;
 import com.sictiy.common.util.LogUtil;
+import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.processor.single.SingleInstance;
 
 /**
@@ -16,7 +17,7 @@ import com.sictiy.processor.single.SingleInstance;
 @SingleInstance
 public class PlayerModuleComponent
 {
-    private Map<Short, Class<? extends AbstractPlayerModule>> allModules;
+    private Map<Integer, Class<? extends AbstractPlayerModule>> allModules;
 
     public boolean init()
     {
@@ -46,17 +47,19 @@ public class PlayerModuleComponent
         return allModules.values();
     }
 
-    public Class<? extends AbstractPlayerModule> getPlayerModuleClazzByType(short type)
+    public Class<? extends AbstractPlayerModule> getPlayerModuleClazzByType(int type)
     {
         return allModules.get(type);
     }
 
-    public AbstractPlayerModule getInstanceByModuleType(short type)
+    public AbstractPlayerModule getInstanceByModuleType(JPlayer player, int type)
     {
         var clazz = allModules.get(type);
         try
         {
-            return clazz.getDeclaredConstructor().newInstance();
+            var module = clazz.getDeclaredConstructor().newInstance();
+            module.setPlayer(player);
+            return module;
         }
         catch (Exception e)
         {

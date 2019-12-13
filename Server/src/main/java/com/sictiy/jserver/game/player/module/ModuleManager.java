@@ -1,8 +1,9 @@
-package com.sictiy.jserver.game.player.module.impl;
+package com.sictiy.jserver.game.player.module;
 
 import lombok.Getter;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,16 +16,14 @@ import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerEventType;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
-import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
-import com.sictiy.jserver.game.player.module.pure.ModuleLogic;
+import com.sictiy.jserver.game.player.module.logic.ModuleLogic;
 
 /**
  * @author sictiy.xu
  * @version 2019/10/07 15:46
  **/
 @Getter
-public class ModuleInfoModule
+public class ModuleManager
 {
     private JPlayer player;
 
@@ -32,7 +31,7 @@ public class ModuleInfoModule
 
     private Map<Integer, JModuleInfo> moduleInfoMap;
 
-    public ModuleInfoModule(JPlayer player)
+    public ModuleManager(JPlayer player)
     {
         this.player = player;
         allModules = new HashMap<>();
@@ -51,9 +50,9 @@ public class ModuleInfoModule
         });
         var group = moduleInfoMap.values().stream().filter(module -> !module.isOpen()).collect(Collectors.groupingBy(info -> ModuleLogic.checkModuleOpen(player, info.getModuleType())));
         // 能开启
-        group.get(true).forEach(moduleInfo -> ModuleLogic.moduleOpen(this, moduleInfo));
+        group.getOrDefault(true, Collections.emptyList()).forEach(moduleInfo -> ModuleLogic.moduleOpen(this, moduleInfo));
         // 不能开启
-        group.get(false).forEach(moduleInfo -> player.subscribe(PlayerEventType.DEFAULT, objects -> ModuleLogic.checkAndOpen(player, moduleInfo)));
+        group.getOrDefault(false, Collections.emptyList()).forEach(moduleInfo -> player.subscribe(PlayerEventType.DEFAULT, objects -> ModuleLogic.checkAndOpen(player, moduleInfo)));
     }
 
     public void sendInfo()
@@ -68,6 +67,11 @@ public class ModuleInfoModule
         {
             moduleInfoMap.put(info.getModuleType(), info);
         }
+    }
+
+    private void saveModuleInfo()
+    {
+        moduleInfoMap.values().forEach(info -> DbComponent.getInstance().getMapper(JModuleMapper.class).updateJModule(info));
     }
 
     public void loadPlayerModules()
@@ -86,6 +90,10 @@ public class ModuleInfoModule
     @SuppressWarnings("unchecked")
     public <T extends AbstractPlayerModule> T getPlayerModule(Class<T> clazz)
     {
+        if (allModules.containsKey(clazz))
+        {
+            return (T) allModules.get(clazz);
+        }
         PlayerModuleAnnotation annotation = clazz.getAnnotation(PlayerModuleAnnotation.class);
         if (annotation == null)
         {
@@ -112,6 +120,7 @@ public class ModuleInfoModule
 
     public boolean savePlayerModules()
     {
+        saveModuleInfo();
         allModules.values().forEach(AbstractPlayerModule::save);
         allModules.values().stream().filter(AbstractPlayerModule::isNewOpen).forEach(module -> module.setNewOpen(false));
         return true;

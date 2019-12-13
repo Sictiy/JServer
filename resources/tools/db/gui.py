@@ -69,24 +69,27 @@ class DbGui:
     def left_click(self, event):
         for item in self.left.selection():
             item_text = self.left.item(item, "values")
-            fields = get_fields_from_sql_columns(self.db.get_columns(item_text[0]))
+            sql_columns = self.db.get_columns(item_text[0])
+            fields = get_fields_from_sql_columns(sql_columns)
             self.current_table = Table(item_text, fields)
             self.set_right(get_columns_from_fields(fields))
             break
 
     def init_right(self):
-        self.right["columns"] = ("1", "2", "3", "4", "5")
+        self.right["columns"] = ("1", "2", "3", "4", "5", "6")
         self.right["show"] = "headings"
         self.right.column("1", width=50, anchor='center')
         self.right.column("2", width=50, anchor='center')
         self.right.column("3", width=50, anchor='center')
         self.right.column("4", width=50, anchor='center')
         self.right.column("5", width=50, anchor='center')
+        self.right.column("6", width=50, anchor='center')
         self.right.heading("1", text="column")
-        self.right.heading("2", text="java type")
-        self.right.heading("3", text="sql type")
-        self.right.heading("4", text="max size")
-        self.right.heading("5", text="comment")
+        self.right.heading("2", text="key")
+        self.right.heading("3", text="java type")
+        self.right.heading("4", text="sql type")
+        self.right.heading("5", text="max size")
+        self.right.heading("6", text="comment")
         self.right.place(relx=0.2, rely=0, relwidth=0.8, relheight=1)
         self.right.bind('<ButtonRelease-1>', self.right_click)
 

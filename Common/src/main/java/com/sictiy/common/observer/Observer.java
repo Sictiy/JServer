@@ -8,4 +8,5 @@ package com.sictiy.common.observer;
  **/
 public interface Observer
 {
+    void update(Object... objects);
 }

@@ -3,10 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sictiy.common.db.mapper.JModuleMapper">
-    
     <select id="queryJModuleById" resultType="com.sictiy.common.db.pojo.JModuleInfo">
         select * from u_module where id = #{id}
     </select>
+    
+    <select id="queryJModuleListByUserId" resultType="com.sictiy.common.db.pojo.JModuleInfo">
+            select * from u_module where userId = #{userId}
+        </select>
     
     <select id="queryJModuleAll" resultType="com.sictiy.common.db.pojo.JModuleInfo">
         select * from u_module

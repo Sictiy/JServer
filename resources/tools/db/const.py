@@ -35,8 +35,12 @@ const.CHARSET = 'utf8'
 
 # 代码生成包目录
 const.PACKAGE = 'com.sictiy.common.db'
+# 点击左侧是否输出数据库字段
+const.PRINT_COLUMNS = False
 # 数据库主键
 const.PRI = 'PRI'
+# 数据库索引
+const.MUL = 'MUL'
 # jinja模板读取目录
 const.JINJA_DIR = './jinja/'
 # mybatis 配置目录

@@ -16,7 +16,6 @@ import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
 
 /**
  * @author sictiy.xu
@@ -69,9 +68,8 @@ public class JPlayerMgr
 
     private static JPlayer onPlayerLogin(JServerConnect connect, JUserInfo userInfo)
     {
-        JPlayer player = new JPlayer();
+        JPlayer player = new JPlayer(userInfo);
         player.setConnect(connect);
-        player.getPlayerModule(UserInfoModule.class).setUserInfo(userInfo);
         player.login();
         allPlayerNameMap.put(userInfo.getUserName(), player);
         allPlayerMap.put(player.getUserId(), player);

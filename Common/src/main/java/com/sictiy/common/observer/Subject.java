@@ -8,4 +8,5 @@ package com.sictiy.common.observer;
  **/
 public interface Subject
 {
+    void notifyEvent(int eventType, Object... objects);
 }

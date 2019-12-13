@@ -21,5 +21,7 @@
     <!--开启包扫描，使dubbo的注解生效，让当前的被注解的类交给dubbo管理-->
     <!--    <dubbo:annotation package="com.jserver.consumer"/>-->
 
-    <dubbo:reference id="helloService" interface="com.sictiy.common.entry.services.HelloService"/>
+    <dubbo:reference id="helloService" interface="com.sictiy.common.services.HelloService"/>
+    <dubbo:reference id="consumerService" interface="com.sictiy.common.services.ConsumerService"/>
+    <dubbo:reference id="functionService" interface="com.sictiy.common.services.FunctionService"/>
 </beans>

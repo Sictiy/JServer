@@ -12,6 +12,12 @@ public interface JLevelMapper
     JLevelInfo queryJLevelById(long id);
 
     /**
+    * select JLevel list by userId
+    * @param userId
+    */
+    List<JLevelInfo> queryJLevelListByUserId(long userId);
+
+    /**
     * select all from table
     */
     List<JLevelInfo> queryJLevelAll();

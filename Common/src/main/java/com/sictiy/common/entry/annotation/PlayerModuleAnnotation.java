@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface PlayerModuleAnnotation
 {
-    short type() default 0;
+    int type() default 0;
 
     String desc() default "";
 }

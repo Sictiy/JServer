@@ -1,11 +1,13 @@
-package com.sictiy.jserver.game.player.module.pure;
+package com.sictiy.jserver.game.player.module.logic;
 
+import com.sictiy.common.db.mapper.JModuleMapper;
 import com.sictiy.common.db.pojo.JModuleInfo;
 import com.sictiy.common.entry.type.UniqueType;
+import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.mgr.UniqueMgr;
 import com.sictiy.jserver.game.player.JPlayer;
+import com.sictiy.jserver.game.player.module.ModuleManager;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
-import com.sictiy.jserver.game.player.module.impl.ModuleInfoModule;
 
 /**
  * 模块逻辑
@@ -37,15 +39,16 @@ public class ModuleLogic
         moduleInfo.setModuleType(type);
         moduleInfo.setUserId(player.getUserId());
         moduleInfo.setOpen(false);
+        DbComponent.getInstance().getMapper(JModuleMapper.class).insertJModule(moduleInfo);
         return moduleInfo;
     }
 
-    public static void moduleOpen(ModuleInfoModule moduleInfoModule, JModuleInfo moduleInfo)
+    public static void moduleOpen(ModuleManager moduleManager, JModuleInfo moduleInfo)
     {
         moduleInfo.setOpen(true);
-        var module = PlayerModuleComponent.getInstance().getInstanceByModuleType(moduleInfoModule.getPlayer(), moduleInfo.getModuleType());
+        var module = PlayerModuleComponent.getInstance().getInstanceByModuleType(moduleManager.getPlayer(), moduleInfo.getModuleType());
         module.open();
         module.setNewOpen(true);
-        moduleInfoModule.addNewModule(module);
+        moduleManager.addNewModule(module);
     }
 }

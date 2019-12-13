@@ -12,6 +12,12 @@ public interface JModuleMapper
     JModuleInfo queryJModuleById(long id);
 
     /**
+    * select JModule list by userId
+    * @param userId
+    */
+    List<JModuleInfo> queryJModuleListByUserId(long userId);
+
+    /**
     * select all from table
     */
     List<JModuleInfo> queryJModuleAll();

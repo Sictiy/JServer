@@ -9,7 +9,6 @@
         <module>Server</module>
         <module>Client</module>
         <module>Common</module>
-        <module>Provider</module>
         <module>Consumer</module>
     </modules>
 

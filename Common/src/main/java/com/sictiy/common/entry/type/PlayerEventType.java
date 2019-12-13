@@ -8,4 +8,5 @@ package com.sictiy.common.entry.type;
  **/
 public interface PlayerEventType
 {
+    int DEFAULT = 1;
 }

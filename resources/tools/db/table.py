@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from jinja2 import Template
 from lxml import etree
 
@@ -30,6 +29,8 @@ def get_fields_from_sql_columns(sql_columns):
     for a_column in sql_columns:
         field = TableField(a_column[0], a_column[1], a_column[2], a_column[3])
         fields.append(field)
+        if const.PRINT_COLUMNS:
+            print(a_column)
     return fields
 
 
@@ -37,7 +38,7 @@ def get_fields_from_sql_columns(sql_columns):
 def get_columns_from_fields(fields):
     columns = []
     for field in fields:
-        column_temp = [field.name, field.java_type, field.sql_type, field.type_size, field.comment]
+        column_temp = [field.name, field.key, field.java_type, field.sql_type, field.type_size, field.comment]
         columns.append(column_temp)
     return columns
 
@@ -85,6 +86,13 @@ def get_pri_key(fields):
     return ''
 
 
+def get_mul_key(fields):
+    for filed in fields:
+        if filed.key == const.MUL:
+            return filed
+    return ''
+
+
 # 一个数据表对应一个java类
 class Table:
     def __init__(self, table, fields):
@@ -100,10 +108,16 @@ class Table:
         self.java_name = self.get_java_name()
         # 主键
         self.key = get_pri_key(self.fields)
+        # mul索引
+        self.mul = get_mul_key(self.fields)
         # 需要额外添加的import
         self.imports = get_imports(self.fields)
         # 选择字段 用于查询
         self.selects = [self.key]
+        # 选择字段 用于批量查询
+        self.list_selects = []
+        if self.mul != '':
+            self.list_selects.append(self.mul)
 
     def set_selects(self, select):
         # select 为 已选的fields.name 列表

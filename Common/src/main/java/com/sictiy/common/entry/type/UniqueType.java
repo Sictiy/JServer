@@ -7,4 +7,6 @@ package com.sictiy.common.entry.type;
 public interface UniqueType
 {
     int USER = 101;
+
+    int MODULE = 102;
 }

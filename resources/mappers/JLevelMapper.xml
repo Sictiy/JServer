@@ -3,10 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sictiy.common.db.mapper.JLevelMapper">
-    
     <select id="queryJLevelById" resultType="com.sictiy.common.db.pojo.JLevelInfo">
         select * from u_level where id = #{id}
     </select>
+    
+    <select id="queryJLevelListByUserId" resultType="com.sictiy.common.db.pojo.JLevelInfo">
+            select * from u_level where userId = #{userId}
+        </select>
     
     <select id="queryJLevelAll" resultType="com.sictiy.common.db.pojo.JLevelInfo">
         select * from u_level
@@ -16,12 +19,14 @@
             parameterType="com.sictiy.common.db.pojo.JLevelInfo">
         INSERT INTO u_level (
                 id,
+                userId,
                 type,
                 value,
                 level
             )
         VALUES (
                 #{id},
+                #{userId},
                 #{type},
                 #{value},
                 #{level}
@@ -31,6 +36,7 @@
     <update id="updateJLevel" parameterType="com.sictiy.common.db.pojo.JLevelInfo">
         UPDATE u_level
         <trim prefix="set" suffixOverrides=",">
+                    <if test="userId!=null">userId = #{userId},</if>
                     <if test="type!=null">type = #{type},</if>
                     <if test="value!=null">value = #{value},</if>
                     <if test="level!=null">level = #{level},</if>
