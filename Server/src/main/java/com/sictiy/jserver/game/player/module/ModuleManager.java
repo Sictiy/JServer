@@ -62,7 +62,7 @@ public class ModuleManager
 
     private void loadModuleInfo()
     {
-        List<JModuleInfo> moduleInfoList = DbComponent.getInstance().getMapper(JModuleMapper.class).queryJModuleListByUserId(player.getUserId());
+        List<JModuleInfo> moduleInfoList = DbComponent.getInstance().getMapper(JModuleMapper.class).queryListByUserId(player.getUserId());
         for (JModuleInfo info : moduleInfoList)
         {
             moduleInfoMap.put(info.getModuleType(), info);
@@ -71,7 +71,7 @@ public class ModuleManager
 
     private void saveModuleInfo()
     {
-        moduleInfoMap.values().forEach(info -> DbComponent.getInstance().getMapper(JModuleMapper.class).updateJModule(info));
+        DbComponent.getInstance().insertOrUpdateBatch(moduleInfoMap.values(), JModuleMapper.class);
     }
 
     public void loadPlayerModules()

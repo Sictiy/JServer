@@ -1,7 +1,12 @@
 package com.sictiy.jserver.game.player.module.impl;
 
+import java.util.Map;
+
+import com.sictiy.common.db.mapper.JLevelMapper;
+import com.sictiy.common.db.pojo.JLevelInfo;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerModuleType;
+import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 
 /**
@@ -13,17 +18,21 @@ import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 @PlayerModuleAnnotation(type = PlayerModuleType.LEVEL)
 public class LevelModule extends AbstractPlayerModule
 {
+    Map<Integer, JLevelInfo> levelInfoMap;
 
     @Override
     public boolean load()
     {
-        return false;
+        var infoList = DbComponent.getInstance().getMapper(JLevelMapper.class).queryListByUserId(player.getUserId());
+        infoList.forEach(info -> levelInfoMap.put(info.getType(), info));
+        return true;
     }
 
     @Override
     public boolean save()
     {
-        return false;
+        DbComponent.getInstance().insertOrUpdateBatch(levelInfoMap.values(), JLevelMapper.class);
+        return true;
     }
 
     @Override

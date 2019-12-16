@@ -9,6 +9,7 @@ import java.util.Set;
 import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.common.config.ConfigComponent;
 import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.db.DataObject;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.buffer.RegisterReq;
@@ -60,16 +61,16 @@ public class Test
         DbComponent.getInstance().init();
         JUserMapper userMapper = DbComponent.getInstance().getMapper(JUserMapper.class);
 
-        List<JUserInfo> allUserInfo = userMapper.queryJUserAll();
+        List<JUserInfo> allUserInfo = userMapper.queryAll();
         allUserInfo.forEach(info -> LogUtil.info("{}", info));
-        JUserInfo jUserInfo = new JUserInfo();
+        var jUserInfo = DataObject.newDataObject(JUserInfo.class);
         jUserInfo.setCreateDate(new Date());
         jUserInfo.setPassword("123");
         jUserInfo.setUserId(allUserInfo.size() + 1);
         jUserInfo.setUserName("test");
-        userMapper.insertJUser(jUserInfo);
+        DbComponent.getInstance().insertOrUpdate(jUserInfo, JUserMapper.class);
 
-        JUserInfo selectUserInfo = userMapper.queryJUserByUserId((long) allUserInfo.size() + 1);
+        JUserInfo selectUserInfo = userMapper.queryByUserId((long) allUserInfo.size() + 1);
         LogUtil.info("{}", selectUserInfo);
     }
 

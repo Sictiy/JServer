@@ -2,35 +2,36 @@ package com.sictiy.common.db.mapper;
 
 import java.util.List;
 import com.sictiy.common.db.pojo.JModuleInfo;
+import com.sictiy.common.db.MapperInterface;
 
-public interface JModuleMapper
+public interface JModuleMapper extends MapperInterface<JModuleInfo>
 {
     /**
     * select JModule by id
-    * @param id
+    * @param id ""
     */
-    JModuleInfo queryJModuleById(long id);
+    JModuleInfo queryById(long id);
 
     /**
     * select JModule list by userId
-    * @param userId
+    * @param userId ""
     */
-    List<JModuleInfo> queryJModuleListByUserId(long userId);
+    List<JModuleInfo> queryListByUserId(long userId);
 
     /**
     * select all from table
     */
-    List<JModuleInfo> queryJModuleAll();
+    List<JModuleInfo> queryAll();
 
     /**
     * update JModule
-    * @param jmoduleInfo
+    * @param jmoduleInfo ""
     */
-    void updateJModule(JModuleInfo jmoduleInfo);
+    void update(JModuleInfo jmoduleInfo);
 
     /**
     * insert 
-    * @param jmoduleInfo
+    * @param jmoduleInfo ""
     */
-    void insertJModule(JModuleInfo jmoduleInfo);
+    void insert(JModuleInfo jmoduleInfo);
 }

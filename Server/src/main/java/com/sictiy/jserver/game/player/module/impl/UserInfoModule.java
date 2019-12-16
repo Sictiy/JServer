@@ -36,7 +36,7 @@ public class UserInfoModule extends AbstractPlayerModule
     @Override
     public boolean save()
     {
-        DbComponent.getInstance().getMapper(JUserMapper.class).updateJUser(userInfo);
+        DbComponent.getInstance().insertOrUpdate(userInfo, JUserMapper.class);
         LogUtil.info("save info success");
         return true;
     }

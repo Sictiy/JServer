@@ -2,35 +2,36 @@ package com.sictiy.common.db.mapper;
 
 import java.util.List;
 import com.sictiy.common.db.pojo.JLevelInfo;
+import com.sictiy.common.db.MapperInterface;
 
-public interface JLevelMapper
+public interface JLevelMapper extends MapperInterface<JLevelInfo>
 {
     /**
     * select JLevel by id
-    * @param id
+    * @param id ""
     */
-    JLevelInfo queryJLevelById(long id);
+    JLevelInfo queryById(long id);
 
     /**
     * select JLevel list by userId
-    * @param userId
+    * @param userId ""
     */
-    List<JLevelInfo> queryJLevelListByUserId(long userId);
+    List<JLevelInfo> queryListByUserId(long userId);
 
     /**
     * select all from table
     */
-    List<JLevelInfo> queryJLevelAll();
+    List<JLevelInfo> queryAll();
 
     /**
     * update JLevel
-    * @param jlevelInfo
+    * @param jlevelInfo ""
     */
-    void updateJLevel(JLevelInfo jlevelInfo);
+    void update(JLevelInfo jlevelInfo);
 
     /**
     * insert 
-    * @param jlevelInfo
+    * @param jlevelInfo ""
     */
-    void insertJLevel(JLevelInfo jlevelInfo);
+    void insert(JLevelInfo jlevelInfo);
 }

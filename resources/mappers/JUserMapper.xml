@@ -3,20 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sictiy.common.db.mapper.JUserMapper">
-    
-    <select id="queryJUserByUserId" resultType="com.sictiy.common.db.pojo.JUserInfo">
+    <select id="queryByUserId" resultType="com.sictiy.common.db.pojo.JUserInfo">
         select * from u_user where userId = #{userId}
     </select>
-    
-    <select id="queryJUserByUserName" resultType="com.sictiy.common.db.pojo.JUserInfo">
+    <select id="queryByUserName" resultType="com.sictiy.common.db.pojo.JUserInfo">
         select * from u_user where userName = #{userName}
     </select>
     
-    <select id="queryJUserAll" resultType="com.sictiy.common.db.pojo.JUserInfo">
+    
+    <select id="queryAll" resultType="com.sictiy.common.db.pojo.JUserInfo">
         select * from u_user
     </select>
 
-    <insert id="insertJUser" useGeneratedKeys="true" keyColumn="userId" keyProperty="userId"
+    <insert id="insert" useGeneratedKeys="true" keyColumn="userId" keyProperty="userId"
             parameterType="com.sictiy.common.db.pojo.JUserInfo">
         INSERT INTO u_user (
                 userId,
@@ -32,7 +31,7 @@
             );
     </insert>
 
-    <update id="updateJUser" parameterType="com.sictiy.common.db.pojo.JUserInfo">
+    <update id="update" parameterType="com.sictiy.common.db.pojo.JUserInfo">
         UPDATE u_user
         <trim prefix="set" suffixOverrides=",">
                     <if test="password!=null">password = #{password},</if>

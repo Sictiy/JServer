@@ -1,9 +1,8 @@
 package com.sictiy.jserver.game.player.module.logic;
 
-import com.sictiy.common.db.mapper.JModuleMapper;
+import com.sictiy.common.db.DataObject;
 import com.sictiy.common.db.pojo.JModuleInfo;
 import com.sictiy.common.entry.type.UniqueType;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.mgr.UniqueMgr;
 import com.sictiy.jserver.game.player.JPlayer;
 import com.sictiy.jserver.game.player.module.ModuleManager;
@@ -34,12 +33,11 @@ public class ModuleLogic
 
     public static JModuleInfo newModuleInfo(JPlayer player, int type)
     {
-        var moduleInfo = new JModuleInfo();
+        var moduleInfo = DataObject.newDataObject(JModuleInfo.class);
         moduleInfo.setId(UniqueMgr.getUnique(UniqueType.MODULE));
         moduleInfo.setModuleType(type);
         moduleInfo.setUserId(player.getUserId());
         moduleInfo.setOpen(false);
-        DbComponent.getInstance().getMapper(JModuleMapper.class).insertJModule(moduleInfo);
         return moduleInfo;
     }
 

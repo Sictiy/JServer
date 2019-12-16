@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.sictiy.common.db.DataObject;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.type.CmdType;
@@ -35,18 +36,18 @@ public class JPlayerMgr
 
     public static boolean register(JServerConnect connect, String name, String password)
     {
-        var user = DbComponent.getInstance().getMapper(JUserMapper.class).queryJUserByUserName(name);
+        var user = DbComponent.getInstance().getMapper(JUserMapper.class).queryByUserName(name);
         if (user != null)
         {
             connect.send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder("name is exist!"));
             return false;
         }
-        var userInfo = new JUserInfo();
+        var userInfo = DataObject.newDataObject(JUserInfo.class);
         userInfo.setUserName(name);
         userInfo.setPassword(password);
         userInfo.setCreateDate(new Date());
         userInfo.setUserId(UniqueMgr.getUnique(UniqueType.USER));
-        DbComponent.getInstance().getMapper(JUserMapper.class).insertJUser(userInfo);
+        DbComponent.getInstance().insertOrUpdate(userInfo, JUserMapper.class);
         return true;
     }
 
@@ -57,7 +58,7 @@ public class JPlayerMgr
             LogUtil.error("player is onLine");
             return null;
         }
-        var userInfo = DbComponent.getInstance().getMapper(JUserMapper.class).queryJUserByUserName(name);
+        var userInfo = DbComponent.getInstance().getMapper(JUserMapper.class).queryByUserName(name);
         if (userInfo == null || !userInfo.getPassword().equals(password))
         {
             connect.send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder("password error or account do not exist!"));

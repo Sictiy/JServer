@@ -2,29 +2,30 @@ package com.sictiy.common.db.mapper;
 
 import java.util.List;
 import com.sictiy.common.db.pojo.JUniqueInfo;
+import com.sictiy.common.db.MapperInterface;
 
-public interface JUniqueMapper
+public interface JUniqueMapper extends MapperInterface<JUniqueInfo>
 {
     /**
     * select JUnique by id
-    * @param id
+    * @param id ""
     */
-    JUniqueInfo queryJUniqueById(int id);
+    JUniqueInfo queryById(int id);
 
     /**
     * select all from table
     */
-    List<JUniqueInfo> queryJUniqueAll();
+    List<JUniqueInfo> queryAll();
 
     /**
     * update JUnique
-    * @param juniqueInfo
+    * @param juniqueInfo ""
     */
-    void updateJUnique(JUniqueInfo juniqueInfo);
+    void update(JUniqueInfo juniqueInfo);
 
     /**
     * insert 
-    * @param juniqueInfo
+    * @param juniqueInfo ""
     */
-    void insertJUnique(JUniqueInfo juniqueInfo);
+    void insert(JUniqueInfo juniqueInfo);
 }

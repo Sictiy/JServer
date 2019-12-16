@@ -3,16 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sictiy.common.db.mapper.JPlayerMapper">
-    
-    <select id="queryJPlayerByUserId" resultType="com.sictiy.common.db.pojo.JPlayerInfo">
+    <select id="queryByUserId" resultType="com.sictiy.common.db.pojo.JPlayerInfo">
         select * from u_player where userId = #{userId}
     </select>
     
-    <select id="queryJPlayerAll" resultType="com.sictiy.common.db.pojo.JPlayerInfo">
+    
+    <select id="queryAll" resultType="com.sictiy.common.db.pojo.JPlayerInfo">
         select * from u_player
     </select>
 
-    <insert id="insertJPlayer" useGeneratedKeys="true" keyColumn="userId" keyProperty="userId"
+    <insert id="insert" useGeneratedKeys="true" keyColumn="userId" keyProperty="userId"
             parameterType="com.sictiy.common.db.pojo.JPlayerInfo">
         INSERT INTO u_player (
                 userId,
@@ -26,7 +26,7 @@
             );
     </insert>
 
-    <update id="updateJPlayer" parameterType="com.sictiy.common.db.pojo.JPlayerInfo">
+    <update id="update" parameterType="com.sictiy.common.db.pojo.JPlayerInfo">
         UPDATE u_player
         <trim prefix="set" suffixOverrides=",">
                     <if test="sex!=null">sex = #{sex},</if>

@@ -2,37 +2,36 @@ package com.sictiy.common.db.mapper;
 
 import java.util.List;
 import com.sictiy.common.db.pojo.{{ meta.java_name }}Info;
+import com.sictiy.common.db.MapperInterface;
 
-public interface {{ meta.java_name }}Mapper
+public interface {{ meta.java_name }}Mapper extends MapperInterface<{{ meta.java_name }}Info>
 {{ '{' }}{% for select in meta.selects %}
     /**
     * select {{ meta.java_name }} by {{ select.name }}
-    * @param {{ select.name }}
+    * @param {{ select.name }} ""
     */
-    {{ meta.java_name }}Info query{{ meta.java_name }}By{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
-{%- endfor %}
-{% for select in meta.list_selects %}
+    {{ meta.java_name }}Info queryBy{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
+{% endfor %}{% for select in meta.list_selects %}
     /**
     * select {{ meta.java_name }} list by {{ select.name }}
-    * @param {{ select.name }}
+    * @param {{ select.name }} ""
     */
-    {{ 'List<' }}{{ meta.java_name }}Info> query{{ meta.java_name }}ListBy{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
-{%- endfor %}
-
+    {{ 'List<' }}{{ meta.java_name }}Info> queryListBy{{ select.up_name() }}({{ select.java_type }} {{ select.name }});
+{% endfor %}
     /**
     * select all from table
     */
-    {{ 'List<' }}{{ meta.java_name }}Info> query{{ meta.java_name }}All();
+    {{ 'List<' }}{{ meta.java_name }}Info> queryAll();
 
     /**
     * update {{ meta.java_name }}
-    * @param {{ meta.java_name | lower }}Info
+    * @param {{ meta.java_name | lower }}Info ""
     */
-    void update{{ meta.java_name }}({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
+    void update({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
 
     /**
     * insert {{ meta.jave_name }}
-    * @param {{ meta.java_name | lower }}Info
+    * @param {{ meta.java_name | lower }}Info ""
     */
-    void insert{{ meta.java_name }}({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
+    void insert({{ meta.java_name }}Info {{ meta.java_name | lower }}Info);
 }

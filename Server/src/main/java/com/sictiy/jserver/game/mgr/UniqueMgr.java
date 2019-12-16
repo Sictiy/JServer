@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.sictiy.common.db.DataObject;
 import com.sictiy.common.db.mapper.JUniqueMapper;
 import com.sictiy.common.db.pojo.JUniqueInfo;
 import com.sictiy.jserver.db.DbComponent;
@@ -28,7 +29,7 @@ public class UniqueMgr
     public static boolean init()
     {
         atomicIntegerMap = new ConcurrentHashMap<>();
-        List<JUniqueInfo> jUniqueInfos = DbComponent.getInstance().getMapper(JUniqueMapper.class).queryJUniqueAll();
+        List<JUniqueInfo> jUniqueInfos = DbComponent.getInstance().getMapper(JUniqueMapper.class).queryAll();
         jUniqueInfos.forEach(jUniqueInfo -> atomicIntegerMap.computeIfAbsent(getType(jUniqueInfo.getId()),
                 k -> new ConcurrentHashMap<>()).computeIfAbsent(getServerId(jUniqueInfo.getId()), k -> new UniqueInfo(jUniqueInfo)));
         return true;
@@ -87,11 +88,11 @@ public class UniqueMgr
 
         UniqueInfo(int type, int serverId)
         {
-            jUniqueInfo = new JUniqueInfo();
+            jUniqueInfo = DataObject.newDataObject(JUniqueInfo.class);
             jUniqueInfo.setId(getIdByTypeAndServerId(type, serverId));
             jUniqueInfo.setMax(MAX);
             id = new AtomicInteger(0);
-            DbComponent.getInstance().getMapper(JUniqueMapper.class).insertJUnique(jUniqueInfo);
+            DbComponent.getInstance().insertOrUpdate(jUniqueInfo, JUniqueMapper.class);
         }
 
         private int addAndGet()
@@ -100,7 +101,7 @@ public class UniqueMgr
             if (current >= jUniqueInfo.getMax())
             {
                 jUniqueInfo.setMax(jUniqueInfo.getMax() + MAX);
-                DbComponent.getInstance().getMapper(JUniqueMapper.class).updateJUnique(jUniqueInfo);
+                DbComponent.getInstance().insertOrUpdate(jUniqueInfo, JUniqueMapper.class);
             }
             return current;
         }
