@@ -18,7 +18,7 @@ import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 @PlayerModuleAnnotation(type = PlayerModuleType.LEVEL)
 public class LevelModule extends AbstractPlayerModule
 {
-    Map<Integer, JLevelInfo> levelInfoMap;
+    private Map<Integer, JLevelInfo> levelInfoMap;
 
     @Override
     public boolean load()

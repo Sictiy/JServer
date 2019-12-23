@@ -1,4 +1,4 @@
-package com.sictiy.jserver.game.player.module.logic;
+package com.sictiy.jserver.game.logic;
 
 import com.sictiy.common.db.DataObject;
 import com.sictiy.common.db.pojo.JModuleInfo;

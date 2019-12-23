@@ -32,7 +32,6 @@ public class JPlayer extends AbstractSubject implements IOnwer
     private ModuleManager playerModuleManager;
     private TaskQueue<Runnable> taskQueue;
     private JUserInfo userInfo;
-    boolean online;
 
     public JPlayer(JUserInfo userInfo)
     {
@@ -46,9 +45,17 @@ public class JPlayer extends AbstractSubject implements IOnwer
      **/
     public void login()
     {
-        online = true;
         playerModuleManager.loadPlayerModules();
         playerModuleManager.sendInfo();
+    }
+
+    /**
+     * 玩家断线
+     **/
+    @Override
+    public void onDropLine()
+    {
+        addTask(this::onLogout);
     }
 
     /**
@@ -56,11 +63,14 @@ public class JPlayer extends AbstractSubject implements IOnwer
      **/
     public void onLogout()
     {
-        online = false;
+        connect = null;
         playerModuleManager.getPlayerModule(UserInfoModule.class).setLogoutTime(new Date());
         playerModuleManager.savePlayerModules();
     }
 
+    /**
+     * 外部get
+     *****************************************************************************/
     public <T extends AbstractPlayerModule> T getPlayerModule(Class<T> clazz)
     {
         return playerModuleManager.getPlayerModule(clazz);
@@ -76,6 +86,14 @@ public class JPlayer extends AbstractSubject implements IOnwer
         return userInfo.getUserName();
     }
 
+    public boolean isOnline()
+    {
+        return connect != null;
+    }
+
+    /**
+     * 协议
+     ********************************************/
     public void send(short code, FlatBufferBuilder flatBufferBuilder)
     {
         connect.send(code, flatBufferBuilder);
@@ -86,14 +104,11 @@ public class JPlayer extends AbstractSubject implements IOnwer
         send(CmdType.ERROR, FlatBufferUtil.newCommonMsgBuilder(string));
     }
 
+    /**
+     * 队列
+     ***************************************************************/
     public void addTask(Runnable runnable)
     {
         taskQueue.submit(runnable);
-    }
-
-    @Override
-    public void onDropLine()
-    {
-        addTask(this::onLogout);
     }
 }

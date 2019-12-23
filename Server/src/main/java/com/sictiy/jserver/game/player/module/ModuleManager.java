@@ -14,9 +14,10 @@ import com.sictiy.common.db.mapper.JModuleMapper;
 import com.sictiy.common.db.pojo.JModuleInfo;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerEventType;
+import com.sictiy.common.observer.Observer;
 import com.sictiy.jserver.db.DbComponent;
+import com.sictiy.jserver.game.logic.ModuleLogic;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.game.player.module.logic.ModuleLogic;
 
 /**
  * @author sictiy.xu
@@ -52,7 +53,17 @@ public class ModuleManager
         // 能开启
         group.getOrDefault(true, Collections.emptyList()).forEach(moduleInfo -> ModuleLogic.moduleOpen(this, moduleInfo));
         // 不能开启
-        group.getOrDefault(false, Collections.emptyList()).forEach(moduleInfo -> player.subscribe(PlayerEventType.DEFAULT, objects -> ModuleLogic.checkAndOpen(player, moduleInfo)));
+        group.getOrDefault(false, Collections.emptyList()).forEach(moduleInfo -> player.subscribe(PlayerEventType.DEFAULT, new Observer()
+        {
+            @Override
+            public void update(Object... objects)
+            {
+                if (ModuleLogic.checkAndOpen(player, moduleInfo))
+                {
+                    player.unsubscribe(PlayerEventType.DEFAULT, this);
+                }
+            }
+        }));
     }
 
     public void sendInfo()

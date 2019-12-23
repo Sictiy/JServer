@@ -8,4 +8,5 @@ public interface PlayerModuleType
 {
     int USER_INFO = 101;
     int LEVEL = 102;
+    int BAG = 103;
 }
