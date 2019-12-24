@@ -1,4 +1,4 @@
-package com.sictiy.common.services;
+package com.sictiy.common.rpc.services;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.sictiy.common.entry.annotation.CommomAnnotation;

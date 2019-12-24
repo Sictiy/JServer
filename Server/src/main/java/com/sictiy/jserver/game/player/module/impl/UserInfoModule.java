@@ -5,12 +5,12 @@ import lombok.Setter;
 
 import java.util.Date;
 
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerModuleType;
 import com.sictiy.common.util.LogUtil;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 
 /**

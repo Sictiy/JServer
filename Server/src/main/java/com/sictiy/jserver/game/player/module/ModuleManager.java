@@ -10,12 +10,12 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JModuleMapper;
 import com.sictiy.common.db.pojo.JModuleInfo;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerEventType;
 import com.sictiy.common.observer.Observer;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.logic.ModuleLogic;
 import com.sictiy.jserver.game.player.JPlayer;
 

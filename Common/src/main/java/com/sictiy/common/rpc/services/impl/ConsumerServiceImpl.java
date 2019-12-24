@@ -1,7 +1,7 @@
-package com.sictiy.common.services.impl;
+package com.sictiy.common.rpc.services.impl;
 
 import com.sictiy.common.function.function.SerializableConsumer;
-import com.sictiy.common.services.ConsumerService;
+import com.sictiy.common.rpc.services.ConsumerService;
 import com.sictiy.common.util.LogUtil;
 
 /**
@@ -23,6 +23,5 @@ public class ConsumerServiceImpl implements ConsumerService
         {
             LogUtil.exception(e);
         }
-        LogUtil.info("consumer:{}", t);
     }
 }

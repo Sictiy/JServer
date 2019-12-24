@@ -2,11 +2,10 @@ package com.jserver.consumer;
 
 import java.io.Serializable;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.sictiy.common.services.ConsumerService;
-import com.sictiy.common.services.FunctionService;
-import com.sictiy.common.services.HelloService;
+import com.sictiy.common.rpc.RpcComponent;
+import com.sictiy.common.rpc.services.ConsumerService;
+import com.sictiy.common.rpc.services.FunctionService;
+import com.sictiy.common.rpc.services.HelloService;
 import com.sictiy.common.util.LogUtil;
 
 /**
@@ -19,13 +18,13 @@ public class Consumer implements Serializable
 {
     public static void main(String[] args)
     {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"./consumer.xml"});
-        context.start();
-        HelloService helloService1 = context.getBean(HelloService.class);
+        RpcComponent.getInstance().init("services/consumer.xml");
+        HelloService helloService1 = RpcComponent.getInstance().getService(HelloService.class);
         LogUtil.info("{}", helloService1.sayHello("sictiy"));
-        ConsumerService consumerService = context.getBean(ConsumerService.class);
+        ConsumerService consumerService = RpcComponent.getInstance().getService(ConsumerService.class);
         consumerService.accept(ConsumerService.testConsumer2, "Test");
-        FunctionService functionService = context.getBean(FunctionService.class);
+        FunctionService functionService = RpcComponent.getInstance().getService(FunctionService.class);
         LogUtil.info("{}", functionService.apply(FunctionService.echoFunction, "sictiy"));
+        LogUtil.warn("test log!");
     }
 }

@@ -10,12 +10,12 @@ import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.common.config.ConfigComponent;
 import com.sictiy.common.config.xml.JServerConfig;
 import com.sictiy.common.db.DataObject;
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.buffer.RegisterReq;
 import com.sictiy.common.util.ClassUtil;
 import com.sictiy.common.util.LogUtil;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.cmd.AbstractPlayerCmd;
 
 public class Test

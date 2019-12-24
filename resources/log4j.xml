@@ -65,13 +65,13 @@
 
     <!-- 指定logger的设置，additivity指示是否遵循缺省的继承机制-->
     <logger name="test.log4j.test8.UseLog4j" additivity="false">
-        <level value ="WARN"/>
+        <level value="ERROR"/>
         <appender-ref ref="DailyRollingFileAppender"/>
     </logger>
 
     <!--指定logger的设置，additivity指示是否遵循缺省的继承机制 -->
     <logger name="test.log4j.test8.UseLog4j_" additivity="false">
-        <level value ="ERROR"/>
+        <level value="WARN"/>
         <appender-ref ref="RollingFileAppender"/>
     </logger>
 
@@ -79,7 +79,6 @@
     <root>
         <level value ="INFO"/>
         <appender-ref ref="ConsoleAppender"/>
-        <appender-ref ref="DailyRollingFileAppender"/>
     </root>
 
 </log4j:configuration>

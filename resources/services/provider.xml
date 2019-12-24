@@ -18,14 +18,16 @@
     <!--协议必须使用dubbo，端口号是提供一个可供消费者使用的端口-->
     <dubbo:protocol name="dubbo" port="20881"/>
     <!--开启注解扫描，使dubbo的注解生效-->
-    <!--    <dubbo:annotation package="com.sictiy.common.services"/>-->
+    <!--    <dubbo:annotation package="com.sictiy.common.rpc.services"/>-->
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="com.sictiy.common.services.HelloService" ref="helloService"/>
-    <dubbo:service interface="com.sictiy.common.services.ConsumerService" ref="consumerService"/>
-    <dubbo:service interface="com.sictiy.common.services.FunctionService" ref="functionService"/>
+    <dubbo:service interface="com.sictiy.common.rpc.services.HelloService" ref="helloService"/>
+    <dubbo:service interface="com.sictiy.common.rpc.services.ConsumerService" ref="consumerService"/>
+    <dubbo:service interface="com.sictiy.common.rpc.services.FunctionService" ref="functionService"/>
+    <dubbo:service interface="com.sictiy.common.rpc.services.LogService" ref="logService"/>
     <!-- 和本地bean一样实现服务 -->
-    <bean id="helloService" class="com.sictiy.common.services.impl.HelloServiceImpl"/>
-    <bean id="consumerService" class="com.sictiy.common.services.impl.ConsumerServiceImpl"/>
-    <bean id="functionService" class="com.sictiy.common.services.impl.FunctionServiceImpl"/>
+    <bean id="helloService" class="com.sictiy.common.rpc.services.impl.HelloServiceImpl"/>
+    <bean id="consumerService" class="com.sictiy.common.rpc.services.impl.ConsumerServiceImpl"/>
+    <bean id="functionService" class="com.sictiy.common.rpc.services.impl.FunctionServiceImpl"/>
+    <bean id="logService" class="com.sictiy.common.rpc.services.impl.LogServerImpl"/>
 
 </beans>

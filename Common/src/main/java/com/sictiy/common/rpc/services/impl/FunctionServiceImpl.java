@@ -1,7 +1,7 @@
-package com.sictiy.common.services.impl;
+package com.sictiy.common.rpc.services.impl;
 
 import com.sictiy.common.function.function.SerializableFunction;
-import com.sictiy.common.services.FunctionService;
+import com.sictiy.common.rpc.services.FunctionService;
 import com.sictiy.common.util.LogUtil;
 
 /**
@@ -22,7 +22,6 @@ public class FunctionServiceImpl implements FunctionService
         {
             LogUtil.exception(e);
         }
-        LogUtil.info("function:{}", t);
         return result;
     }
 }

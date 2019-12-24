@@ -1,7 +1,6 @@
-package com.sictiy.common.services.impl;
+package com.sictiy.common.rpc.services.impl;
 
-import com.sictiy.common.services.HelloService;
-import com.sictiy.common.util.LogUtil;
+import com.sictiy.common.rpc.services.HelloService;
 
 /**
  * @author sictiy.xu
@@ -13,7 +12,6 @@ public class HelloServiceImpl implements HelloService
     public String sayHello(String name)
     {
         String result = "hello " + name;
-        LogUtil.info("return:{}", result);
         return result;
     }
 }

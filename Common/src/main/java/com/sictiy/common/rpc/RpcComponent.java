@@ -1,4 +1,4 @@
-package com.sictiy.jserver.rpc;
+package com.sictiy.common.rpc;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,13 +17,11 @@ public class RpcComponent
 {
     private ClassPathXmlApplicationContext context;
 
-    public boolean init()
+    public boolean init(String... config)
     {
         try
         {
-            ClassPathXmlApplicationContext providerContext = new ClassPathXmlApplicationContext(new String[]{"./provider.xml"});
-            context = new ClassPathXmlApplicationContext(new String[]{"./consumer.xml"});
-            providerContext.start();
+            context = new ClassPathXmlApplicationContext(config);
             context.start();
         }
         catch (Exception e)
@@ -42,11 +40,22 @@ public class RpcComponent
     @SuppressWarnings("unchecked")
     public <T> T getService(Class<T> clazz)
     {
-        CommomAnnotation annotation = clazz.getAnnotation(CommomAnnotation.class);
-        if (annotation == null)
+        if (context == null)
         {
-            return context.getBean(clazz);
+            return null;
         }
-        return (T) context.getBean(annotation.str());
+        CommomAnnotation annotation = clazz.getAnnotation(CommomAnnotation.class);
+        try
+        {
+            if (annotation == null)
+            {
+                return context.getBean(clazz);
+            }
+            return (T) context.getBean(annotation.str());
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 }

@@ -2,11 +2,11 @@ package com.sictiy.jserver.game.player.module.impl;
 
 import java.util.Map;
 
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JLevelMapper;
 import com.sictiy.common.db.pojo.JLevelInfo;
 import com.sictiy.common.entry.annotation.PlayerModuleAnnotation;
 import com.sictiy.common.entry.type.PlayerModuleType;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.module.AbstractPlayerModule;
 
 /**

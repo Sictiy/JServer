@@ -1,6 +1,9 @@
 package com.sictiy.common.bag;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import com.sictiy.common.entry.type.BagType;
 
 /**
  * 通用背包
@@ -10,7 +13,15 @@ import java.util.Map;
  **/
 public class CommonBag
 {
+    private BagType bagType;
+
     private Map<Integer, BagItem> allItems;
+
+    CommonBag(BagType bagType)
+    {
+        this.bagType = bagType;
+        allItems = new HashMap<>();
+    }
 
     public boolean addItem(int itemId, int count, int source)
     {

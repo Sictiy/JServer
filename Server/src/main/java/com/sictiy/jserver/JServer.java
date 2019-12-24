@@ -2,17 +2,17 @@ package com.sictiy.jserver;
 
 import com.sictiy.common.config.ConfigComponent;
 import com.sictiy.common.config.xml.JServerConfig;
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.hooker.IServer;
 import com.sictiy.common.hooker.JShutDownHooker;
 import com.sictiy.common.net.JServerChannelInitializer;
 import com.sictiy.common.net.NetComponent;
+import com.sictiy.common.rpc.RpcComponent;
 import com.sictiy.common.util.LogUtil;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
 import com.sictiy.jserver.net.ServerCmdHandler;
-import com.sictiy.jserver.rpc.RpcComponent;
 import com.sictiy.jserver.scheduler.SchedulerComponent;
 import com.sictiy.jserver.template.TempComponent;
 
@@ -53,7 +53,7 @@ public class JServer implements IServer
         // 游戏Mgr组件
         GameMgrComponent.getInstance().init();
         // rpc组件
-        RpcComponent.getInstance().init();
+        RpcComponent.getInstance().init("services/provider.xml");
         // 调度任务组件
         SchedulerComponent.getInstance().init();
         // 网络组件

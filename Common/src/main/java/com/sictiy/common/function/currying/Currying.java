@@ -47,10 +47,12 @@ public class Currying<T> implements Proto<T>
             LogUtil.info("{}", builder.toString());
         });
         p.handle("aa").handle("bb").handle("cc").handle();
-        System.out.println("end.....");
+        LogUtil.info("end");
 
         Proto<String> p1 = new Currying<>(a -> LogUtil.info("{}", a));
         p1.handle("dd").handle("ee").handle("ff").handle();
-        System.out.println("end.....");
+        LogUtil.info("end");
+        LogUtil.exception(new Throwable());
+
     }
 }

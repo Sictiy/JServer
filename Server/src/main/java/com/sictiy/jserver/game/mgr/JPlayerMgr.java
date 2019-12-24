@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.sictiy.common.db.DataObject;
+import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.type.CmdType;
@@ -15,7 +16,6 @@ import com.sictiy.common.entry.type.UniqueType;
 import com.sictiy.common.net.JServerConnect;
 import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.common.util.LogUtil;
-import com.sictiy.jserver.db.DbComponent;
 import com.sictiy.jserver.game.player.JPlayer;
 
 /**

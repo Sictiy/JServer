@@ -1,7 +1,11 @@
 package com.sictiy.common.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+
+import com.sictiy.common.rpc.RpcComponent;
+import com.sictiy.common.rpc.services.LogService;
+import com.sictiy.common.rpc.services.impl.LogServerImpl;
 
 
 /**
@@ -10,40 +14,58 @@ import org.slf4j.LoggerFactory;
  **/
 public class LogUtil
 {
-    public static Logger log = LoggerFactory.getLogger(LogUtil.class);
-
-    public static void info(String string, Object ... objects)
+    private static class ServiceHolder
     {
-        log.info(string, objects);
+        private static LogService logService = Optional.ofNullable(RpcComponent.getInstance().getService(LogService.class)).orElse(new LogServerImpl());
+    }
+
+    public static LogService getLog()
+    {
+        return ServiceHolder.logService;
+    }
+
+    public static void info(String string, Object... objects)
+    {
+        log((s, ob) -> getLog().info(s, ob), string, objects);
     }
 
     public static void info(String string, Throwable throwable)
     {
-        log.info(string, throwable);
+        log((s, ob) -> getLog().info(s, ob), string, throwable);
     }
 
-    public static void error(String string, Object ... objects)
+    public static void warn(String string, Object... objects)
     {
-        log.error(string, objects);
-    }
-
-    public static void error(String string, Throwable throwable)
-    {
-        log.error(string, throwable);
-    }
-
-    public static void exception(Throwable throwable)
-    {
-        log.error("", throwable);
-    }
-
-    public static void warn(String string, Object ... objects)
-    {
-        log.warn(string, objects);
+        log((s, ob) -> getLog().warn(s, ob), string, objects);
     }
 
     public static void warn(String string, Throwable throwable)
     {
-        log.warn(string, throwable);
+        log((s, ob) -> getLog().warn(s, ob), string, throwable);
+    }
+
+    public static void error(String string, Object... objects)
+    {
+        log((s, ob) -> getLog().error(s, ob), string, objects);
+    }
+
+    public static void error(String string, Throwable throwable)
+    {
+        log((s, ob) -> getLog().error(s, ob), string, throwable);
+    }
+
+    public static void exception(Throwable throwable)
+    {
+        error("", throwable);
+    }
+
+    public static void log(BiConsumer<String, Object[]> biConsumer, String string, Object... objects)
+    {
+        biConsumer.accept(getCaller() + " " + string, objects);
+    }
+
+    public static String getCaller()
+    {
+        return Thread.currentThread().getStackTrace()[4].toString();
     }
 }
