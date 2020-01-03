@@ -123,6 +123,13 @@
             <version>2.3.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.0</version>
+        </dependency>
+
         <!-- spring-->
         <dependency>
             <groupId>org.springframework</groupId>
