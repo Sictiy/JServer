@@ -1,0 +1,4 @@
+﻿唯一id,类型,最大值,等级,自动升级,备注,日期测试,日期list
+int,int,int,int,boolean,String,Date,List<Date>
+id,type,max,level,autoUp,comment,date,list
+1,1,10,1,1,123,2019-10-1,2019-10-1

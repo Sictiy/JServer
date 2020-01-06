@@ -1,13 +1,12 @@
 package com.sictiy.jserver.template;
 
-import java.lang.reflect.Type;
+import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.sictiy.common.config.ConfigComponent;
 import com.sictiy.common.entry.bean.BeanInterface;
 import com.sictiy.common.util.CsvUtil;
-import com.sictiy.common.util.LogUtil;
 
 /**
  * 抽象模板数据管理
@@ -28,21 +27,9 @@ abstract public class AbstractTempDataMgr<T extends BeanInterface>
 
     public boolean reload()
     {
-        try
-        {
-            for (var type : this.getClass().getDeclaredFields())
-            {
-                LogUtil.info("{}", type);
-            }
-            Type type = this.getClass().getDeclaredField("tClass").getGenericType();
-        }
-        catch (NoSuchFieldException e)
-        {
-            e.printStackTrace();
-        }
         beanMap = new ConcurrentHashMap<>();
         String csvPath = ConfigComponent.getInstance().RESOURCE_DIR + "csv\\";
-        var beanList = CsvUtil.getBeanList(tClass, csvPath);
+        var beanList = CsvUtil.getBeanList(getTClass(), csvPath);
         beanList.forEach(bean -> {
             beanMap.put(bean.getId(), bean);
         });
@@ -54,8 +41,13 @@ abstract public class AbstractTempDataMgr<T extends BeanInterface>
         return beanMap.get(id);
     }
 
+    @SuppressWarnings("unchecked")
     public Class<T> getTClass()
     {
+        if (tClass == null)
+        {
+            tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
         return tClass;
     }
 }
