@@ -1,4 +1,4 @@
-package com.sictiy.common.entry.hooker;
+package com.sictiy.common.hooker;
 
 /**
  * @author sictiy.xu

@@ -3,7 +3,7 @@ package com.sictiy.jserver.game.mgr;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.sictiy.common.entry.executor.JExecutor;
+import com.sictiy.common.executor.JExecutor;
 
 /**
  * 线程池管理

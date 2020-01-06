@@ -1,4 +1,4 @@
-package com.sictiy.common.entry.function;
+package com.sictiy.common.function.function;
 
 import java.io.Serializable;
 import java.util.function.Function;

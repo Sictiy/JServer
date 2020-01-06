@@ -1,4 +1,4 @@
-package com.sictiy.common.entry.executor;
+package com.sictiy.common.executor;
 
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.TimeUnit;

@@ -2,7 +2,7 @@ package com.sictiy.common.services;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.sictiy.common.entry.annotation.CommomAnnotation;
-import com.sictiy.common.entry.function.SerializableConsumer;
+import com.sictiy.common.function.function.SerializableConsumer;
 import com.sictiy.common.util.LogUtil;
 
 /**

@@ -8,8 +8,8 @@ import java.util.Date;
 
 import com.google.flatbuffers.FlatBufferBuilder;
 import com.sictiy.common.db.pojo.JUserInfo;
-import com.sictiy.common.entry.executor.TaskQueue;
 import com.sictiy.common.entry.type.CmdType;
+import com.sictiy.common.executor.TaskQueue;
 import com.sictiy.common.net.AbstractConnect;
 import com.sictiy.common.net.IOnwer;
 import com.sictiy.common.observer.AbstractSubject;

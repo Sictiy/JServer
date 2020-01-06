@@ -2,8 +2,8 @@ package com.sictiy.jserver;
 
 import com.sictiy.common.config.ConfigComponent;
 import com.sictiy.common.config.xml.JServerConfig;
-import com.sictiy.common.entry.hooker.IServer;
-import com.sictiy.common.entry.hooker.JShutDownHooker;
+import com.sictiy.common.hooker.IServer;
+import com.sictiy.common.hooker.JShutDownHooker;
 import com.sictiy.common.net.JServerChannelInitializer;
 import com.sictiy.common.net.NetComponent;
 import com.sictiy.common.util.LogUtil;
