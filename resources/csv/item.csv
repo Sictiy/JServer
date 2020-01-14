@@ -1,0 +1,4 @@
+﻿唯一id,背包类型,堆叠数,使用效果,有效期
+int,int,int,String,List<Integer>
+id,bagType,stackNum,useEffect,validity
+10001,0,99,,

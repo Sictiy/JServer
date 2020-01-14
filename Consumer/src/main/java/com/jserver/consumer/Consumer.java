@@ -18,7 +18,7 @@ public class Consumer implements Serializable
 {
     public static void main(String[] args)
     {
-        RpcComponent.getInstance().init("services/consumer.xml");
+        RpcComponent.getInstance().init("consumer.xml");
         HelloService helloService1 = RpcComponent.getInstance().getService(HelloService.class);
         LogUtil.info("{}", helloService1.sayHello("sictiy"));
         ConsumerService consumerService = RpcComponent.getInstance().getService(ConsumerService.class);

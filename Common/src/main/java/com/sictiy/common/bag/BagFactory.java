@@ -1,5 +1,6 @@
 package com.sictiy.common.bag;
 
+import com.sictiy.common.db.DataOwner;
 import com.sictiy.common.entry.type.BagType;
 
 /**
@@ -10,8 +11,8 @@ import com.sictiy.common.entry.type.BagType;
  **/
 public class BagFactory
 {
-    public static CommonBag newBag(int type)
+    public static CommonBag newBag(int type, DataOwner owner)
     {
-        return new CommonBag(BagType.getBagType(type));
+        return new CommonBag(BagType.getBagType(type), owner);
     }
 }

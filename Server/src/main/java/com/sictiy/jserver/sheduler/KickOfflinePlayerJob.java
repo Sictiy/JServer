@@ -1,11 +1,11 @@
-package com.sictiy.jserver.scheduler.impl;
+package com.sictiy.jserver.sheduler;
 
 import com.sictiy.common.entry.annotation.JobAnnotation;
+import com.sictiy.common.scheduler.AbstractSchedulerJob;
 import com.sictiy.common.util.TimeUtil;
 import com.sictiy.jserver.game.mgr.JPlayerMgr;
 import com.sictiy.jserver.game.mgr.RunnableTaskMgr;
 import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
-import com.sictiy.jserver.scheduler.AbstractSchedulerJob;
 
 /**
  * 移除离线玩家

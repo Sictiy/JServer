@@ -2,6 +2,9 @@ package com.sictiy.jserver;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +19,7 @@ import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.buffer.RegisterReq;
 import com.sictiy.common.util.ClassUtil;
 import com.sictiy.common.util.LogUtil;
+import com.sictiy.common.util.TimeUtil;
 import com.sictiy.jserver.game.cmd.AbstractPlayerCmd;
 
 public class Test
@@ -23,7 +27,75 @@ public class Test
     public static void main(String[] args) throws IOException
     {
         //        testResource();
-        testDb();
+        //        testDb();
+        testStream();
+        //        testStreamAndFor();
+    }
+
+    private static void testStream()
+    {
+        String[] words = {"hello", "my", "world"};
+        var strStream = Arrays.stream(words);
+        var tempStream = strStream.filter(word -> word.length() > 3)
+                .map(word -> word.split(""))
+                .flatMap(Arrays::stream)
+                .map(String::toUpperCase);
+        var result = tempStream.reduce((a, b) -> a + "," + b);
+        LogUtil.info(result.orElse("null"));
+    }
+
+    private static void testStreamAndFor()
+    {
+        Collection<Integer> ints = new ArrayList<>();
+        int sum = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            ints.add(i);
+        }
+        long time = TimeUtil.getCurrentTimeMillis();
+        for (int i = 0; i < 10000; i++)
+        {
+            var tempList = new ArrayList<Integer>();
+            for (int j : ints)
+            {
+                if ((j >= 50) && (j & 1) == 1)
+                {
+                    tempList.add(j);
+                }
+            }
+            for (int j = 0; j < tempList.size(); j++)
+            {
+                tempList.set(j, tempList.get(j) + 10);
+            }
+            sum = 0;
+            for (int j : tempList)
+            {
+                sum += j;
+            }
+        }
+        LogUtil.info("{}", sum);
+        LogUtil.info("time:{}", TimeUtil.getCurrentTimeMillis() - time);
+        time = TimeUtil.getCurrentTimeMillis();
+        for (int i = 0; i < 10000; i++)
+        {
+            sum = 0;
+            for (int j : ints)
+            {
+                if ((j >= 50) && (j & 1) == 1)
+                {
+                    sum += j + 10;
+                }
+            }
+        }
+        LogUtil.info("{}", sum);
+        LogUtil.info("time:{}", TimeUtil.getCurrentTimeMillis() - time);
+        time = TimeUtil.getCurrentTimeMillis();
+        for (int i = 0; i < 10000; i++)
+        {
+            sum = ints.stream().filter(j -> j >= 50 && (j & 1) == 1).map(j -> j + 10).reduce(Integer::sum).orElse(0);
+        }
+        LogUtil.info("{}", sum);
+        LogUtil.info("time:{}", TimeUtil.getCurrentTimeMillis() - time);
     }
 
     private static void testResource()

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sictiy.common.db.mapper.JItemMapper">
+    <select id="queryById" resultType="com.sictiy.common.db.pojo.JItemInfo">
+        select * from u_item where id = #{id}
+    </select>
+    
+    <select id="queryListByUserId" resultType="com.sictiy.common.db.pojo.JItemInfo">
+            select * from u_item where userId = #{userId}
+        </select>
+    
+    <select id="queryAll" resultType="com.sictiy.common.db.pojo.JItemInfo">
+        select * from u_item
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.sictiy.common.db.pojo.JItemInfo">
+        INSERT INTO u_item (
+                id,
+                userId,
+                tempId,
+                count,
+                index,
+                expireTime,
+                exist
+            )
+        VALUES (
+                #{id},
+                #{userId},
+                #{tempId},
+                #{count},
+                #{index},
+                #{expireTime},
+                #{exist}
+            );
+    </insert>
+
+    <update id="update" parameterType="com.sictiy.common.db.pojo.JItemInfo">
+        UPDATE u_item
+        <trim prefix="set" suffixOverrides=",">
+                    <if test="userId!=null">userId = #{userId},</if>
+                    <if test="tempId!=null">tempId = #{tempId},</if>
+                    <if test="count!=null">count = #{count},</if>
+                    <if test="index!=null">index = #{index},</if>
+                    <if test="expireTime!=null">expireTime = #{expireTime},</if>
+                    <if test="exist!=null">exist = #{exist},</if>
+        </trim>
+        WHERE
+        (id = #{id});
+    </update>
+</mapper>

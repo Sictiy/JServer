@@ -1,4 +1,4 @@
-package com.sictiy.jserver.scheduler;
+package com.sictiy.common.scheduler;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

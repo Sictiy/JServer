@@ -43,4 +43,14 @@ public class BagModule extends AbstractPlayerModule
     {
         return true;
     }
+
+    public boolean useItem(int itemId, int count, int source)
+    {
+        return true;
+    }
+
+    public boolean payItem(int itemId, int count, int source)
+    {
+        return true;
+    }
 }

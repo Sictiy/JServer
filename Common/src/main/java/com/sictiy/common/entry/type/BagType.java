@@ -8,16 +8,20 @@ package com.sictiy.common.entry.type;
  **/
 public enum BagType
 {
-    DEFAULT(0, 99),
-    MAIN_BAG(1, 99);
+    DEFAULT(0, 99, false),
+    MAIN_BAG(1, 99, true);
+
     private final int value;
 
     private final int capacity;
 
-    BagType(int value, int capacity)
+    private final boolean show;
+
+    BagType(int value, int capacity, boolean show)
     {
         this.value = value;
         this.capacity = capacity;
+        this.show = show;
     }
 
     public static BagType getBagType(int type)

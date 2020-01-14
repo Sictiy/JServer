@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.sictiy.common.entry.annotation.CommomAnnotation;
-import com.sictiy.common.entry.bean.BeanInterface;
+import com.sictiy.common.template.bean.BeanInterface;
 
 /**
  * csv工具

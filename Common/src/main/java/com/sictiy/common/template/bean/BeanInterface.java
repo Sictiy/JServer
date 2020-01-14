@@ -1,4 +1,4 @@
-package com.sictiy.common.entry.bean;
+package com.sictiy.common.template.bean;
 
 /**
  * @author sictiy.xu

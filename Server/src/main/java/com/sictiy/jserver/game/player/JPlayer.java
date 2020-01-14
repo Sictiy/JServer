@@ -7,11 +7,12 @@ import lombok.ToString;
 import java.util.Date;
 
 import com.google.flatbuffers.FlatBufferBuilder;
+import com.sictiy.common.db.DataOwner;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.type.CmdType;
 import com.sictiy.common.executor.TaskQueue;
 import com.sictiy.common.net.AbstractConnect;
-import com.sictiy.common.net.IOnwer;
+import com.sictiy.common.net.IOwner;
 import com.sictiy.common.observer.AbstractSubject;
 import com.sictiy.common.util.FlatBufferUtil;
 import com.sictiy.jserver.game.mgr.ExecutorMgr;
@@ -26,7 +27,7 @@ import com.sictiy.jserver.game.player.module.impl.UserInfoModule;
 @Setter
 @Getter
 @ToString
-public class JPlayer extends AbstractSubject implements IOnwer
+public class JPlayer extends AbstractSubject implements IOwner, DataOwner
 {
     private AbstractConnect connect;
     private ModuleManager playerModuleManager;
@@ -76,7 +77,8 @@ public class JPlayer extends AbstractSubject implements IOnwer
         return playerModuleManager.getPlayerModule(clazz);
     }
 
-    public Long getUserId()
+    @Override
+    public long getUserId()
     {
         return userInfo.getUserId();
     }

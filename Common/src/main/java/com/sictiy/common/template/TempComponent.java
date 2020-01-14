@@ -1,9 +1,9 @@
-package com.sictiy.jserver.template;
+package com.sictiy.common.template;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.sictiy.common.entry.bean.BeanInterface;
+import com.sictiy.common.template.bean.BeanInterface;
 import com.sictiy.common.util.ClassUtil;
 import com.sictiy.processor.single.SingleInstance;
 

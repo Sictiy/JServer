@@ -8,13 +8,13 @@ import com.sictiy.common.hooker.JShutDownHooker;
 import com.sictiy.common.net.JServerChannelInitializer;
 import com.sictiy.common.net.NetComponent;
 import com.sictiy.common.rpc.RpcComponent;
+import com.sictiy.common.scheduler.SchedulerComponent;
+import com.sictiy.common.template.TempComponent;
 import com.sictiy.common.util.LogUtil;
 import com.sictiy.jserver.game.cmd.CmdComponent;
 import com.sictiy.jserver.game.mgr.GameMgrComponent;
 import com.sictiy.jserver.game.player.module.PlayerModuleComponent;
 import com.sictiy.jserver.net.ServerCmdHandler;
-import com.sictiy.jserver.scheduler.SchedulerComponent;
-import com.sictiy.jserver.template.TempComponent;
 
 /**
  * @author sictiy.xu
@@ -53,7 +53,7 @@ public class JServer implements IServer
         // 游戏Mgr组件
         GameMgrComponent.getInstance().init();
         // rpc组件
-        RpcComponent.getInstance().init("services/provider.xml");
+        RpcComponent.getInstance().init("provider.xml");
         // 调度任务组件
         SchedulerComponent.getInstance().init();
         // 网络组件

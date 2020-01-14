@@ -41,5 +41,6 @@
     <mapper resource="mappers/JLevelMapper.xml"/>
     <mapper resource="mappers/JModuleMapper.xml"/>
     <mapper resource="mappers/JPlayerMapper.xml"/>
+    <mapper resource="mappers/JItemMapper.xml"/>
   </mappers>
 </configuration>

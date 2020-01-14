@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class JServerConnect extends AbstractConnect
 {
-    private IOnwer owner;
+    private IOwner owner;
 
     @Override
     public void onClose()

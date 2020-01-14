@@ -18,6 +18,8 @@ public class DataObject
 {
     protected int optionType;
 
+    private DataOwner dataOwner;
+
     public DataObject()
     {
         optionType = DataOptionType.NONE;
@@ -29,5 +31,12 @@ public class DataObject
         var instance = clazz.getDeclaredConstructor().newInstance();
         instance.setOptionType(DataOptionType.INSERT);
         return instance;
+    }
+
+    public static <T extends DataObject> T newDataObject(Class<T> clazz, DataOwner owner)
+    {
+        T dataIns = newDataObject(clazz);
+        dataIns.setDataOwner(owner);
+        return dataIns;
     }
 }

@@ -1,13 +1,14 @@
-package com.sictiy.common.entry.bean;
+package com.sictiy.common.template.bean;
 
 import lombok.Getter;
 import lombok.ToString;
-import com.opencsv.bean.CsvDate;
-import com.opencsv.bean.CsvBindAndSplitByName;
-import com.opencsv.bean.CsvBindByName;
+
 import java.util.Date;
 import java.util.List;
 
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 import com.sictiy.common.entry.annotation.CommomAnnotation;
 
 /**

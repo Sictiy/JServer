@@ -24,6 +24,30 @@ public class LogUtil
         return ServiceHolder.logService;
     }
 
+    public static void error(Object... objects)
+    {
+        for (Object o : objects)
+        {
+            log((s, ob) -> getLog().error(s, ob), "{}", objects);
+        }
+    }
+
+    public static void warn(Object... objects)
+    {
+        for (Object o : objects)
+        {
+            log((s, ob) -> getLog().warn(s, ob), "{}", objects);
+        }
+    }
+
+    public static void info(Object... objects)
+    {
+        for (Object o : objects)
+        {
+            log((s, ob) -> getLog().info(s, ob), "{}", objects);
+        }
+    }
+
     public static void info(String string, Object... objects)
     {
         log((s, ob) -> getLog().info(s, ob), string, objects);

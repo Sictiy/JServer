@@ -1,9 +1,9 @@
-package com.sictiy.jserver.scheduler.impl;
+package com.sictiy.jserver.sheduler;
 
 import com.sictiy.common.entry.annotation.JobAnnotation;
+import com.sictiy.common.scheduler.AbstractSchedulerJob;
 import com.sictiy.jserver.game.mgr.JPlayerMgr;
 import com.sictiy.jserver.game.player.JPlayer;
-import com.sictiy.jserver.scheduler.AbstractSchedulerJob;
 
 /**
  * 模块数据保存
