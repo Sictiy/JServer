@@ -2,6 +2,7 @@ package com.sictiy.logServer;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.sictiy.common.rpc.RpcComponent;
 import com.sictiy.common.util.LogUtil;
 
 /**
@@ -14,8 +15,7 @@ public class LogProvider
 {
     public static void main(String[] args)
     {
-        ClassPathXmlApplicationContext providerContext = new ClassPathXmlApplicationContext(new String[]{"provider.xml"});
-        providerContext.start();
+        RpcComponent.getInstance().init("log-provider.xml");
         LogUtil.info("start log provider successful!");
         while (true)
         {

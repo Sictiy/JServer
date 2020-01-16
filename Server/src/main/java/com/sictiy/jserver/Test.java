@@ -39,7 +39,9 @@ public class Test
         var tempStream = strStream.filter(word -> word.length() > 3)
                 .map(word -> word.split(""))
                 .flatMap(Arrays::stream)
-                .map(String::toUpperCase);
+                .distinct()
+                .map(String::toUpperCase)
+                .sorted();
         var result = tempStream.reduce((a, b) -> a + "," + b);
         LogUtil.info(result.orElse("null"));
     }
