@@ -17,6 +17,7 @@ import com.sictiy.common.db.DbComponent;
 import com.sictiy.common.db.mapper.JUserMapper;
 import com.sictiy.common.db.pojo.JUserInfo;
 import com.sictiy.common.entry.buffer.RegisterReq;
+import com.sictiy.common.rpc.RpcComponent;
 import com.sictiy.common.util.ClassUtil;
 import com.sictiy.common.util.LogUtil;
 import com.sictiy.common.util.TimeUtil;
@@ -43,6 +44,7 @@ public class Test
                 .map(String::toUpperCase)
                 .sorted();
         var result = tempStream.reduce((a, b) -> a + "," + b);
+        RpcComponent.getInstance().init("consumer.xml");
         LogUtil.info(result.orElse("null"));
     }
 

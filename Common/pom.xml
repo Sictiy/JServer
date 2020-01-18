@@ -8,19 +8,20 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>common</artifactId>
 
     <build>
         <finalName>Common</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-        </plugins>
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--                <configuration>-->
+<!--                    <outputDirectory>${basedir}/../Deploy/bin</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
         <resources>
             <resource>
                 <directory>../Resources</directory>
@@ -29,7 +30,6 @@
                     <include>**/mappers/*.*</include>
                     <include>**/config/*.*</include>
                     <include>**/csv/*.*</include>
-                    <include>**/tools/zookeeper/*.*</include>
                 </includes>
             </resource>
         </resources>
@@ -174,8 +174,4 @@
             <version>1.2.47</version>
         </dependency>
     </dependencies>
-
-    <artifactId>common</artifactId>
-
-
 </project>

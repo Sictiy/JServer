@@ -87,7 +87,7 @@ public class ClassUtil
         }
         catch (Exception e)
         {
-            LogUtil.error("", e);
+            LogUtil.error("catch exception, packageName:{}, {}", packageName, e.getMessage());
         }
         return classes;
     }

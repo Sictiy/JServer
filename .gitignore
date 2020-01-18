@@ -11,3 +11,5 @@ build
 /*/log
 /*/myself-sandbox
 /*/*/.idea/
+/Deploy/bin
+/Deploy/lib

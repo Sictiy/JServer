@@ -9,18 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>client</artifactId>
+
     <build>
         <finalName>Client</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -28,16 +21,16 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>false</addClasspath>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>../lib/</classpathPrefix>
                             <mainClass>com.sictiy.jclient.JClient</mainClass>
                         </manifest>
                     </archive>
+                    <outputDirectory>${basedir}/../Deploy/bin</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <artifactId>client</artifactId>
 
     <dependencies>
         <dependency>
