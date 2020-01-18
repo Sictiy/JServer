@@ -32,6 +32,6 @@ public class CmdTask implements Runnable
         {
             LogUtil.exception(e);
         }
-        LogUtil.info("cmd endRun time:{}", System.currentTimeMillis() - startTime);
+        LogUtil.info("cmd {} endRun time:{}", cmd.getClass(), System.currentTimeMillis() - startTime);
     }
 }

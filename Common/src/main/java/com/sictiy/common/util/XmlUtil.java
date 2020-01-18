@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -43,6 +44,22 @@ public class XmlUtil
             return (T) unmarshaller.unmarshal(fileReader);
         }
         catch (JAXBException | FileNotFoundException | ClassCastException e)
+        {
+            LogUtil.error("", e);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T convertXmlToObject(Class<T> t, InputStream inputStream)
+    {
+        try
+        {
+            JAXBContext context = JAXBContext.newInstance(t);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (T) unmarshaller.unmarshal(inputStream);
+        }
+        catch (JAXBException | ClassCastException e)
         {
             LogUtil.error("", e);
         }

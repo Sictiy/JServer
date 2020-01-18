@@ -33,32 +33,31 @@ public class JServer implements IServer
     @Override
     public void onShutDown()
     {
-        GameMgrComponent.getInstance().stop();
-        SchedulerComponent.getInstance().stop();
-        NetComponent.getInstance().stop();
-        LogUtil.info("{} shutdown", this.getClass());
+        doRun(GameMgrComponent.getInstance()::stop, "gameMgr stop");
+        doRun(SchedulerComponent.getInstance()::stop, "scheduler stop");
+        doRun(NetComponent.getInstance()::stop, "net stop");
     }
 
     @Override
     public void start()
     {
         // cmd组件
-        CmdComponent.getInstance().init();
+        doRun(CmdComponent.getInstance()::init, "cmd init");
         // 玩家module
-        PlayerModuleComponent.getInstance().init();
+        doRun(PlayerModuleComponent.getInstance()::init, "player module init");
         // 数据模板组件
-        TempComponent.getInstance().init();
+        doRun(TempComponent.getInstance()::init, "template init");
         // 数据库组件
-        DbComponent.getInstance().init();
+        doRun(DbComponent.getInstance()::init, "db init");
         // 游戏Mgr组件
-        GameMgrComponent.getInstance().init();
+        doRun(GameMgrComponent.getInstance()::init, "gameMgr init");
         // rpc组件
-        RpcComponent.getInstance().init("provider.xml");
+        doRun(() -> RpcComponent.getInstance().init("provider.xml"), "rpc init");
         // 调度任务组件
-        SchedulerComponent.getInstance().init();
+        doRun(SchedulerComponent.getInstance()::init, "scheduler init");
         // 网络组件
         NetComponent.getInstance().set(ConfigComponent.getInstance().getConfig(JServerConfig.class).getPort(), new JServerChannelInitializer(new ServerCmdHandler()));
-        NetComponent.getInstance().init();
+        doRun(NetComponent.getInstance()::init, "net init");
         LogUtil.info("{} start successful", this.getClass());
     }
 }

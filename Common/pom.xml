@@ -12,24 +12,45 @@
 
     <build>
         <finalName>Common</finalName>
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version>3.1.1</version>-->
-<!--                <configuration>-->
-<!--                    <outputDirectory>${basedir}/../Deploy/bin</outputDirectory>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/../Deploy/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../Resources</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>/csv/**</include>
+<!--                                        <include>/config/**</include>-->
+<!--                                        <include>/mappers/**</include>-->
+<!--                                        <include>/**.xml</include>-->
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
         <resources>
             <resource>
                 <directory>../Resources</directory>
                 <includes>
-                    <include>*.*</include>
+                    <include>**.xml</include>
                     <include>**/mappers/*.*</include>
                     <include>**/config/*.*</include>
-                    <include>**/csv/*.*</include>
                 </includes>
             </resource>
         </resources>

@@ -64,8 +64,18 @@ public class NetComponent
 
     public void stop()
     {
-        channelFuture.channel().closeFuture().syncUninterruptibly();
-        boss.shutdownGracefully().syncUninterruptibly();
-        work.shutdownGracefully().syncUninterruptibly();
+        if (channelFuture != null)
+        {
+            channelFuture.channel().close().syncUninterruptibly();
+            channelFuture.channel().closeFuture().syncUninterruptibly();
+        }
+        if (boss != null)
+        {
+            boss.shutdownGracefully().syncUninterruptibly();
+        }
+        if (work != null)
+        {
+            work.shutdownGracefully().syncUninterruptibly();
+        }
     }
 }

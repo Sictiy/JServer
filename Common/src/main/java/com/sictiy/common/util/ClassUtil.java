@@ -70,11 +70,11 @@ public class ClassUtil
                         var currentPackageName = packageName;
                         if (isPackage)
                         {
-                            currentPackageName = entryName.substring(0, entryName.lastIndexOf('/')).replace(RegexType.SLASH, RegexType.DOT);
+                            currentPackageName = entryName.substring(0, entryName.lastIndexOf('/')).replaceAll(RegexType.SLASH, RegexType.DOT);
                         }
                         if (entryName.endsWith(".class") && !entry.isDirectory())
                         {
-                            String className = entryName.substring(currentPackageName.length() + 1, entryName.length() + 6);
+                            String className = entryName.substring(currentPackageName.length() + 1, entryName.length() - 6);
                             classNames.add(currentPackageName + '.' + className);
                         }
                     }
@@ -87,7 +87,8 @@ public class ClassUtil
         }
         catch (Exception e)
         {
-            LogUtil.error("catch exception, packageName:{}, {}", packageName, e.getMessage());
+            LogUtil.error("catch exception, packageName:{}", packageName);
+            LogUtil.exception(e);
         }
         return classes;
     }

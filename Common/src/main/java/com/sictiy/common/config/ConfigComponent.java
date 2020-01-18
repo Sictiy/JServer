@@ -1,7 +1,12 @@
 package com.sictiy.common.config;
 
+import lombok.SneakyThrows;
+
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.ibatis.io.Resources;
 
 import com.sictiy.common.entry.annotation.CommomAnnotation;
 import com.sictiy.common.util.XmlUtil;
@@ -17,19 +22,21 @@ public class ConfigComponent
 {
     private final String USER_DIR = System.getProperty("user.dir");
 
-    public final String RESOURCE_DIR = USER_DIR + "\\Resources\\";
-
-    private final String CONFIG_DIR = RESOURCE_DIR + "config\\";
+    public final String RESOURCE_DIR = USER_DIR + "\\..\\Resources\\";
 
     private Map<Class, Object> configMap = new HashMap<>();
 
     @SuppressWarnings("unchecked")
+    @SneakyThrows
     public <T> T getConfig(Class<T> clazz)
     {
         if (!configMap.containsKey(clazz))
         {
             CommomAnnotation annotation = clazz.getAnnotation(CommomAnnotation.class);
-            T config = XmlUtil.convertXmlToObject(clazz, CONFIG_DIR + annotation.str() + ".xml");
+
+            InputStream inputStream = Resources.getResourceAsStream("config/jServerConfig.xml");
+
+            T config = XmlUtil.convertXmlToObject(clazz, inputStream);
             configMap.put(clazz, config);
             return config;
         }
