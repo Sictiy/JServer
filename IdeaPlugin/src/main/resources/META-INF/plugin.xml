@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>Sictiy-idea-plugin</id>
     <name>SictiyIdeaPlugin</name>
-    <vendor email="xlm104600@gmail.com" url="http://www.sictiy.xyz">sictiy.xu</vendor>
+    <vendor email="xlm104600@gmail.com" url="http://www.sictiy.cn">sictiy.xu</vendor>
     <version>0.1</version>
 
     <description><![CDATA[The First Plugin ............................................]]></description>

@@ -12,7 +12,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiModifier;
-import com.sictiy.plugin.psi.PsiMethodBuilder;
+import com.sictiy.plugin.psi.LombokLightMethodBuilder;
 import com.sictiy.plugin.util.PsiClassUtil;
 import com.sictiy.plugin.util.PsiMethodUtil;
 import com.sictiy.processor.single.SingleInstance;
@@ -78,8 +78,10 @@ public class SingleInstanceProcessor extends AbstractProcessor
     {
         final PsiManager psiManager = psiClass.getManager();
 
-        final PsiMethodBuilder methodBuilder = new PsiMethodBuilder(psiManager, METHOD_NAME);
+        final LombokLightMethodBuilder methodBuilder = new LombokLightMethodBuilder(psiManager, METHOD_NAME);
         methodBuilder.withMethodReturnType(PsiClassUtil.getTypeWithGenerics(psiClass));
+        methodBuilder.withContainingClass(psiClass);
+        methodBuilder.withNavigationElement(psiAnnotation);
         methodBuilder.withModifier(PsiModifier.PUBLIC);
         methodBuilder.withModifier(PsiModifier.STATIC);
         return methodBuilder;

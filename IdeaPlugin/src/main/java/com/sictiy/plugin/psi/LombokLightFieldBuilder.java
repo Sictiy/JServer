@@ -1,6 +1,5 @@
 package com.sictiy.plugin.psi;
 
-import de.plushnikov.intellij.plugin.icon.LombokIcons;
 
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -20,6 +19,7 @@ import com.intellij.psi.impl.CheckUtil;
 import com.intellij.psi.impl.light.LightFieldBuilder;
 import com.intellij.psi.impl.light.LightModifierList;
 import com.intellij.util.IncorrectOperationException;
+import com.sictiy.plugin.icon.LombokIcons;
 
 /**
  * @author Plushnikov Michail

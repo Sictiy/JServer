@@ -1,8 +1,5 @@
 package com.sictiy.plugin.psi;
 
-import de.plushnikov.intellij.plugin.icon.LombokIcons;
-import de.plushnikov.intellij.plugin.util.ReflectionUtil;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -35,6 +32,8 @@ import com.intellij.psi.impl.light.LightMethodBuilder;
 import com.intellij.psi.impl.light.LightModifierList;
 import com.intellij.psi.impl.light.LightTypeParameterListBuilder;
 import com.intellij.util.IncorrectOperationException;
+import com.sictiy.plugin.icon.LombokIcons;
+import com.sictiy.plugin.util.ReflectionUtil;
 
 /**
  * @author Plushnikov Michail
