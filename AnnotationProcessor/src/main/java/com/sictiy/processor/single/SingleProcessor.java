@@ -13,7 +13,6 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 
 import com.google.auto.service.AutoService;
 import com.sun.source.tree.Tree;
@@ -80,20 +79,21 @@ public class SingleProcessor extends AbstractProcessor
 
     private void createReturnInstance(JCTree.JCClassDecl jcClassDecl, JCTree.JCClassDecl innerClass)
     {
+        // 方法是静态的公共的
         JCTree.JCModifiers fieldMod = treeMaker.Modifiers(Flags.PUBLIC | Flags.STATIC);
-
+        // 返回类型 是 单例类的类型
         JCTree.JCIdent singletonClassType = treeMaker.Ident(jcClassDecl.name);
-        //获取 return 语句块
-        JCTree.JCBlock body = addReturnBlock(innerClass);
+        // 构造return 语句块
+        JCTree.JCBlock body = createReturnBlock(innerClass);
         //创建方法
-        JCTree.JCMethodDecl methodDec = treeMaker.MethodDef(treeMaker.Modifiers(Flags.PUBLIC | Flags.STATIC),
+        JCTree.JCMethodDecl methodDec = treeMaker.MethodDef(fieldMod,
                 this.names.fromString("getInstance"),
                 singletonClassType, nil(), nil(), nil(), body, null);
 
         jcClassDecl.defs = jcClassDecl.defs.prepend(methodDec);
     }
 
-    private JCTree.JCBlock addReturnBlock(JCTree.JCClassDecl innerClass)
+    private JCTree.JCBlock createReturnBlock(JCTree.JCClassDecl innerClass)
     {
         JCTree.JCIdent holderInnerClassType = treeMaker.Ident(innerClass.name);
 
@@ -108,6 +108,7 @@ public class SingleProcessor extends AbstractProcessor
 
     private JCTree.JCClassDecl createInnerClass(JCTree.JCClassDecl jcClassDecl)
     {
+        // 创建内联类
         JCTree.JCClassDecl innerClass = treeMaker.ClassDef(
                 treeMaker.Modifiers(Flags.PRIVATE | Flags.STATIC),
                 names.fromString(jcClassDecl.name + "Holder"),  //类名
@@ -116,35 +117,30 @@ public class SingleProcessor extends AbstractProcessor
                 nil(),                                           //implementing
                 nil()                                            //类定义的详细语句，包括字段，方法定义等
         );
-        addInstanceVar(innerClass, jcClassDecl);              //给类添加添加 instance变量
-        jcClassDecl.defs = jcClassDecl.defs.append(innerClass);
-        return innerClass;
-    }
 
-    private void addInstanceVar(JCTree.JCClassDecl innerClass, JCTree.JCClassDecl jcClassDecl)
-    {
+        // 给内联类添加一个私有静态的单例的属性 instance
+        // instance 的类型为原静态类
         JCTree.JCIdent singletonClassType = treeMaker.Ident(jcClassDecl.name); //获取注解的类型
-        //new SingletonRegistry() 的语句
+        // instance 的赋值语句
         JCTree.JCNewClass newKeyword = treeMaker.NewClass(null,                 //encl,enclosingExpression lambda 箭头吗？不太清楚
                 nil(),                //参数类型列表
                 singletonClassType,   //待创建对象的类型
-                nil(),                //参数蕾西
+                nil(),                //参数类型
                 null);                //类定义
-
+        // instance 是私有，静态，final的
         JCTree.JCModifiers fieldMod = treeMaker.Modifiers(Flags.PRIVATE | Flags.STATIC | Flags.FINAL);
-        //定义变量
+        // 定义这个instance变量
         JCTree.JCVariableDecl instanceVar = treeMaker.VarDef(
                 fieldMod,                                                        //修饰符
                 names.fromString("instance"),                                    //变量名
                 singletonClassType,                                              //类型
                 newKeyword);                                                     //赋值语句
+        // 将instance 添加到内联函数中
         innerClass.defs = innerClass.defs.prepend(instanceVar);
-    }
 
-    //
-    private void note(String message)
-    {
-        this.messager.printMessage(Diagnostic.Kind.NOTE, message);
+        // 将内联类添加到原单例类中
+        jcClassDecl.defs = jcClassDecl.defs.append(innerClass);
+        return innerClass;
     }
 
     private void createPrivateConstructor(JCTree.JCClassDecl singletonClass)
@@ -181,12 +177,9 @@ public class SingleProcessor extends AbstractProcessor
         if (jcTree.getKind() == Tree.Kind.METHOD)
         {
             JCTree.JCMethodDecl jcMethodDecl = (JCTree.JCMethodDecl) jcTree;
-            if (isConstructor(jcMethodDecl)
+            return isConstructor(jcMethodDecl)
                     && isNoArgsMethod(jcMethodDecl)
-                    && isPublicMethod(jcMethodDecl))
-            {
-                return true;
-            }
+                    && isPublicMethod(jcMethodDecl);
         }
         return false;
     }
@@ -194,32 +187,20 @@ public class SingleProcessor extends AbstractProcessor
     private static boolean isConstructor(JCTree.JCMethodDecl jcMethodDecl)
     {
         String name = jcMethodDecl.name.toString();
-        if ("<init>".equals(name))
-        {
-            return true;
-        }
-        return false;
+        return "<init>".equals(name);
     }
 
     private static boolean isNoArgsMethod(JCTree.JCMethodDecl jcMethodDecl)
     {
         List<JCTree.JCVariableDecl> jcVariableDeclList = jcMethodDecl.getParameters();
-        if (jcVariableDeclList == null
-                || jcVariableDeclList.size() == 0)
-        {
-            return true;
-        }
-        return false;
+        return jcVariableDeclList == null
+                || jcVariableDeclList.size() == 0;
     }
 
     private boolean isPublicMethod(JCTree.JCMethodDecl jcMethodDecl)
     {
         JCTree.JCModifiers jcModifiers = jcMethodDecl.getModifiers();
         Set<Modifier> modifiers = jcModifiers.getFlags();
-        if (modifiers.contains(Modifier.PUBLIC))
-        {
-            return true;
-        }
-        return false;
+        return modifiers.contains(Modifier.PUBLIC);
     }
 }
