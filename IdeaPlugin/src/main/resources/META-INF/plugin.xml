@@ -10,15 +10,22 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <applicationService serviceImplementation="com.sictiy.plugin.processor.impl.SingleInstanceProcessor"/>
+        <projectService serviceImplementation="com.sictiy.plugin.processor.ProcessorComponent"/>
+        <lang.psiAugmentProvider implementation="com.sictiy.plugin.extension.MyPsiAugmentProvider"/>
+        <lang.structureViewExtension implementation="com.sictiy.plugin.extension.MyStructureViewExtension"/>
+        <!--        <implicitUsageProvider implementation="de.plushnikov.intellij.plugin.provider.LombokImplicitUsageProvider"/>-->
+        <!--        <inspectionToolProvider implementation="de.plushnikov.intellij.plugin.provider.LombokInspectionProvider"/>-->
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
+        <action class="com.sictiy.plugin.action.SingleAction" id="singleAction" text="SingleAction"/>
     </actions>
 </idea-plugin>

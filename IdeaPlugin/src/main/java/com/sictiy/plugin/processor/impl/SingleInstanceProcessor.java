@@ -1,4 +1,4 @@
-package com.sictiy.plugin.processor;
+package com.sictiy.plugin.processor.impl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +12,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiModifier;
-import com.sictiy.plugin.psi.LombokLightMethodBuilder;
+import com.sictiy.plugin.processor.AbstractProcessor;
+import com.sictiy.plugin.psi.MyLightMethodBuilder;
 import com.sictiy.plugin.util.PsiClassUtil;
 import com.sictiy.plugin.util.PsiMethodUtil;
 import com.sictiy.processor.single.SingleInstance;
@@ -78,12 +79,12 @@ public class SingleInstanceProcessor extends AbstractProcessor
     {
         final PsiManager psiManager = psiClass.getManager();
 
-        final LombokLightMethodBuilder methodBuilder = new LombokLightMethodBuilder(psiManager, METHOD_NAME);
-        methodBuilder.withMethodReturnType(PsiClassUtil.getTypeWithGenerics(psiClass));
-        methodBuilder.withContainingClass(psiClass);
-        methodBuilder.withNavigationElement(psiAnnotation);
-        methodBuilder.withModifier(PsiModifier.PUBLIC);
-        methodBuilder.withModifier(PsiModifier.STATIC);
+        final MyLightMethodBuilder methodBuilder = new MyLightMethodBuilder(psiManager, METHOD_NAME);
+        methodBuilder.setMethodReturnType(PsiClassUtil.getTypeWithGenerics(psiClass));
+        methodBuilder.setContainingClass(psiClass);
+        methodBuilder.setNavigationElement(psiAnnotation);
+        methodBuilder.addModifier(PsiModifier.PUBLIC);
+        methodBuilder.addModifier(PsiModifier.STATIC);
         return methodBuilder;
     }
 }
