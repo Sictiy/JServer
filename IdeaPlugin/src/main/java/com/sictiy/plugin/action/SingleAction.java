@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.sictiy.common.util.LogUtil;
+import com.sictiy.plugin.util.LogUtil;
 
 /**
  * @author sictiy.xu

@@ -1,4 +1,4 @@
-package com.sictiy.common.util;
+package com.sictiy.plugin.util;
 
 import java.util.function.BiConsumer;
 

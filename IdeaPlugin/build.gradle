@@ -1,20 +1,25 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.10'
+    id 'org.jetbrains.intellij' version '0.4.16'
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
 }
 
-group 'Sictiy'
-version '1.0-SNAPSHOT'
+group = pluginGroup
+def artifactVersion = pluginVersion + "-" + ideaVersion
+version = artifactVersion
 
 sourceCompatibility = 11
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 repositories {
     mavenLocal()
 //    mavenCentral()
-    maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
 }
 
 apply plugin: 'idea'
@@ -25,9 +30,8 @@ apply plugin: 'maven'
 
 dependencies {
     compile group: 'Sictiy', name: 'annotation-processor', version: '1.0-SNAPSHOT'
-    compile group: 'Sictiy', name: 'common', version: '1.0-SNAPSHOT'
-//    compile group: 'com.jetbrains.jdk', name: 'jbr', version: '11_0_4-b304.78', ext: 'pom'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    compile group: 'Sictiy', name: 'common', version: '1.0-SNAPSHOT'
+    testCompile group: 'junit', name: 'junit', version: '4.13'
 }
 
 sourceSets {
@@ -43,22 +47,17 @@ sourceSets {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.2.1'
-    sandboxDirectory 'myself-sandbox'
-    pluginName 'sictiy-plugin'
+    version ideaVersion
+    sandboxDirectory "sandbox/idea-${ideaVersion}"
+    pluginName pluginName
     updateSinceUntilBuild true
-    downloadSources false
     sameSinceUntilBuild false
 
     plugins 'java'
 }
 
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+    version artifactVersion
+    changeNotes(file(descriptionFile).text)
+    pluginDescription(file(changesFile).text)
 }

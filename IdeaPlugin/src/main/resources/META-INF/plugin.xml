@@ -26,6 +26,8 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action class="com.sictiy.plugin.action.SingleAction" id="singleAction" text="SingleAction"/>
+        <action class="com.sictiy.plugin.action.SingleAction" id="singleAction" text="SingleAction">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
     </actions>
 </idea-plugin>
